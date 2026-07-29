@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#080a0e">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>LevelUp</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div id="app">
+
+    <!-- SETUP -->
+
+    <section id="setup-screen" class="setup-screen">
+
+        <div class="setup-logo">
+            LEVEL<span>UP</span>
+        </div>
+
+        <p class="setup-tagline">
+            Your training. Your progress. Your lifetime.
+        </p>
+
+        <div class="setup-card">
+
+            <div class="small-label">BUILD YOUR ATHLETE</div>
+
+            <h1>Let's build your LevelUp.</h1>
+
+            <p class="muted">
+                Everything stays saved on this device.
+            </p>
+
+            <label>Your name</label>
+            <input id="name-input" type="text" maxlength="25" placeholder="Your name">
+
+            <label>Your sport</label>
+            <select id="sport-input">
+                <option value="General">General Fitness</option>
+                <option value="Baseball">Baseball</option>
+                <option value="Basketball">Basketball</option>
+                <option value="Football">Football</option>
+                <option value="Soccer">Soccer</option>
+                <option value="Lacrosse">Lacrosse</option>
+                <option value="Hockey">Hockey</option>
+                <option value="Tennis">Tennis</option>
+                <option value="Track">Track & Field</option>
+                <option value="Volleyball">Volleyball</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <label>Main goal</label>
+            <select id="goal-input">
+                <option value="Performance">Improve performance</option>
+                <option value="Strength">Get stronger</option>
+                <option value="Skills">Improve skills</option>
+                <option value="Consistency">Become more consistent</option>
+                <option value="Discipline">Build discipline</option>
+            </select>
+
+            <button class="primary-button" onclick="createProfile()">
+                Start LevelUp
+            </button>
+
+        </div>
+    </section>
+
+
+    <!-- MAIN APP -->
+
+    <section id="main-app" class="hidden">
+
+        <!-- HOME -->
+
+        <main id="home-screen" class="page active-page">
+
+            <header class="top-header">
+                <div>
+                    <div class="small-label">LEVELUP</div>
+                    <h1 id="greeting">Hey.</h1>
+                </div>
+
+                <button class="profile-button" onclick="showPage('profile')">
+                    <span id="profile-initial">A</span>
+                </button>
+            </header>
+
+
+            <!-- LEVEL -->
+
+            <section class="level-card">
+
+                <div class="level-top">
+
+                    <div>
+                        <div class="small-label">LEVEL</div>
+                        <div class="level-number" id="level-number">1</div>
+                    </div>
+
+                    <div class="xp-text">
+                        <strong id="xp-current">0</strong>
+                        <span>/ <span id="xp-needed">100</span> XP</span>
+                    </div>
+
+                </div>
+
+                <div class="xp-track">
+                    <div id="xp-bar"></div>
+                </div>
+
+                <div class="xp-footer">
+                    <span id="xp-remaining">100 XP to next level</span>
+                    <span id="total-xp-small">0 lifetime XP</span>
+                </div>
+
+            </section>
+
+
+            <!-- QUICK STATS -->
+
+            <section class="quick-stats">
+
+                <div>
+                    <strong id="today-completed">0</strong>
+                    <span>Today</span>
+                </div>
+
+                <div>
+                    <strong id="streak-number">0</strong>
+                    <span>Streak</span>
+                </div>
+
+                <div>
+                    <strong id="lifetime-quests">0</strong>
+                    <span>Completed</span>
+                </div>
+
+            </section>
+
+
+            <!-- TODAY -->
+
+            <div class="section-heading">
+                <div>
+                    <div class="small-label">TODAY</div>
+                    <h2>Daily missions</h2>
+                </div>
+
+                <span class="date-pill" id="today-date"></span>
+            </div>
+
+            <div id="quest-container"></div>
+
+
+            <!-- MYSTERY -->
+
+            <section class="mystery-card">
+
+                <div class="mystery-heading">
+                    <div class="mystery-icon">?</div>
+
+                    <div>
+                        <div class="small-label">WILD CARD</div>
+                        <h2>Mystery Mission</h2>
+                    </div>
+                </div>
+
+                <p id="mystery-text">
+                    You don't know what's coming.
+                </p>
+
+                <div class="reward-text" id="mystery-reward">
+                    +50 XP
+                </div>
+
+                <button
+                    id="reveal-button"
+                    class="outline-button"
+                    onclick="revealMystery()"
+                >
+                    Reveal
+                </button>
+
+                <button
+                    id="complete-mystery"
+                    class="primary-button hidden"
+                    onclick="completeMystery()"
+                >
+                    I Did It
+                </button>
+
+            </section>
+
+            <button class="swap-button" onclick="openSwapModal()">
+                🔀 Swap one mission
+            </button>
+
+            <p class="swap-info" id="swap-info">
+                1 swap available today
+            </p>
+
+        </main>
+
+
+        <!-- PROGRESS -->
+
+        <main id="progress-screen" class="page">
+
+            <header class="page-header">
+                <div class="small-label">YOUR JOURNEY</div>
+                <h1>Progress</h1>
+            </header>
+
+
+            <section class="lifetime-hero">
+
+                <div>
+                    <span>LIFETIME XP</span>
+                    <strong id="progress-total-xp">0</strong>
+                </div>
+
+                <div>
+                    <span>LEVEL</span>
+                    <strong id="progress-level">1</strong>
+                </div>
+
+            </section>
+
+
+            <section class="progress-grid">
+
+                <div class="progress-stat">
+                    <strong id="progress-quests">0</strong>
+                    <span>Challenges</span>
+                </div>
+
+                <div class="progress-stat">
+                    <strong id="progress-workouts">0</strong>
+                    <span>Workouts</span>
+                </div>
+
+                <div class="progress-stat">
+                    <strong id="progress-miles">0</strong>
+                    <span>Miles</span>
+                </div>
+
+                <div class="progress-stat">
+                    <strong id="progress-hours">0</strong>
+                    <span>Training hrs</span>
+                </div>
+
+            </section>
+
+
+            <div class="section-heading standalone">
+                <div>
+                    <div class="small-label">RECORDS</div>
+                    <h2>Personal bests</h2>
+                </div>
+            </div>
+
+            <section class="records-card">
+
+                <div class="record-row">
+                    <div>
+                        <span>Longest distance</span>
+                        <small>Longest recorded movement</small>
+                    </div>
+                    <strong id="record-distance">0 mi</strong>
+                </div>
+
+                <div class="record-row">
+                    <div>
+                        <span>Longest workout</span>
+                        <small>Longest recorded session</small>
+                    </div>
+                    <strong id="record-workout">0 min</strong>
+                </div>
+
+                <div class="record-row">
+                    <div>
+                        <span>Best XP day</span>
+                        <small>Most XP earned in one day</small>
+                    </div>
+                    <strong id="record-xp-day">0 XP</strong>
+                </div>
+
+                <div class="record-row">
+                    <div>
+                        <span>Best streak</span>
+                        <small>Longest active streak</small>
+                    </div>
+                    <strong id="record-streak">0 days</strong>
+                </div>
+
+            </section>
+
+
+            <div class="section-heading standalone">
+                <div>
+                    <div class="small-label">HISTORY</div>
+                    <h2>Recent activity</h2>
+                </div>
+            </div>
+
+            <section id="history-container" class="history-card"></section>
+
+        </main>
+
+
+        <!-- TRAINING -->
+
+        <main id="training-screen" class="page">
+
+            <header class="page-header">
+                <div class="small-label">TRAINING</div>
+                <h1 id="training-title">Your Training</h1>
+            </header>
+
+
+            <section class="training-intro">
+                <div class="small-label">SPORT</div>
+                <h2 id="training-sport">General</h2>
+                <p>
+                    Training ideas built around your sport.
+                </p>
+            </section>
+
+
+            <div class="section-heading standalone">
+                <div>
+                    <div class="small-label">WORKOUT LIBRARY</div>
+                    <h2>Sessions</h2>
+                </div>
+            </div>
+
+            <div id="training-list"></div>
+
+        </main>
+
+
+        <!-- FUEL -->
+
+        <main id="fuel-screen" class="page">
+
+            <header class="page-header">
+                <div class="small-label">FUEL</div>
+                <h1>Today's Fuel</h1>
+            </header>
+
+
+            <section class="fuel-summary">
+
+                <div>
+                    <strong id="meal-count">0</strong>
+                    <span>Meals logged</span>
+                </div>
+
+                <div>
+                    <strong id="water-count">0</strong>
+                    <span>Water</span>
+                </div>
+
+            </section>
+
+
+            <section class="fuel-card">
+
+                <div class="fuel-card-top">
+                    <div>
+                        <div class="small-label">MEALS</div>
+                        <h2>What did you eat?</h2>
+                    </div>
+
+                    <button class="small-add" onclick="addMeal()">
+                        +
+                    </button>
+                </div>
+
+                <div id="meal-list"></div>
+
+            </section>
+
+
+            <section class="fuel-card">
+
+                <div class="fuel-card-top">
+                    <div>
+                        <div class="small-label">HYDRATION</div>
+                        <h2>Water</h2>
+                    </div>
+                </div>
+
+                <div class="water-controls">
+
+                    <button onclick="changeWater(-1)">−</button>
+
+                    <strong>
+                        <span id="water-display">0</span>
+                        cups
+                    </strong>
+
+                    <button onclick="changeWater(1)">+</button>
+
+                </div>
+
+            </section>
+
+        </main>
+
+
+        <!-- PROFILE -->
+
+        <main id="profile-screen" class="page">
+
+            <header class="page-header">
+                <div class="small-label">ATHLETE</div>
+                <h1>Profile</h1>
+            </header>
+
+
+            <section class="profile-hero">
+
+                <div class="large-avatar" id="large-avatar">A</div>
+
+                <h2 id="profile-name">Athlete</h2>
+
+                <p id="profile-sport">General</p>
+
+            </section>
+
+
+            <section class="profile-details">
+
+                <div>
+                    <span>Sport</span>
+                    <strong id="profile-sport-detail">General</strong>
+                </div>
+
+                <div>
+                    <span>Main goal</span>
+                    <strong id="profile-goal">Performance</strong>
+                </div>
+
+                <div>
+                    <span>Level</span>
+                    <strong id="profile-level-detail">1</strong>
+                </div>
+
+                <div>
+                    <span>Current streak</span>
+                    <strong id="profile-streak-detail">0 days</strong>
+                </div>
+
+            </section>
+
+
+            <button class="danger-button" onclick="resetApp()">
+                Reset LevelUp
+            </button>
+
+        </main>
+
+
+        <!-- NAV -->
+
+        <nav class="bottom-nav">
+
+            <button class="nav-item active" id="nav-home" onclick="showPage('home')">
+                <span>⌂</span>
+                Home
+            </button>
+
+            <button class="nav-item" id="nav-progress" onclick="showPage('progress')">
+                <span>↗</span>
+                Progress
+            </button>
+
+            <button class="nav-item" id="nav-training" onclick="showPage('training')">
+                <span>◆</span>
+                Training
+            </button>
+
+            <button class="nav-item" id="nav-fuel" onclick="showPage('fuel')">
+                <span>●</span>
+                Fuel
+            </button>
+
+            <button class="nav-item" id="nav-profile" onclick="showPage('profile')">
+                <span>○</span>
+                Profile
+            </button>
+
+        </nav>
+
+    </section>
+
+
+    <!-- QUEST MODAL -->
+
+    <div id="quest-modal" class="modal hidden">
+
+        <div class="modal-box">
+
+            <button class="close-modal" onclick="closeQuestModal()">×</button>
+
+            <div class="small-label">MISSION</div>
+
+            <h2 id="modal-title">Mission</h2>
+
+            <p id="modal-description"></p>
+
+            <div id="measurement-area"></div>
+
+            <div class="reward-preview">
+                <span>Base reward</span>
+                <strong id="modal-xp">+0 XP</strong>
+            </div>
+
+            <button class="primary-button" onclick="finishQuest()">
+                Save My Result
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- SWAP MODAL -->
+
+    <div id="swap-modal" class="modal hidden">
+
+        <div class="modal-box">
+
+            <button class="close-modal" onclick="closeSwapModal()">×</button>
+
+            <div class="small-label">ONE SWAP PER DAY</div>
+
+            <h2>Which mission should we replace?</h2>
+
+            <p>
+                Pick the mission you don't want. A new random mission
+                will replace it.
+            </p>
+
+            <div id="swap-list"></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- MYSTERY MODAL -->
+
+    <div id="mystery-modal" class="modal hidden">
+
+        <div class="modal-box">
+
+            <button class="close-modal" onclick="closeMysteryModal()">×</button>
+
+            <div class="small-label">MYSTERY COMPLETE</div>
+
+            <h2>Did you actually complete it?</h2>
+
+            <p>
+                LevelUp can't verify everything. Be honest with yourself.
+                The point is to build your real progress.
+            </p>
+
+            <div class="reward-preview">
+                <span>Reward</span>
+                <strong>+50 XP</strong>
+            </div>
+
+            <button class="primary-button" onclick="finishMystery()">
+                Yes, I Did It
+            </button>
+
+        </div>
+
+    </div>
+
+
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>
