@@ -1,594 +1,1635 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#080a0e">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>LevelUp</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b1020">
+<title>LevelUp</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #070b16;
+  --card: #11182a;
+  --card2: #172138;
+  --text: #f7f9ff;
+  --muted: #8d98b2;
+  --accent: #7c5cff;
+  --accent2: #25d9a5;
+  --yellow: #ffd166;
+  --red: #ff6b7a;
+  --border: rgba(255,255,255,.08);
+}
+
+body {
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(124,92,255,.22), transparent 30%),
+    radial-gradient(circle at 100% 20%, rgba(37,217,165,.12), transparent 25%),
+    var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+button, input, select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.app {
+  width: min(1150px, 100%);
+  margin: auto;
+  padding: 22px 18px 100px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* SETUP */
+
+.setup {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 25px;
+}
+
+.setup-card {
+  width: min(620px, 100%);
+  background: rgba(17,24,42,.92);
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  padding: 38px;
+  box-shadow: 0 30px 100px rgba(0,0,0,.4);
+}
+
+.logo {
+  font-size: 38px;
+  font-weight: 900;
+  letter-spacing: -2px;
+}
+
+.logo span {
+  color: var(--accent);
+}
+
+.subtitle {
+  color: var(--muted);
+  margin-top: 8px;
+  margin-bottom: 30px;
+}
+
+.field {
+  margin-bottom: 22px;
+}
+
+.field label {
+  display: block;
+  margin-bottom: 9px;
+  font-weight: 700;
+}
+
+input {
+  width: 100%;
+  border: 1px solid var(--border);
+  background: #0b1120;
+  color: white;
+  border-radius: 14px;
+  padding: 14px 15px;
+  outline: none;
+}
+
+input:focus {
+  border-color: var(--accent);
+}
+
+.sports {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.sport-option {
+  border: 1px solid var(--border);
+  background: #0b1120;
+  color: var(--muted);
+  padding: 11px 14px;
+  border-radius: 999px;
+  transition: .2s;
+}
+
+.sport-option.selected {
+  background: rgba(124,92,255,.2);
+  border-color: var(--accent);
+  color: white;
+}
+
+.primary {
+  border: 0;
+  background: linear-gradient(135deg, #7c5cff, #9a72ff);
+  color: white;
+  padding: 15px 22px;
+  border-radius: 15px;
+  font-weight: 800;
+  width: 100%;
+  transition: transform .15s, filter .15s;
+}
+
+.primary:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+/* HEADER */
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.greeting {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.username {
+  font-size: 30px;
+  font-weight: 900;
+  letter-spacing: -1px;
+}
+
+.level-pill {
+  background: rgba(124,92,255,.15);
+  border: 1px solid rgba(124,92,255,.3);
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-weight: 800;
+}
+
+/* NAV */
+
+.nav {
+  display: flex;
+  gap: 8px;
+  background: rgba(17,24,42,.8);
+  border: 1px solid var(--border);
+  padding: 7px;
+  border-radius: 17px;
+  margin-bottom: 25px;
+  overflow-x: auto;
+}
+
+.nav button {
+  flex: 1;
+  min-width: 100px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  padding: 12px 15px;
+  border-radius: 12px;
+  font-weight: 700;
+}
+
+.nav button.active {
+  background: var(--card2);
+  color: white;
+}
+
+/* CARDS */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 16px;
+}
+
+.card {
+  background: rgba(17,24,42,.88);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 21px;
+  box-shadow: 0 12px 40px rgba(0,0,0,.12);
+}
+
+.span-12 { grid-column: span 12; }
+.span-8 { grid-column: span 8; }
+.span-6 { grid-column: span 6; }
+.span-4 { grid-column: span 4; }
+
+.card-title {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .8px;
+  margin-bottom: 10px;
+}
+
+.big-number {
+  font-size: 34px;
+  font-weight: 900;
+}
+
+.progress {
+  height: 12px;
+  background: #090e1b;
+  border-radius: 999px;
+  overflow: hidden;
+  margin: 12px 0 8px;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), #b18aff);
+  border-radius: inherit;
+  transition: width .4s ease;
+}
+
+.small {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* MISSION */
+
+.mission {
+  position: relative;
+  overflow: hidden;
+}
+
+.mission::after {
+  content: "";
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  right: -60px;
+  top: -70px;
+  background: rgba(124,92,255,.15);
+  border-radius: 50%;
+}
+
+.mission-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 6px 9px;
+  border-radius: 8px;
+  background: rgba(124,92,255,.13);
+  color: #b9a8ff;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.xp {
+  color: var(--yellow);
+  font-weight: 900;
+}
+
+.mission h3 {
+  margin: 13px 0 7px;
+  font-size: 20px;
+}
+
+.mission p {
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.mission-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 17px;
+}
+
+.mission-actions button {
+  border: 0;
+  border-radius: 11px;
+  padding: 10px 13px;
+  font-weight: 800;
+}
+
+.complete {
+  background: var(--accent2);
+  color: #07130f;
+}
+
+.swap {
+  background: #222d47;
+  color: white;
+}
+
+.completed {
+  opacity: .55;
+}
+
+.completed .complete {
+  background: #27344d;
+  color: #aab4ca;
+}
+
+/* MYSTERY */
+
+.mystery {
+  border-color: rgba(255,209,102,.25);
+  background:
+    linear-gradient(135deg, rgba(255,209,102,.08), rgba(124,92,255,.07)),
+    var(--card);
+}
+
+.reveal {
+  background: var(--yellow);
+  color: #18120a;
+  border: 0;
+  padding: 12px 15px;
+  border-radius: 12px;
+  font-weight: 900;
+}
+
+/* TRACKING */
+
+.tracker-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.track-box {
+  background: #0b1120;
+  border: 1px solid var(--border);
+  padding: 16px;
+  border-radius: 16px;
+}
+
+.track-box label {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 7px;
+}
+
+.track-box input {
+  padding: 10px;
+}
+
+.track-button {
+  width: 100%;
+  border: 0;
+  background: var(--card2);
+  color: white;
+  padding: 12px;
+  border-radius: 12px;
+  font-weight: 800;
+  margin-top: 12px;
+}
+
+/* HISTORY */
+
+.history-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.history-row:last-child {
+  border-bottom: 0;
+}
+
+.stat {
+  font-size: 23px;
+  font-weight: 900;
+}
+
+/* ACHIEVEMENTS */
+
+.achievement-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 12px;
+}
+
+.achievement {
+  padding: 17px;
+  background: #0b1120;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+
+.achievement.locked {
+  opacity: .4;
+}
+
+.emoji {
+  font-size: 26px;
+  margin-bottom: 8px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width: 800px) {
+  .span-8,
+  .span-6,
+  .span-4 {
+    grid-column: span 12;
+  }
+
+  .tracker-grid {
+    grid-template-columns: repeat(2,1fr);
+  }
+
+  .achievement-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .setup-card {
+    padding: 25px;
+  }
+}
+
+@media(max-width: 480px) {
+  .app {
+    padding: 15px 12px 80px;
+  }
+
+  .username {
+    font-size: 24px;
+  }
+
+  .tracker-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .achievement-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
 </head>
 
 <body>
 
-<div id="app">
+<!-- SETUP -->
+<section id="setup" class="setup">
+  <div class="setup-card">
+    <div class="logo">Level<span>Up</span></div>
+    <p class="subtitle">
+      Your personal lifetime progress tracker.
+      Train. Improve. Challenge yourself. Look back and see how far you've come.
+    </p>
 
-    <!-- SETUP -->
+    <div class="field">
+      <label>What's your name?</label>
+      <input id="nameInput" placeholder="Your name">
+    </div>
 
-    <section id="setup-screen" class="setup-screen">
+    <div class="field">
+      <label>What sports do you play?</label>
+      <div id="sports" class="sports"></div>
+    </div>
 
-        <div class="setup-logo">
-            LEVEL<span>UP</span>
+    <button id="startButton" class="primary">Start LevelUp →</button>
+  </div>
+</section>
+
+<!-- APP -->
+<main id="app" class="app hidden">
+
+  <header class="topbar">
+    <div>
+      <div class="greeting">WELCOME BACK</div>
+      <div id="username" class="username"></div>
+    </div>
+    <div id="levelPill" class="level-pill">Level 1</div>
+  </header>
+
+  <nav class="nav">
+    <button data-page="home" class="active">Home</button>
+    <button data-page="missions">Missions</button>
+    <button data-page="progress">Progress</button>
+    <button data-page="nutrition">Nutrition</button>
+  </nav>
+
+  <!-- HOME -->
+  <section id="homePage" class="page">
+    <div class="grid">
+
+      <div class="card span-8">
+        <div class="card-title">Current Level</div>
+        <div style="display:flex;justify-content:space-between;align-items:end">
+          <div class="big-number" id="homeLevel">Level 1</div>
+          <div class="small" id="xpText">0 / 100 XP</div>
         </div>
+        <div class="progress">
+          <div id="xpBar" class="progress-bar" style="width:0%"></div>
+        </div>
+        <div class="small" id="nextLevelText">100 XP until Level 2</div>
+      </div>
 
-        <p class="setup-tagline">
-            Your training. Your progress. Your lifetime.
+      <div class="card span-4">
+        <div class="card-title">Lifetime XP</div>
+        <div class="big-number" id="lifetimeXP">0</div>
+        <div class="small">Every mission you've completed.</div>
+      </div>
+
+      <div class="card span-12">
+        <div class="mission-top">
+          <div>
+            <div class="card-title">Today's Missions</div>
+            <h2>Level up today.</h2>
+          </div>
+          <div class="badge" id="missionCount">0 / 0</div>
+        </div>
+        <div id="homeMissions" class="grid" style="margin-top:15px"></div>
+      </div>
+
+      <div class="card span-6">
+        <div class="card-title">Today's Stats</div>
+        <div id="todayStats"></div>
+      </div>
+
+      <div class="card span-6">
+        <div class="card-title">Your Sports</div>
+        <div id="sportsDisplay" style="font-size:20px;font-weight:800"></div>
+        <div class="small" style="margin-top:8px">
+          Your missions adapt to what you play.
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MISSIONS -->
+  <section id="missionsPage" class="page hidden">
+    <div class="grid">
+      <div class="card span-12">
+        <div class="card-title">Daily Missions</div>
+        <h2>Don't choose the easy ones.</h2>
+        <p class="small" style="margin-top:6px">
+          Missions are randomized. You get one swap per mission each day.
         </p>
-
-        <div class="setup-card">
-
-            <div class="small-label">BUILD YOUR ATHLETE</div>
-
-            <h1>Let's build your LevelUp.</h1>
-
-            <p class="muted">
-                Everything stays saved on this device.
-            </p>
-
-            <label>Your name</label>
-            <input id="name-input" type="text" maxlength="25" placeholder="Your name">
-
-            <label>Your sport</label>
-            <select id="sport-input">
-                <option value="General">General Fitness</option>
-                <option value="Baseball">Baseball</option>
-                <option value="Basketball">Basketball</option>
-                <option value="Football">Football</option>
-                <option value="Soccer">Soccer</option>
-                <option value="Lacrosse">Lacrosse</option>
-                <option value="Hockey">Hockey</option>
-                <option value="Tennis">Tennis</option>
-                <option value="Track">Track & Field</option>
-                <option value="Volleyball">Volleyball</option>
-                <option value="Other">Other</option>
-            </select>
-
-            <label>Main goal</label>
-            <select id="goal-input">
-                <option value="Performance">Improve performance</option>
-                <option value="Strength">Get stronger</option>
-                <option value="Skills">Improve skills</option>
-                <option value="Consistency">Become more consistent</option>
-                <option value="Discipline">Build discipline</option>
-            </select>
-
-            <button class="primary-button" onclick="createProfile()">
-                Start LevelUp
-            </button>
-
-        </div>
-    </section>
-
-
-    <!-- MAIN APP -->
-
-    <section id="main-app" class="hidden">
-
-        <!-- HOME -->
-
-        <main id="home-screen" class="page active-page">
-
-            <header class="top-header">
-                <div>
-                    <div class="small-label">LEVELUP</div>
-                    <h1 id="greeting">Hey.</h1>
-                </div>
-
-                <button class="profile-button" onclick="showPage('profile')">
-                    <span id="profile-initial">A</span>
-                </button>
-            </header>
-
-
-            <!-- LEVEL -->
-
-            <section class="level-card">
-
-                <div class="level-top">
-
-                    <div>
-                        <div class="small-label">LEVEL</div>
-                        <div class="level-number" id="level-number">1</div>
-                    </div>
-
-                    <div class="xp-text">
-                        <strong id="xp-current">0</strong>
-                        <span>/ <span id="xp-needed">100</span> XP</span>
-                    </div>
-
-                </div>
-
-                <div class="xp-track">
-                    <div id="xp-bar"></div>
-                </div>
-
-                <div class="xp-footer">
-                    <span id="xp-remaining">100 XP to next level</span>
-                    <span id="total-xp-small">0 lifetime XP</span>
-                </div>
-
-            </section>
-
-
-            <!-- QUICK STATS -->
-
-            <section class="quick-stats">
-
-                <div>
-                    <strong id="today-completed">0</strong>
-                    <span>Today</span>
-                </div>
-
-                <div>
-                    <strong id="streak-number">0</strong>
-                    <span>Streak</span>
-                </div>
-
-                <div>
-                    <strong id="lifetime-quests">0</strong>
-                    <span>Completed</span>
-                </div>
-
-            </section>
-
-
-            <!-- TODAY -->
-
-            <div class="section-heading">
-                <div>
-                    <div class="small-label">TODAY</div>
-                    <h2>Daily missions</h2>
-                </div>
-
-                <span class="date-pill" id="today-date"></span>
-            </div>
-
-            <div id="quest-container"></div>
-
-
-            <!-- MYSTERY -->
-
-            <section class="mystery-card">
-
-                <div class="mystery-heading">
-                    <div class="mystery-icon">?</div>
-
-                    <div>
-                        <div class="small-label">WILD CARD</div>
-                        <h2>Mystery Mission</h2>
-                    </div>
-                </div>
-
-                <p id="mystery-text">
-                    You don't know what's coming.
-                </p>
-
-                <div class="reward-text" id="mystery-reward">
-                    +50 XP
-                </div>
-
-                <button
-                    id="reveal-button"
-                    class="outline-button"
-                    onclick="revealMystery()"
-                >
-                    Reveal
-                </button>
-
-                <button
-                    id="complete-mystery"
-                    class="primary-button hidden"
-                    onclick="completeMystery()"
-                >
-                    I Did It
-                </button>
-
-            </section>
-
-            <button class="swap-button" onclick="openSwapModal()">
-                🔀 Swap one mission
-            </button>
-
-            <p class="swap-info" id="swap-info">
-                1 swap available today
-            </p>
-
-        </main>
-
-
-        <!-- PROGRESS -->
-
-        <main id="progress-screen" class="page">
-
-            <header class="page-header">
-                <div class="small-label">YOUR JOURNEY</div>
-                <h1>Progress</h1>
-            </header>
-
-
-            <section class="lifetime-hero">
-
-                <div>
-                    <span>LIFETIME XP</span>
-                    <strong id="progress-total-xp">0</strong>
-                </div>
-
-                <div>
-                    <span>LEVEL</span>
-                    <strong id="progress-level">1</strong>
-                </div>
-
-            </section>
-
-
-            <section class="progress-grid">
-
-                <div class="progress-stat">
-                    <strong id="progress-quests">0</strong>
-                    <span>Challenges</span>
-                </div>
-
-                <div class="progress-stat">
-                    <strong id="progress-workouts">0</strong>
-                    <span>Workouts</span>
-                </div>
-
-                <div class="progress-stat">
-                    <strong id="progress-miles">0</strong>
-                    <span>Miles</span>
-                </div>
-
-                <div class="progress-stat">
-                    <strong id="progress-hours">0</strong>
-                    <span>Training hrs</span>
-                </div>
-
-            </section>
-
-
-            <div class="section-heading standalone">
-                <div>
-                    <div class="small-label">RECORDS</div>
-                    <h2>Personal bests</h2>
-                </div>
-            </div>
-
-            <section class="records-card">
-
-                <div class="record-row">
-                    <div>
-                        <span>Longest distance</span>
-                        <small>Longest recorded movement</small>
-                    </div>
-                    <strong id="record-distance">0 mi</strong>
-                </div>
-
-                <div class="record-row">
-                    <div>
-                        <span>Longest workout</span>
-                        <small>Longest recorded session</small>
-                    </div>
-                    <strong id="record-workout">0 min</strong>
-                </div>
-
-                <div class="record-row">
-                    <div>
-                        <span>Best XP day</span>
-                        <small>Most XP earned in one day</small>
-                    </div>
-                    <strong id="record-xp-day">0 XP</strong>
-                </div>
-
-                <div class="record-row">
-                    <div>
-                        <span>Best streak</span>
-                        <small>Longest active streak</small>
-                    </div>
-                    <strong id="record-streak">0 days</strong>
-                </div>
-
-            </section>
-
-
-            <div class="section-heading standalone">
-                <div>
-                    <div class="small-label">HISTORY</div>
-                    <h2>Recent activity</h2>
-                </div>
-            </div>
-
-            <section id="history-container" class="history-card"></section>
-
-        </main>
-
-
-        <!-- TRAINING -->
-
-        <main id="training-screen" class="page">
-
-            <header class="page-header">
-                <div class="small-label">TRAINING</div>
-                <h1 id="training-title">Your Training</h1>
-            </header>
-
-
-            <section class="training-intro">
-                <div class="small-label">SPORT</div>
-                <h2 id="training-sport">General</h2>
-                <p>
-                    Training ideas built around your sport.
-                </p>
-            </section>
-
-
-            <div class="section-heading standalone">
-                <div>
-                    <div class="small-label">WORKOUT LIBRARY</div>
-                    <h2>Sessions</h2>
-                </div>
-            </div>
-
-            <div id="training-list"></div>
-
-        </main>
-
-
-        <!-- FUEL -->
-
-        <main id="fuel-screen" class="page">
-
-            <header class="page-header">
-                <div class="small-label">FUEL</div>
-                <h1>Today's Fuel</h1>
-            </header>
-
-
-            <section class="fuel-summary">
-
-                <div>
-                    <strong id="meal-count">0</strong>
-                    <span>Meals logged</span>
-                </div>
-
-                <div>
-                    <strong id="water-count">0</strong>
-                    <span>Water</span>
-                </div>
-
-            </section>
-
-
-            <section class="fuel-card">
-
-                <div class="fuel-card-top">
-                    <div>
-                        <div class="small-label">MEALS</div>
-                        <h2>What did you eat?</h2>
-                    </div>
-
-                    <button class="small-add" onclick="addMeal()">
-                        +
-                    </button>
-                </div>
-
-                <div id="meal-list"></div>
-
-            </section>
-
-
-            <section class="fuel-card">
-
-                <div class="fuel-card-top">
-                    <div>
-                        <div class="small-label">HYDRATION</div>
-                        <h2>Water</h2>
-                    </div>
-                </div>
-
-                <div class="water-controls">
-
-                    <button onclick="changeWater(-1)">−</button>
-
-                    <strong>
-                        <span id="water-display">0</span>
-                        cups
-                    </strong>
-
-                    <button onclick="changeWater(1)">+</button>
-
-                </div>
-
-            </section>
-
-        </main>
-
-
-        <!-- PROFILE -->
-
-        <main id="profile-screen" class="page">
-
-            <header class="page-header">
-                <div class="small-label">ATHLETE</div>
-                <h1>Profile</h1>
-            </header>
-
-
-            <section class="profile-hero">
-
-                <div class="large-avatar" id="large-avatar">A</div>
-
-                <h2 id="profile-name">Athlete</h2>
-
-                <p id="profile-sport">General</p>
-
-            </section>
-
-
-            <section class="profile-details">
-
-                <div>
-                    <span>Sport</span>
-                    <strong id="profile-sport-detail">General</strong>
-                </div>
-
-                <div>
-                    <span>Main goal</span>
-                    <strong id="profile-goal">Performance</strong>
-                </div>
-
-                <div>
-                    <span>Level</span>
-                    <strong id="profile-level-detail">1</strong>
-                </div>
-
-                <div>
-                    <span>Current streak</span>
-                    <strong id="profile-streak-detail">0 days</strong>
-                </div>
-
-            </section>
-
-
-            <button class="danger-button" onclick="resetApp()">
-                Reset LevelUp
-            </button>
-
-        </main>
-
-
-        <!-- NAV -->
-
-        <nav class="bottom-nav">
-
-            <button class="nav-item active" id="nav-home" onclick="showPage('home')">
-                <span>⌂</span>
-                Home
-            </button>
-
-            <button class="nav-item" id="nav-progress" onclick="showPage('progress')">
-                <span>↗</span>
-                Progress
-            </button>
-
-            <button class="nav-item" id="nav-training" onclick="showPage('training')">
-                <span>◆</span>
-                Training
-            </button>
-
-            <button class="nav-item" id="nav-fuel" onclick="showPage('fuel')">
-                <span>●</span>
-                Fuel
-            </button>
-
-            <button class="nav-item" id="nav-profile" onclick="showPage('profile')">
-                <span>○</span>
-                Profile
-            </button>
-
-        </nav>
-
-    </section>
-
-
-    <!-- QUEST MODAL -->
-
-    <div id="quest-modal" class="modal hidden">
-
-        <div class="modal-box">
-
-            <button class="close-modal" onclick="closeQuestModal()">×</button>
-
-            <div class="small-label">MISSION</div>
-
-            <h2 id="modal-title">Mission</h2>
-
-            <p id="modal-description"></p>
-
-            <div id="measurement-area"></div>
-
-            <div class="reward-preview">
-                <span>Base reward</span>
-                <strong id="modal-xp">+0 XP</strong>
-            </div>
-
-            <button class="primary-button" onclick="finishQuest()">
-                Save My Result
-            </button>
-
-        </div>
+      </div>
+
+      <div id="missionsList" class="grid span-12"></div>
+
+      <div id="mysteryCard" class="card mystery span-12">
+        <div class="card-title">Mystery Challenge</div>
+        <h2 id="mysteryTitle">You don't know what you're getting.</h2>
+        <p id="mysteryText" class="small" style="margin-top:7px">
+          Reveal today's mystery challenge when you're ready.
+        </p>
+        <button id="revealButton" class="reveal" style="margin-top:15px">
+          Reveal Challenge
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRESS -->
+  <section id="progressPage" class="page hidden">
+    <div class="grid">
+
+      <div class="card span-4">
+        <div class="card-title">Lifetime XP</div>
+        <div id="progressXP" class="stat">0</div>
+      </div>
+
+      <div class="card span-4">
+        <div class="card-title">Missions Completed</div>
+        <div id="completedCount" class="stat">0</div>
+      </div>
+
+      <div class="card span-4">
+        <div class="card-title">Days Active</div>
+        <div id="daysActive" class="stat">0</div>
+      </div>
+
+      <div class="card span-12">
+        <div class="card-title">Your Journey</div>
+        <div id="history"></div>
+      </div>
+
+      <div class="card span-12">
+        <div class="card-title">Achievements</div>
+        <div id="achievements" class="achievement-grid"></div>
+      </div>
 
     </div>
+  </section>
 
+  <!-- NUTRITION -->
+  <section id="nutritionPage" class="page hidden">
+    <div class="grid">
 
-    <!-- SWAP MODAL -->
+      <div class="card span-12">
+        <div class="card-title">Today's Nutrition</div>
+        <h2>Fuel your body.</h2>
+        <p class="small" style="margin-top:6px">
+          Track what matters to you. No complicated account required.
+        </p>
+      </div>
 
-    <div id="swap-modal" class="modal hidden">
+      <div class="card span-12">
+        <div class="card-title">Daily Goals</div>
 
-        <div class="modal-box">
+        <div class="tracker-grid">
+          <div class="track-box">
+            <label>Calories Goal</label>
+            <input id="calorieGoal" type="number" placeholder="e.g. 2200">
+          </div>
 
-            <button class="close-modal" onclick="closeSwapModal()">×</button>
+          <div class="track-box">
+            <label>Protein Goal (g)</label>
+            <input id="proteinGoal" type="number" placeholder="e.g. 120">
+          </div>
 
-            <div class="small-label">ONE SWAP PER DAY</div>
+          <div class="track-box">
+            <label>Water Goal (fl oz)</label>
+            <input id="waterGoal" type="number" placeholder="e.g. 80">
+          </div>
 
-            <h2>Which mission should we replace?</h2>
-
-            <p>
-                Pick the mission you don't want. A new random mission
-                will replace it.
-            </p>
-
-            <div id="swap-list"></div>
-
+          <div class="track-box">
+            <label>Sleep Goal (hours)</label>
+            <input id="sleepGoal" type="number" step=".1" placeholder="e.g. 8">
+          </div>
         </div>
 
-    </div>
+        <button id="saveGoals" class="track-button">Save Goals</button>
+      </div>
 
+      <div class="card span-12">
+        <div class="card-title">Today's Intake</div>
 
-    <!-- MYSTERY MODAL -->
+        <div class="tracker-grid">
+          <div class="track-box">
+            <label>Breakfast Calories</label>
+            <input id="breakfastCalories" type="number">
+          </div>
 
-    <div id="mystery-modal" class="modal hidden">
+          <div class="track-box">
+            <label>Lunch Calories</label>
+            <input id="lunchCalories" type="number">
+          </div>
 
-        <div class="modal-box">
+          <div class="track-box">
+            <label>Dinner Calories</label>
+            <input id="dinnerCalories" type="number">
+          </div>
 
-            <button class="close-modal" onclick="closeMysteryModal()">×</button>
+          <div class="track-box">
+            <label>Snacks Calories</label>
+            <input id="snackCalories" type="number">
+          </div>
 
-            <div class="small-label">MYSTERY COMPLETE</div>
+          <div class="track-box">
+            <label>Protein (g)</label>
+            <input id="protein" type="number">
+          </div>
 
-            <h2>Did you actually complete it?</h2>
+          <div class="track-box">
+            <label>Water (fl oz)</label>
+            <input id="water" type="number">
+          </div>
 
-            <p>
-                LevelUp can't verify everything. Be honest with yourself.
-                The point is to build your real progress.
-            </p>
-
-            <div class="reward-preview">
-                <span>Reward</span>
-                <strong>+50 XP</strong>
-            </div>
-
-            <button class="primary-button" onclick="finishMystery()">
-                Yes, I Did It
-            </button>
-
+          <div class="track-box">
+            <label>Sleep (hours)</label>
+            <input id="sleep" type="number" step=".1">
+          </div>
         </div>
 
+        <button id="saveNutrition" class="track-button">
+          Save Today's Stats
+        </button>
+      </div>
+
+      <div class="card span-12">
+        <div class="card-title">Today</div>
+        <div id="nutritionSummary"></div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<script>
+/* ============================================================
+   LEVELUP — COMPLETE APP
+   Everything is saved locally in your browser.
+   ============================================================ */
+
+const SPORTS = [
+  "Baseball",
+  "Basketball",
+  "Football",
+  "Soccer",
+  "Lacrosse",
+  "Hockey",
+  "Tennis",
+  "Golf",
+  "Track",
+  "Volleyball",
+  "Swimming",
+  "Wrestling",
+  "Other"
+];
+
+const STORAGE_KEY = "levelup_v2";
+
+const defaultData = {
+  setupComplete: false,
+  name: "",
+  sports: [],
+  xp: 0,
+  totalCompleted: 0,
+  completedIds: [],
+  history: [],
+  activeDays: [],
+  goals: {
+    calories: 2200,
+    protein: 120,
+    water: 80,
+    sleep: 8
+  },
+  nutrition: {},
+  daily: {}
+};
+
+let data = loadData();
+
+function loadData() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (!saved) return structuredClone(defaultData);
+
+    const parsed = JSON.parse(saved);
+
+    return {
+      ...structuredClone(defaultData),
+      ...parsed,
+      goals: {
+        ...defaultData.goals,
+        ...(parsed.goals || {})
+      }
+    };
+  } catch {
+    return structuredClone(defaultData);
+  }
+}
+
+function saveData() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+
+function todayKey() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+}
+
+function random(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+/* ---------------- LEVEL SYSTEM ---------------- */
+
+function levelInfo(xp) {
+  let level = 1;
+  let remaining = xp;
+  let requirement = 100;
+
+  while (remaining >= requirement) {
+    remaining -= requirement;
+    level++;
+    requirement = Math.round(100 * Math.pow(1.18, level - 1));
+  }
+
+  return {
+    level,
+    current: remaining,
+    requirement
+  };
+}
+
+/* ---------------- MISSIONS ---------------- */
+
+const generalMissions = [
+  {
+    id:"walk2",
+    title:"Go for a 2-mile walk",
+    description:"Get outside and walk at least 2 miles.",
+    type:"Movement",
+    xp:45
+  },
+  {
+    id:"walk1",
+    title:"Take a 1-mile walk",
+    description:"Get moving for at least one mile.",
+    type:"Movement",
+    xp:25
+  },
+  {
+    id:"pushups30",
+    title:"Complete 30 push-ups",
+    description:"Break them into sets if you need to.",
+    type:"Strength",
+    xp:35
+  },
+  {
+    id:"squats50",
+    title:"Complete 50 bodyweight squats",
+    description:"Controlled reps. Full range you can comfortably manage.",
+    type:"Strength",
+    xp:35
+  },
+  {
+    id:"plank2",
+    title:"Accumulate 2 minutes of plank",
+    description:"Break it into multiple sets if needed.",
+    type:"Strength",
+    xp:35
+  },
+  {
+    id:"stretch10",
+    title:"Stretch for 10 minutes",
+    description:"Use the time to loosen up and recover.",
+    type:"Recovery",
+    xp:25
+  },
+  {
+    id:"outside20",
+    title:"Spend 20 minutes outside",
+    description:"Put your phone down and get some fresh air.",
+    type:"Lifestyle",
+    xp:25
+  },
+  {
+    id:"newthing",
+    title:"Try something you've never tried",
+    description:"Learn, practice, or experience something new.",
+    type:"Growth",
+    xp:55
+  },
+  {
+    id:"compliment",
+    title:"Give 3 genuine compliments",
+    description:"Make someone's day a little better.",
+    type:"Confidence",
+    xp:40
+  },
+  {
+    id:"sayhi",
+    title:"Say hi to 5 people",
+    description:"A simple confidence challenge. Only count genuine interactions.",
+    type:"Comfort Zone",
+    xp:45
+  },
+  {
+    id:"phone30",
+    title:"Spend 30 minutes without your phone",
+    description:"Do something else during the time.",
+    type:"Mindset",
+    xp:35
+  },
+  {
+    id:"clean",
+    title:"Clean or organize one area",
+    description:"Desk, room, backpack, equipment, anything.",
+    type:"Lifestyle",
+    xp:30
+  },
+  {
+    id:"journal",
+    title:"Write down 3 things you're proud of",
+    description:"Think about things you've improved at.",
+    type:"Mindset",
+    xp:35
+  },
+  {
+    id:"learn15",
+    title:"Learn something for 15 minutes",
+    description:"Read, study, watch an educational video, or practice a skill.",
+    type:"Growth",
+    xp:35
+  }
+];
+
+const sportMissions = {
+  Baseball: [
+    ["100 Swings","Take 100 quality swings with a tee, front toss, or live pitching.","Baseball",55],
+    ["50 Ground Balls","Field 50 ground balls with proper footwork.","Baseball",50],
+    ["30 Throws","Complete 30 quality throws focusing on accuracy.","Baseball",35],
+    ["20 Minutes of Glove Work","Work on transfers, quick hands, and glove skills.","Baseball",40],
+    ["20 Tee Swings","Focus on solid contact and your approach.","Baseball",25]
+  ],
+  Lacrosse: [
+    ["100 Wall Ball Reps","Complete 100 quality wall-ball reps with both hands.","Lacrosse",55],
+    ["50 Cradle Reps","Practice controlled cradling with both hands.","Lacrosse",35],
+    ["30 Dodges","Work through 30 quality dodges.","Lacrosse",50],
+    ["50 Ground Balls","Practice scooping 50 ground balls with proper technique.","Lacrosse",50],
+    ["25 Shots","Take 25 focused shots on goal.","Lacrosse",45]
+  ],
+  Basketball: [
+    ["100 Form Shots","Complete 100 close-range form shots.","Basketball",50],
+    ["50 Free Throws","Shoot 50 free throws with your routine.","Basketball",40],
+    ["50 Dribble Moves","Complete 50 controlled dribble moves.","Basketball",40],
+    ["25 Layups Each Side","Complete 25 makes on each side.","Basketball",45]
+  ],
+  Football: [
+    ["50 Catches","Complete 50 quality catches.","Football",45],
+    ["30 Route Reps","Run through 30 route reps or footwork reps.","Football",50],
+    ["20 Minutes Footwork","Work on quick feet and change of direction.","Football",40]
+  ],
+  Soccer: [
+    ["100 Touches","Complete 100 controlled touches.","Soccer",40],
+    ["50 Passes","Complete 50 accurate passes against a wall or partner.","Soccer",40],
+    ["30 Shots","Take 30 quality shots.","Soccer",50]
+  ],
+  Hockey: [
+    ["100 Stickhandling Reps","Complete 100 controlled stickhandling reps.","Hockey",50],
+    ["50 Shots","Take 50 focused shots.","Hockey",55],
+    ["20 Minutes Footwork","Work on skating footwork or dryland movement.","Hockey",40]
+  ],
+  Tennis: [
+    ["100 Groundstrokes","Complete 100 focused groundstrokes.","Tennis",50],
+    ["50 Serves","Practice 50 serves with controlled technique.","Tennis",55],
+    ["20 Minutes Footwork","Work on tennis-specific movement.","Tennis",40]
+  ],
+  Golf: [
+    ["50 Practice Swings","Complete 50 controlled practice swings.","Golf",40],
+    ["30 Short Game Reps","Work on 30 chips/pitches.","Golf",45],
+    ["20 Putts","Complete 20 focused putts.","Golf",35]
+  ]
+};
+
+const mysteryMissions = [
+  ["Talk to someone new","Start a genuine conversation with someone you don't normally talk to.","Comfort Zone",65],
+  ["Do 25 extra reps","Choose a safe exercise and complete 25 extra reps.","Challenge",45],
+  ["Try a new drill","Find a new drill related to one of your sports and practice it.","Growth",60],
+  ["Give someone encouragement","Find someone and genuinely encourage them.","Confidence",50],
+  ["20-minute no-phone challenge","Put your phone away and do something productive for 20 minutes.","Mindset",50],
+  ["Do something you've been avoiding","Pick one small productive thing you've been putting off.","Growth",65],
+  ["Learn a new skill","Spend at least 20 minutes learning something new.","Growth",60]
+];
+
+function getAllMissions() {
+  let result = [...generalMissions];
+
+  data.sports.forEach(sport => {
+    if (sportMissions[sport]) {
+      result.push(
+        ...sportMissions[sport].map((m, i) => ({
+          id: sport.toLowerCase() + "_" + i + "_" + m[0].replace(/\W/g,""),
+          title: m[0],
+          description: m[1],
+          type: m[2],
+          xp: m[3]
+        }))
+      );
+    }
+  });
+
+  return result;
+}
+
+/* ---------------- DAILY MISSION GENERATION ---------------- */
+
+function createDailyMissions() {
+  const key = todayKey();
+
+  if (data.daily.date === key && Array.isArray(data.daily.missions)) {
+    return;
+  }
+
+  const pool = getAllMissions();
+
+  // Shuffle pool.
+  const shuffled = [...pool].sort(() => Math.random() - 0.5);
+
+  // Select unique missions.
+  const selected = [];
+
+  for (const mission of shuffled) {
+    if (!selected.some(x => x.id === mission.id)) {
+      selected.push({
+        ...mission,
+        completed: false,
+        swapped: false
+      });
+    }
+
+    if (selected.length >= 5) break;
+  }
+
+  data.daily = {
+    date: key,
+    missions: selected,
+    mystery: null,
+    mysteryRevealed: false
+  };
+
+  saveData();
+}
+
+function missionAlreadyCompletedToday(id) {
+  return data.daily.missions?.some(m => m.id === id && m.completed);
+}
+
+function completeMission(index) {
+  const mission = data.daily.missions[index];
+
+  if (!mission || mission.completed) {
+    return;
+  }
+
+  mission.completed = true;
+
+  addXP(mission.xp);
+
+  data.totalCompleted++;
+
+  data.history.push({
+    date: todayKey(),
+    title: mission.title,
+    xp: mission.xp
+  });
+
+  markActiveDay();
+
+  saveData();
+  renderAll();
+}
+
+function swapMission(index) {
+  const mission = data.daily.missions[index];
+
+  if (!mission || mission.completed || mission.swapped) {
+    return;
+  }
+
+  const pool = getAllMissions().filter(m =>
+    !data.daily.missions.some(existing => existing.id === m.id)
+  );
+
+  if (!pool.length) return;
+
+  const replacement = {
+    ...random(pool),
+    completed: false,
+    swapped: true
+  };
+
+  data.daily.missions[index] = replacement;
+
+  saveData();
+  renderAll();
+}
+
+/* ---------------- MYSTERY ---------------- */
+
+function revealMystery() {
+  if (data.daily.mysteryRevealed) return;
+
+  const item = random(mysteryMissions);
+
+  data.daily.mystery = {
+    id: "mystery_" + todayKey(),
+    title: item[0],
+    description: item[1],
+    type: item[2],
+    xp: item[3],
+    completed: false
+  };
+
+  data.daily.mysteryRevealed = true;
+
+  saveData();
+  renderAll();
+}
+
+function completeMystery() {
+  if (!data.daily.mystery || data.daily.mystery.completed) return;
+
+  data.daily.mystery.completed = true;
+
+  addXP(data.daily.mystery.xp);
+
+  data.totalCompleted++;
+
+  data.history.push({
+    date: todayKey(),
+    title: data.daily.mystery.title,
+    xp: data.daily.mystery.xp
+  });
+
+  markActiveDay();
+
+  saveData();
+  renderAll();
+}
+
+/* ---------------- XP ---------------- */
+
+function addXP(amount) {
+  data.xp += amount;
+}
+
+function markActiveDay() {
+  const key = todayKey();
+
+  if (!data.activeDays.includes(key)) {
+    data.activeDays.push(key);
+  }
+}
+
+/* ---------------- NUTRITION ---------------- */
+
+function getTodayNutrition() {
+  const key = todayKey();
+
+  if (!data.nutrition[key]) {
+    data.nutrition[key] = {
+      breakfast: 0,
+      lunch: 0,
+      dinner: 0,
+      snacks: 0,
+      protein: 0,
+      water: 0,
+      sleep: 0
+    };
+  }
+
+  return data.nutrition[key];
+}
+
+function saveNutrition() {
+  const n = getTodayNutrition();
+
+  n.breakfast = Number(document.getElementById("breakfastCalories").value) || 0;
+  n.lunch = Number(document.getElementById("lunchCalories").value) || 0;
+  n.dinner = Number(document.getElementById("dinnerCalories").value) || 0;
+  n.snacks = Number(document.getElementById("snackCalories").value) || 0;
+  n.protein = Number(document.getElementById("protein").value) || 0;
+  n.water = Number(document.getElementById("water").value) || 0;
+  n.sleep = Number(document.getElementById("sleep").value) || 0;
+
+  saveData();
+  renderAll();
+
+  alert("Today's nutrition was saved!");
+}
+
+function saveGoals() {
+  data.goals.calories =
+    Number(document.getElementById("calorieGoal").value) || 0;
+
+  data.goals.protein =
+    Number(document.getElementById("proteinGoal").value) || 0;
+
+  data.goals.water =
+    Number(document.getElementById("waterGoal").value) || 0;
+
+  data.goals.sleep =
+    Number(document.getElementById("sleepGoal").value) || 0;
+
+  saveData();
+  renderAll();
+
+  alert("Goals saved!");
+}
+
+/* ---------------- RENDERING ---------------- */
+
+function renderSetup() {
+  const setup = document.getElementById("setup");
+  const app = document.getElementById("app");
+
+  if (data.setupComplete) {
+    setup.classList.add("hidden");
+    app.classList.remove("hidden");
+  } else {
+    setup.classList.remove("hidden");
+    app.classList.add("hidden");
+  }
+}
+
+function renderSportsSelector() {
+  const container = document.getElementById("sports");
+
+  container.innerHTML = SPORTS.map(sport => `
+    <button
+      type="button"
+      class="sport-option ${data.sports.includes(sport) ? "selected" : ""}"
+      data-sport="${sport}">
+      ${sport}
+    </button>
+  `).join("");
+
+  container.querySelectorAll("[data-sport]").forEach(button => {
+    button.addEventListener("click", () => {
+      const sport = button.dataset.sport;
+
+      if (data.sports.includes(sport)) {
+        data.sports = data.sports.filter(x => x !== sport);
+      } else {
+        data.sports.push(sport);
+      }
+
+      renderSportsSelector();
+    });
+  });
+}
+
+function renderHeader() {
+  document.getElementById("username").textContent =
+    data.name ? `Hey, ${data.name}` : "Hey, athlete";
+
+  const info = levelInfo(data.xp);
+
+  document.getElementById("levelPill").textContent =
+    `Level ${info.level}`;
+
+  document.getElementById("homeLevel").textContent =
+    `Level ${info.level}`;
+
+  document.getElementById("lifetimeXP").textContent =
+    data.xp.toLocaleString();
+
+  document.getElementById("progressXP").textContent =
+    data.xp.toLocaleString();
+
+  document.getElementById("completedCount").textContent =
+    data.totalCompleted;
+
+  document.getElementById("daysActive").textContent =
+    data.activeDays.length;
+
+  document.getElementById("xpText").textContent =
+    `${info.current} / ${info.requirement} XP`;
+
+  document.getElementById("nextLevelText").textContent =
+    `${info.requirement - info.current} XP until Level ${info.level + 1}`;
+
+  document.getElementById("xpBar").style.width =
+    `${Math.min(100, (info.current / info.requirement) * 100)}%`;
+
+  document.getElementById("sportsDisplay").textContent =
+    data.sports.length ? data.sports.join(" • ") : "No sports selected";
+}
+
+function missionHTML(mission, index) {
+  const completed = mission.completed;
+
+  return `
+    <div class="card mission ${completed ? "completed" : ""}">
+      <div class="mission-top">
+        <span class="badge">${mission.type}</span>
+        <span class="xp">+${mission.xp} XP</span>
+      </div>
+
+      <h3>${mission.title}</h3>
+      <p>${mission.description}</p>
+
+      <div class="mission-actions">
+        <button
+          class="complete"
+          data-complete="${index}"
+          ${completed ? "disabled" : ""}>
+          ${completed ? "✓ Completed" : "Complete"}
+        </button>
+
+        <button
+          class="swap"
+          data-swap="${index}"
+          ${completed || mission.swapped ? "disabled" : ""}>
+          ${mission.swapped ? "Swapped" : "Swap"}
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+function renderMissions() {
+  const list = document.getElementById("missionsList");
+
+  list.innerHTML = data.daily.missions
+    .map((mission, index) => missionHTML(mission, index))
+    .join("");
+
+  list.querySelectorAll("[data-complete]").forEach(button => {
+    button.addEventListener("click", () => {
+      completeMission(Number(button.dataset.complete));
+    });
+  });
+
+  list.querySelectorAll("[data-swap]").forEach(button => {
+    button.addEventListener("click", () => {
+      swapMission(Number(button.dataset.swap));
+    });
+  });
+
+  const completed =
+    data.daily.missions.filter(m => m.completed).length;
+
+  document.getElementById("missionCount").textContent =
+    `${completed} / ${data.daily.missions.length}`;
+
+  document.getElementById("homeMissions").innerHTML =
+    data.daily.missions.slice(0, 3)
+      .map((mission, index) => missionHTML(mission, index))
+      .join("");
+
+  document.querySelectorAll("#homeMissions [data-complete]").forEach(button => {
+    button.addEventListener("click", () => {
+      completeMission(Number(button.dataset.complete));
+    });
+  });
+
+  document.querySelectorAll("#homeMissions [data-swap]").forEach(button => {
+    button.addEventListener("click", () => {
+      swapMission(Number(button.dataset.swap));
+    });
+  });
+
+  renderMystery();
+}
+
+function renderMystery() {
+  const title = document.getElementById("mysteryTitle");
+  const text = document.getElementById("mysteryText");
+  const button = document.getElementById("revealButton");
+
+  if (!data.daily.mysteryRevealed) {
+    title.textContent = "You don't know what you're getting.";
+    text.textContent =
+      "Reveal today's mystery challenge when you're ready.";
+    button.textContent = "Reveal Challenge";
+    button.onclick = revealMystery;
+    return;
+  }
+
+  const m = data.daily.mystery;
+
+  title.textContent = `${m.title} • +${m.xp} XP`;
+  text.textContent = m.description;
+
+  if (m.completed) {
+    button.textContent = "✓ Completed";
+    button.disabled = true;
+  } else {
+    button.textContent = "Complete Mystery Challenge";
+    button.disabled = false;
+    button.onclick = completeMystery;
+  }
+}
+
+function renderTodayStats() {
+  const n = getTodayNutrition();
+
+  const calories =
+    n.breakfast + n.lunch + n.dinner + n.snacks;
+
+  document.getElementById("todayStats").innerHTML = `
+    <div class="history-row">
+      <span>Calories</span>
+      <strong>${calories.toLocaleString()}</strong>
+    </div>
+    <div class="history-row">
+      <span>Protein</span>
+      <strong>${n.protein}g</strong>
+    </div>
+    <div class="history-row">
+      <span>Water</span>
+      <strong>${n.water} fl oz</strong>
+    </div>
+    <div class="history-row">
+      <span>Sleep</span>
+      <strong>${n.sleep} hrs</strong>
+    </div>
+  `;
+}
+
+function renderNutrition() {
+  const n = getTodayNutrition();
+
+  document.getElementById("calorieGoal").value = data.goals.calories || "";
+  document.getElementById("proteinGoal").value = data.goals.protein || "";
+  document.getElementById("waterGoal").value = data.goals.water || "";
+  document.getElementById("sleepGoal").value = data.goals.sleep || "";
+
+  document.getElementById("breakfastCalories").value = n.breakfast || "";
+  document.getElementById("lunchCalories").value = n.lunch || "";
+  document.getElementById("dinnerCalories").value = n.dinner || "";
+  document.getElementById("snackCalories").value = n.snacks || "";
+  document.getElementById("protein").value = n.protein || "";
+  document.getElementById("water").value = n.water || "";
+  document.getElementById("sleep").value = n.sleep || "";
+
+  const calories =
+    n.breakfast + n.lunch + n.dinner + n.snacks;
+
+  document.getElementById("nutritionSummary").innerHTML = `
+    <div class="history-row">
+      <span>Calories</span>
+      <strong>${calories.toLocaleString()} / ${data.goals.calories.toLocaleString()}</strong>
     </div>
 
+    <div class="progress">
+      <div class="progress-bar" style="width:${Math.min(100, data.goals.calories ? calories / data.goals.calories * 100 : 0)}%"></div>
+    </div>
 
-</div>
+    <div class="history-row">
+      <span>Protein</span>
+      <strong>${n.protein}g / ${data.goals.protein}g</strong>
+    </div>
 
-<script src="app.js"></script>
+    <div class="progress">
+      <div class="progress-bar" style="width:${Math.min(100, data.goals.protein ? n.protein / data.goals.protein * 100 : 0)}%"></div>
+    </div>
 
+    <div class="history-row">
+      <span>Water</span>
+      <strong>${n.water} / ${data.goals.water} fl oz</strong>
+    </div>
+
+    <div class="progress">
+      <div class="progress-bar" style="width:${Math.min(100, data.goals.water ? n.water / data.goals.water * 100 : 0)}%"></div>
+    </div>
+
+    <div class="history-row">
+      <span>Sleep</span>
+      <strong>${n.sleep} / ${data.goals.sleep} hours</strong>
+    </div>
+  `;
+}
+
+function renderHistory() {
+  const container = document.getElementById("history");
+
+  if (!data.history.length) {
+    container.innerHTML = `
+      <div class="small">
+        Your journey starts here. Complete your first mission.
+      </div>
+    `;
+    return;
+  }
+
+  const recent = [...data.history].reverse().slice(0, 20);
+
+  container.innerHTML = recent.map(item => `
+    <div class="history-row">
+      <div>
+        <strong>${item.title}</strong>
+        <div class="small">${item.date}</div>
+      </div>
+      <strong class="xp">+${item.xp} XP</strong>
+    </div>
+  `).join("");
+}
+
+function renderAchievements() {
+  const achievements = [
+    {
+      emoji:"🌱",
+      title:"First Step",
+      description:"Complete your first mission.",
+      unlocked:data.totalCompleted >= 1
+    },
+    {
+      emoji:"⚡",
+      title:"Getting Started",
+      description:"Earn 250 lifetime XP.",
+      unlocked:data.xp >= 250
+    },
+    {
+      emoji:"🔥",
+      title:"On a Roll",
+      description:"Complete 10 missions.",
+      unlocked:data.totalCompleted >= 10
+    },
+    {
+      emoji:"🏆",
+      title:"Level 5",
+      description:"Reach Level 5.",
+      unlocked:levelInfo(data.xp).level >= 5
+    },
+    {
+      emoji:"💪",
+      title:"50 Missions",
+      description:"Complete 50 missions.",
+      unlocked:data.totalCompleted >= 50
+    },
+    {
+      emoji:"🚀",
+      title:"100 Missions",
+      description:"Complete 100 missions.",
+      unlocked:data.totalCompleted >= 100
+    }
+  ];
+
+  document.getElementById("achievements").innerHTML =
+    achievements.map(a => `
+      <div class="achievement ${a.unlocked ? "" : "locked"}">
+        <div class="emoji">${a.emoji}</div>
+        <strong>${a.title}</strong>
+        <div class="small" style="margin-top:5px">${a.description}</div>
+      </div>
+    `).join("");
+}
+
+function renderAll() {
+  createDailyMissions();
+  renderSetup();
+
+  if (!data.setupComplete) {
+    renderSportsSelector();
+    return;
+  }
+
+  renderHeader();
+  renderMissions();
+  renderTodayStats();
+  renderNutrition();
+  renderHistory();
+  renderAchievements();
+}
+
+/* ---------------- NAVIGATION ---------------- */
+
+function showPage(page) {
+  document.querySelectorAll(".page").forEach(p => {
+    p.classList.add("hidden");
+  });
+
+  document.getElementById(page + "Page").classList.remove("hidden");
+
+  document.querySelectorAll(".nav button").forEach(button => {
+    button.classList.toggle(
+      "active",
+      button.dataset.page === page
+    );
+  });
+}
+
+/* ---------------- EVENT LISTENERS ---------------- */
+
+document.getElementById("startButton").addEventListener("click", () => {
+  const name = document.getElementById("nameInput").value.trim();
+
+  if (!name) {
+    alert("Enter your name first!");
+    return;
+  }
+
+  data.name = name;
+  data.setupComplete = true;
+
+  saveData();
+  renderAll();
+});
+
+document.querySelectorAll(".nav button").forEach(button => {
+  button.addEventListener("click", () => {
+    showPage(button.dataset.page);
+  });
+});
+
+document.getElementById("saveNutrition").addEventListener(
+  "click",
+  saveNutrition
+);
+
+document.getElementById("saveGoals").addEventListener(
+  "click",
+  saveGoals
+);
+
+/* ---------------- START ---------------- */
+
+renderSportsSelector();
+renderAll();
+
+</script>
 </body>
 </html>
+```
