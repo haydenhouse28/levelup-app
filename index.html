@@ -3,613 +3,675 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#080b14">
 <title>LevelUp</title>
 
 <style>
-* {
-  box-sizing: border-box;
+*{box-sizing:border-box}
+
+:root{
+  --bg:#080b14;
+  --card:#111725;
+  --card2:#171f31;
+  --text:#f7f8fc;
+  --muted:#8f99ae;
+  --purple:#8065ff;
+  --purple2:#a48fff;
+  --green:#3bd98a;
+  --yellow:#ffd166;
+  --red:#ff687a;
+  --border:rgba(255,255,255,.09);
 }
 
-:root {
-  --bg: #080b14;
-  --card: #111725;
-  --card2: #171f31;
-  --text: #f7f8fc;
-  --muted: #929bb0;
-  --purple: #8065ff;
-  --purple2: #a68fff;
-  --green: #39d98a;
-  --yellow: #ffd166;
-  --red: #ff6f7f;
-  --border: rgba(255,255,255,.09);
-}
+html{scroll-behavior:smooth}
 
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  margin: 0;
-  min-height: 100vh;
+body{
+  margin:0;
+  min-height:100vh;
   background:
-    radial-gradient(circle at 10% 0%, rgba(128,101,255,.20), transparent 28%),
-    radial-gradient(circle at 100% 15%, rgba(57,217,138,.08), transparent 25%),
+    radial-gradient(circle at 10% 0%,rgba(128,101,255,.18),transparent 30%),
+    radial-gradient(circle at 100% 15%,rgba(59,217,138,.07),transparent 25%),
     var(--bg);
-  color: var(--text);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  padding-bottom:95px;
 }
 
-button,
-input,
-select {
-  font: inherit;
+button,input,select{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+
+button:disabled{
+  opacity:.45;
+  cursor:not-allowed;
 }
 
-button {
-  cursor: pointer;
+/* =========================
+   SETUP
+========================= */
+
+.setup{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:22px;
 }
 
-.hidden {
-  display: none !important;
+.setup-card{
+  width:min(650px,100%);
+  padding:34px;
+  border:1px solid var(--border);
+  border-radius:28px;
+  background:rgba(17,23,37,.96);
+  box-shadow:0 30px 100px rgba(0,0,0,.45);
 }
 
-/* ---------------- SETUP ---------------- */
-
-.setup-screen {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
+.logo{
+  font-size:43px;
+  font-weight:950;
+  letter-spacing:-2px;
 }
 
-.setup-card {
-  width: min(650px, 100%);
-  background: rgba(17,23,37,.95);
-  border: 1px solid var(--border);
-  border-radius: 28px;
-  padding: 35px;
-  box-shadow: 0 30px 100px rgba(0,0,0,.45);
+.logo span{color:var(--purple)}
+
+.setup-subtitle{
+  color:var(--muted);
+  line-height:1.6;
+  margin:8px 0 30px;
 }
 
-.logo {
-  font-size: 42px;
-  font-weight: 950;
-  letter-spacing: -2px;
+.field{margin-bottom:23px}
+.field label{
+  display:block;
+  font-weight:850;
+  margin-bottom:8px;
 }
 
-.logo span {
-  color: var(--purple);
+input{
+  width:100%;
+  padding:13px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:#0b101b;
+  color:white;
+  outline:none;
 }
 
-.setup-subtitle {
-  color: var(--muted);
-  line-height: 1.6;
-  margin: 8px 0 30px;
+input:focus{border-color:var(--purple)}
+
+.sports{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
 }
 
-.field {
-  margin-bottom: 24px;
+.sport-btn{
+  border:1px solid var(--border);
+  border-radius:999px;
+  padding:10px 13px;
+  background:#0b101b;
+  color:var(--muted);
 }
 
-.field label {
-  display: block;
-  font-weight: 800;
-  margin-bottom: 9px;
+.sport-btn.selected{
+  background:rgba(128,101,255,.2);
+  border-color:var(--purple);
+  color:white;
 }
 
-input {
-  width: 100%;
-  padding: 14px;
-  border-radius: 13px;
-  border: 1px solid var(--border);
-  background: #0c111d;
-  color: white;
-  outline: none;
+.primary{
+  width:100%;
+  padding:15px;
+  border:0;
+  border-radius:14px;
+  color:white;
+  font-weight:900;
+  background:linear-gradient(135deg,var(--purple),var(--purple2));
 }
 
-input:focus {
-  border-color: var(--purple);
+/* =========================
+   APP
+========================= */
+
+.app{
+  width:min(1050px,100%);
+  margin:auto;
+  padding:18px 15px 30px;
 }
 
-.sports {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 9px;
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:18px;
 }
 
-.sport-button {
-  border: 1px solid var(--border);
-  background: #0c111d;
-  color: var(--muted);
-  padding: 10px 14px;
-  border-radius: 999px;
+.welcome{
+  color:var(--muted);
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:1px;
 }
 
-.sport-button.selected {
-  background: rgba(128,101,255,.2);
-  border-color: var(--purple);
-  color: white;
+.username{
+  font-size:28px;
+  font-weight:950;
 }
 
-.primary-button {
-  width: 100%;
-  border: 0;
-  padding: 15px;
-  border-radius: 14px;
-  color: white;
-  font-weight: 900;
-  background: linear-gradient(135deg, var(--purple), var(--purple2));
+.level-pill{
+  padding:9px 13px;
+  border-radius:13px;
+  background:rgba(128,101,255,.16);
+  border:1px solid rgba(128,101,255,.3);
+  font-weight:900;
 }
 
-/* ---------------- APP ---------------- */
+/* =========================
+   PAGES
+========================= */
 
-.app {
-  width: min(1050px, 100%);
-  margin: auto;
-  padding: 20px 16px 100px;
+.page{display:block}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(12,minmax(0,1fr));
+  gap:15px;
 }
 
-.topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 15px;
-  margin-bottom: 20px;
+.span12{grid-column:span 12}
+.span6{grid-column:span 6}
+.span4{grid-column:span 4}
+
+.card{
+  background:rgba(17,23,37,.94);
+  border:1px solid var(--border);
+  border-radius:21px;
+  padding:20px;
+  min-width:0;
 }
 
-.welcome {
-  color: var(--muted);
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 1px;
+.label{
+  color:var(--muted);
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.9px;
+  text-transform:uppercase;
 }
 
-.username {
-  font-size: 30px;
-  font-weight: 950;
+.big{
+  font-size:34px;
+  font-weight:950;
 }
 
-.level-pill {
-  padding: 10px 14px;
-  border-radius: 13px;
-  background: rgba(128,101,255,.16);
-  border: 1px solid rgba(128,101,255,.3);
-  font-weight: 900;
+.small{
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.5;
 }
 
-/* ---------------- NAV ---------------- */
-
-.nav {
-  display: flex;
-  gap: 7px;
-  padding: 7px;
-  margin-bottom: 22px;
-  background: rgba(17,23,37,.9);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  overflow-x: auto;
+.progress-track{
+  height:10px;
+  background:#080c15;
+  border-radius:999px;
+  overflow:hidden;
+  margin:11px 0 7px;
 }
 
-.nav button {
-  flex: 1;
-  min-width: 105px;
-  padding: 12px;
-  border: 0;
-  border-radius: 11px;
-  background: transparent;
-  color: var(--muted);
-  font-weight: 800;
+.progress-fill{
+  height:100%;
+  border-radius:999px;
+  background:linear-gradient(90deg,var(--purple),var(--purple2));
+  transition:width .35s;
 }
 
-.nav button.active {
-  background: var(--card2);
-  color: white;
-}
+/* =========================
+   HOME
+========================= */
 
-/* ---------------- GENERAL CARDS ---------------- */
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(12, minmax(0,1fr));
-  gap: 16px;
-}
-
-.card {
-  background: rgba(17,23,37,.94);
-  border: 1px solid var(--border);
-  border-radius: 21px;
-  padding: 20px;
-  min-width: 0;
-}
-
-.span-12 {
-  grid-column: span 12;
-}
-
-.span-6 {
-  grid-column: span 6;
-}
-
-.span-4 {
-  grid-column: span 4;
-}
-
-.card-label {
-  color: var(--muted);
-  font-size: 12px;
-  font-weight: 900;
-  letter-spacing: .8px;
-  text-transform: uppercase;
-}
-
-.big-number {
-  font-size: 34px;
-  font-weight: 950;
-  margin-top: 5px;
-}
-
-.small {
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.5;
-}
-
-.progress-track {
-  height: 11px;
-  margin: 12px 0 8px;
-  background: #080c15;
-  border-radius: 999px;
-  overflow: hidden;
-}
-
-.progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--purple), var(--purple2));
-  border-radius: inherit;
-  transition: width .4s ease;
-}
-
-/* ---------------- MISSION AREA ---------------- */
-
-/*
-IMPORTANT:
-The mission list is deliberately a BLOCK/FULL-WIDTH layout.
-Each mission gets its own card.
-*/
-
-.mission-list {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  width: 100%;
-  margin-top: 18px;
-}
-
-.mission-card {
-  width: 100%;
-  background: linear-gradient(145deg, #141c2c, #101624);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 22px;
-  position: relative;
-}
-
-.mission-card:hover {
-  border-color: rgba(128,101,255,.4);
-}
-
-.mission-card.completed {
-  opacity: .58;
-}
-
-.mission-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.mission-tag {
-  display: inline-block;
-  padding: 6px 9px;
-  border-radius: 8px;
-  background: rgba(128,101,255,.13);
-  color: #b8aaff;
-  font-size: 11px;
-  font-weight: 900;
-  text-transform: uppercase;
-}
-
-.mission-xp {
-  color: var(--yellow);
-  font-weight: 950;
-  white-space: nowrap;
-}
-
-.mission-title {
-  font-size: 21px;
-  margin: 14px 0 7px;
-  font-weight: 900;
-}
-
-.mission-description {
-  color: var(--muted);
-  line-height: 1.55;
-  margin: 0;
-}
-
-.mission-target {
-  margin-top: 15px;
-  padding: 12px;
-  border-radius: 12px;
-  background: rgba(128,101,255,.08);
-  color: #d9d3ff;
-  font-weight: 800;
-}
-
-.mission-buttons {
-  display: flex;
-  gap: 9px;
-  margin-top: 17px;
-}
-
-.complete-button,
-.swap-button {
-  border: 0;
-  border-radius: 11px;
-  padding: 11px 15px;
-  font-weight: 900;
-}
-
-.complete-button {
-  background: var(--green);
-  color: #06150d;
-}
-
-.swap-button {
-  background: #263149;
-  color: white;
-}
-
-.complete-button:disabled,
-.swap-button:disabled {
-  opacity: .5;
-  cursor: not-allowed;
-}
-
-/* ---------------- MYSTERY ---------------- */
-
-.mystery-card {
-  margin-top: 18px;
-  border: 1px solid rgba(255,209,102,.25);
+.home-hero{
+  padding:25px;
   background:
-    radial-gradient(circle at 90% 0%, rgba(255,209,102,.10), transparent 30%),
+    radial-gradient(circle at 90% 0%,rgba(128,101,255,.2),transparent 35%),
     var(--card);
 }
 
-.reveal-button {
-  margin-top: 15px;
-  border: 0;
-  border-radius: 12px;
-  padding: 12px 16px;
-  background: var(--yellow);
-  color: #1b1404;
-  font-weight: 950;
+.home-title{
+  font-size:31px;
+  font-weight:950;
+  margin:7px 0;
+  letter-spacing:-1px;
 }
 
-/* ---------------- RESULT MODAL ---------------- */
-
-.modal-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  background: rgba(0,0,0,.72);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 18px;
+.quick-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-top:16px;
 }
 
-.result-modal {
-  width: min(500px, 100%);
-  background: #121a2a;
-  border: 1px solid var(--border);
-  border-radius: 24px;
-  padding: 25px;
-  box-shadow: 0 30px 100px rgba(0,0,0,.5);
+.quick-stat{
+  background:#0c111d;
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:14px;
 }
 
-.result-modal h2 {
-  margin: 7px 0;
+.quick-stat strong{
+  display:block;
+  font-size:20px;
+  margin-top:4px;
 }
 
-.result-input {
-  margin-top: 18px;
+/* =========================
+   MISSIONS
+========================= */
+
+.mission-list{
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+  margin-top:16px;
 }
 
-.result-input label {
-  display: block;
-  color: var(--muted);
-  font-size: 13px;
-  font-weight: 800;
-  margin-bottom: 7px;
+.mission-card{
+  width:100%;
+  padding:21px;
+  border:1px solid var(--border);
+  border-radius:20px;
+  background:linear-gradient(145deg,#141c2c,#101624);
 }
 
-.modal-buttons {
-  display: flex;
-  gap: 9px;
-  margin-top: 17px;
+.mission-card.completed{opacity:.55}
+
+.mission-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
 }
 
-.modal-buttons button {
-  flex: 1;
-  border: 0;
-  padding: 12px;
-  border-radius: 11px;
-  font-weight: 900;
+.tag{
+  padding:6px 9px;
+  border-radius:8px;
+  background:rgba(128,101,255,.13);
+  color:#b9adff;
+  font-size:10px;
+  font-weight:900;
+  text-transform:uppercase;
 }
 
-.cancel-button {
-  background: #263149;
-  color: white;
+.xp{
+  color:var(--yellow);
+  font-weight:950;
 }
 
-.submit-result {
-  background: var(--green);
-  color: #06150d;
+.mission-title{
+  font-size:20px;
+  font-weight:900;
+  margin:13px 0 6px;
 }
 
-/* ---------------- TRACKING ---------------- */
-
-.tracker-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0,1fr));
-  gap: 12px;
-  margin-top: 15px;
+.mission-description{
+  color:var(--muted);
+  line-height:1.5;
+  margin:0;
 }
 
-.tracker-box {
-  background: #0c111d;
-  border: 1px solid var(--border);
-  padding: 14px;
-  border-radius: 15px;
+.target{
+  margin-top:14px;
+  padding:11px;
+  border-radius:11px;
+  background:rgba(128,101,255,.08);
+  color:#ddd8ff;
+  font-weight:800;
 }
 
-.tracker-box label {
-  display: block;
-  color: var(--muted);
-  font-size: 12px;
-  margin-bottom: 7px;
-  font-weight: 800;
+.mission-buttons{
+  display:flex;
+  gap:8px;
+  margin-top:15px;
 }
 
-.save-button {
-  width: 100%;
-  margin-top: 14px;
-  padding: 12px;
-  border: 0;
-  border-radius: 12px;
-  background: var(--card2);
-  color: white;
-  font-weight: 900;
+.complete,.swap,.reveal,.save{
+  border:0;
+  border-radius:11px;
+  padding:11px 14px;
+  font-weight:900;
 }
 
-/* ---------------- HISTORY ---------------- */
-
-.history-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 15px;
-  padding: 14px 0;
-  border-bottom: 1px solid var(--border);
+.complete{
+  background:var(--green);
+  color:#06150d;
 }
 
-.history-row:last-child {
-  border-bottom: 0;
+.swap{
+  background:#263149;
+  color:white;
 }
 
-.xp-text {
-  color: var(--yellow);
-  font-weight: 900;
+.mystery{
+  margin-top:16px;
+  border-color:rgba(255,209,102,.25);
+  background:
+    radial-gradient(circle at 90% 0%,rgba(255,209,102,.1),transparent 35%),
+    var(--card);
 }
 
-/* ---------------- ACHIEVEMENTS ---------------- */
-
-.achievement-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0,1fr));
-  gap: 12px;
-  margin-top: 15px;
+.reveal{
+  margin-top:13px;
+  background:var(--yellow);
+  color:#1c1505;
 }
 
-.achievement {
-  background: #0c111d;
-  border: 1px solid var(--border);
-  padding: 16px;
-  border-radius: 15px;
+/* =========================
+   BOTTOM NAV
+========================= */
+
+.bottom-nav{
+  position:fixed;
+  left:50%;
+  bottom:0;
+  transform:translateX(-50%);
+  width:min(650px,100%);
+  z-index:50;
+  padding:8px 10px calc(8px + env(safe-area-inset-bottom));
+  background:rgba(12,16,27,.95);
+  backdrop-filter:blur(18px);
+  border:1px solid var(--border);
+  border-bottom:0;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  box-shadow:0 -15px 35px rgba(0,0,0,.25);
 }
 
-.achievement.locked {
-  opacity: .4;
+.nav-btn{
+  border:0;
+  background:transparent;
+  color:var(--muted);
+  padding:8px 3px;
+  border-radius:12px;
+  font-weight:800;
+  font-size:11px;
 }
 
-.achievement-icon {
-  font-size: 25px;
-  margin-bottom: 7px;
+.nav-icon{
+  display:block;
+  font-size:20px;
+  margin-bottom:3px;
 }
 
-/* ---------------- MOBILE ---------------- */
+.nav-btn.active{
+  background:rgba(128,101,255,.16);
+  color:white;
+}
 
-@media (max-width: 750px) {
-  .span-6,
-  .span-4 {
-    grid-column: span 12;
+/* =========================
+   FOOD
+========================= */
+
+.meal{
+  margin-top:14px;
+  padding:15px;
+  border-radius:16px;
+  background:#0c111d;
+  border:1px solid var(--border);
+}
+
+.meal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.meal-name{
+  font-size:17px;
+  font-weight:900;
+}
+
+.food-list{
+  margin-top:10px;
+}
+
+.food-row{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding:10px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.food-row:last-child{border-bottom:0}
+
+.food-info strong{display:block}
+.food-info span{
+  color:var(--muted);
+  font-size:12px;
+}
+
+.add-food{
+  width:100%;
+  margin-top:10px;
+  padding:10px;
+  border:1px dashed rgba(255,255,255,.18);
+  border-radius:10px;
+  background:transparent;
+  color:#bdb4ff;
+  font-weight:850;
+}
+
+.food-delete{
+  border:0;
+  background:transparent;
+  color:var(--muted);
+}
+
+.summary-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+
+.summary{
+  padding:14px;
+  background:#0c111d;
+  border:1px solid var(--border);
+  border-radius:14px;
+}
+
+.summary strong{
+  display:block;
+  font-size:20px;
+  margin-top:4px;
+}
+
+/* =========================
+   WATER
+========================= */
+
+.water-buttons{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:8px;
+  margin-top:13px;
+}
+
+.water-btn{
+  border:1px solid var(--border);
+  border-radius:11px;
+  padding:11px 5px;
+  background:#0c111d;
+  color:white;
+  font-weight:850;
+}
+
+.custom-water{
+  display:flex;
+  gap:8px;
+  margin-top:9px;
+}
+
+.custom-water input{min-width:0}
+.custom-water button{
+  border:0;
+  border-radius:11px;
+  padding:0 15px;
+  background:var(--purple);
+  color:white;
+  font-weight:900;
+}
+
+/* =========================
+   PROGRESS
+========================= */
+
+.history-row{
+  display:flex;
+  justify-content:space-between;
+  gap:14px;
+  padding:13px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.history-row:last-child{border-bottom:0}
+
+.achievement-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-top:14px;
+}
+
+.achievement{
+  padding:15px;
+  background:#0c111d;
+  border:1px solid var(--border);
+  border-radius:14px;
+}
+
+.achievement.locked{opacity:.4}
+.achievement-icon{
+  font-size:24px;
+  margin-bottom:6px;
+}
+
+/* =========================
+   MODALS
+========================= */
+
+.modal{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  background:rgba(0,0,0,.75);
+}
+
+.modal-card{
+  width:min(500px,100%);
+  background:#121a2a;
+  border:1px solid var(--border);
+  border-radius:23px;
+  padding:23px;
+  box-shadow:0 30px 100px rgba(0,0,0,.55);
+}
+
+.modal-buttons{
+  display:flex;
+  gap:8px;
+  margin-top:16px;
+}
+
+.modal-buttons button{
+  flex:1;
+  border:0;
+  padding:12px;
+  border-radius:11px;
+  font-weight:900;
+}
+
+.cancel{background:#263149;color:white}
+.confirm{background:var(--green);color:#06150d}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:700px){
+  .span6,.span4{grid-column:span 12}
+
+  .quick-grid{
+    grid-template-columns:repeat(3,1fr);
   }
 
-  .tracker-grid {
-    grid-template-columns: repeat(2, minmax(0,1fr));
+  .summary-grid{
+    grid-template-columns:1fr 1fr 1fr;
   }
 
-  .achievement-grid {
-    grid-template-columns: repeat(2, minmax(0,1fr));
+  .achievement-grid{
+    grid-template-columns:1fr 1fr;
   }
 }
 
-@media (max-width: 480px) {
-  .app {
-    padding: 15px 11px 80px;
+@media(max-width:480px){
+  .app{padding:15px 11px 25px}
+
+  .username{font-size:24px}
+
+  .home-title{font-size:27px}
+
+  .mission-card{padding:18px}
+
+  .mission-buttons{
+    flex-direction:column;
   }
 
-  .setup-card {
-    padding: 24px;
+  .complete,.swap{width:100%}
+
+  .quick-stat{
+    padding:11px 8px;
   }
 
-  .username {
-    font-size: 24px;
+  .quick-stat strong{
+    font-size:17px;
   }
 
-  .mission-card {
-    padding: 18px;
+  .water-buttons{
+    grid-template-columns:repeat(3,1fr);
   }
 
-  .mission-buttons {
-    flex-direction: column;
+  .summary-grid{
+    grid-template-columns:1fr;
   }
 
-  .complete-button,
-  .swap-button {
-    width: 100%;
+  .achievement-grid{
+    grid-template-columns:1fr;
   }
 
-  .tracker-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .achievement-grid {
-    grid-template-columns: 1fr;
-  }
+  .setup-card{padding:25px}
 }
 </style>
 </head>
 
 <body>
 
-<!-- =========================================================
+<!-- =====================================================
      SETUP
-========================================================= -->
+===================================================== -->
 
-<section id="setupScreen" class="setup-screen">
+<section id="setup" class="setup">
+
   <div class="setup-card">
 
     <div class="logo">Level<span>Up</span></div>
 
     <p class="setup-subtitle">
-      Your personal lifetime progress app. Train, challenge yourself,
-      track your habits, and see how far you've come.
+      Your personal lifetime app for training, challenges,
+      nutrition, habits, and progress.
     </p>
 
     <div class="field">
@@ -619,24 +681,26 @@ Each mission gets its own card.
 
     <div class="field">
       <label>What sports do you play?</label>
-      <div id="sportsList" class="sports"></div>
+      <div id="sports" class="sports"></div>
     </div>
 
-    <button id="startButton" class="primary-button">
+    <button id="startBtn" class="primary">
       Start LevelUp →
     </button>
 
   </div>
+
 </section>
 
 
-<!-- =========================================================
-     MAIN APP
-========================================================= -->
+<!-- =====================================================
+     APP
+===================================================== -->
 
 <main id="app" class="app hidden">
 
   <header class="topbar">
+
     <div>
       <div class="welcome">WELCOME BACK</div>
       <div id="username" class="username"></div>
@@ -645,108 +709,116 @@ Each mission gets its own card.
     <div id="levelPill" class="level-pill">
       Level 1
     </div>
+
   </header>
 
 
-  <nav class="nav">
-    <button data-page="home" class="active">Home</button>
-    <button data-page="missions">Missions</button>
-    <button data-page="progress">Progress</button>
-    <button data-page="nutrition">Nutrition</button>
-  </nav>
-
-
-  <!-- =======================================================
-       HOME
-  ======================================================== -->
+  <!-- ================= HOME ================= -->
 
   <section id="homePage" class="page">
 
     <div class="grid">
 
-      <div class="card span-6">
+      <div class="card span12 home-hero">
 
-        <div class="card-label">Current Level</div>
+        <div class="label">YOUR JOURNEY</div>
+
+        <div id="homeTitle" class="home-title">
+          Keep building.
+        </div>
 
         <div style="
           display:flex;
           justify-content:space-between;
           align-items:end;
-          gap:10px;
         ">
-          <div id="homeLevel" class="big-number">
-            Level 1
-          </div>
 
-          <div id="xpText" class="small">
+          <strong id="homeLevel" class="big">
+            Level 1
+          </strong>
+
+          <span id="xpText" class="small">
             0 / 100 XP
-          </div>
+          </span>
+
         </div>
 
         <div class="progress-track">
           <div id="xpBar" class="progress-fill" style="width:0%"></div>
         </div>
 
-        <div id="nextLevelText" class="small">
+        <div id="nextLevel" class="small">
           100 XP until Level 2
         </div>
 
       </div>
 
 
-      <div class="card span-6">
+      <div class="card span12">
 
-        <div class="card-label">Lifetime XP</div>
+        <div class="label">TODAY</div>
 
-        <div id="lifetimeXP" class="big-number">
+        <div class="quick-grid">
+
+          <div class="quick-stat">
+            <span class="small">Missions</span>
+            <strong id="homeMissions">0 / 5</strong>
+          </div>
+
+          <div class="quick-stat">
+            <span class="small">Protein</span>
+            <strong id="homeProtein">0g</strong>
+          </div>
+
+          <div class="quick-stat">
+            <span class="small">Water</span>
+            <strong id="homeWater">0 oz</strong>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="card span6">
+
+        <div class="label">LIFETIME XP</div>
+
+        <div id="lifetimeXP" class="big">
           0
         </div>
 
         <div class="small">
-          Every mission you've completed.
+          Keep stacking days.
         </div>
 
       </div>
 
 
-      <div class="card span-12">
+      <div class="card span6">
 
-        <div class="card-label">Today's Missions</div>
+        <div class="label">YOUR SPORTS</div>
 
-        <h2 style="margin:7px 0 4px;">
-          Your challenges
-        </h2>
-
-        <div id="homeMissionList" class="mission-list"></div>
-
-      </div>
-
-
-      <div class="card span-6">
-
-        <div class="card-label">Today's Stats</div>
-
-        <div id="todayStats"></div>
-
-      </div>
-
-
-      <div class="card span-6">
-
-        <div class="card-label">Your Sports</div>
-
-        <div
-          id="sportsDisplay"
-          style="
-            font-size:20px;
-            font-weight:900;
-            margin-top:7px;
-          "
-        ></div>
-
-        <div class="small" style="margin-top:8px;">
-          Your sports influence your missions.
+        <div id="homeSports"
+          style="font-size:18px;font-weight:900;margin-top:6px">
         </div>
+
+        <div class="small" style="margin-top:6px">
+          These influence your daily missions.
+        </div>
+
+      </div>
+
+
+      <div class="card span12">
+
+        <div class="label">QUICK SUMMARY</div>
+
+        <h3 style="margin:7px 0">
+          Today's progress
+        </h3>
+
+        <div id="homeSummary"></div>
 
       </div>
 
@@ -755,50 +827,45 @@ Each mission gets its own card.
   </section>
 
 
-  <!-- =======================================================
-       MISSIONS
-  ======================================================== -->
+  <!-- ================= MISSIONS ================= -->
 
   <section id="missionsPage" class="page hidden">
 
     <div class="card">
 
-      <div class="card-label">
-        DAILY MISSIONS
-      </div>
+      <div class="label">DAILY MISSIONS</div>
 
-      <h2 style="margin:7px 0;">
-        Don't choose the easy ones.
+      <h2 style="margin:7px 0">
+        Your challenges
       </h2>
 
       <p class="small">
-        Your missions are randomly selected. You get one swap per
-        mission each day.
+        You don't choose the missions. They're randomized so
+        you can't just pick the easiest ones.
       </p>
+
+      <div id="swapStatus" class="small"
+        style="margin-top:10px">
+      </div>
 
     </div>
 
-
-    <!-- FULL WIDTH MISSION LIST -->
-    <div id="missionsList" class="mission-list"></div>
+    <div id="missionList" class="mission-list"></div>
 
 
-    <!-- MYSTERY CHALLENGE -->
-    <div id="mysteryCard" class="card mystery-card">
+    <div class="card mystery">
 
-      <div class="card-label">
-        MYSTERY CHALLENGE
-      </div>
+      <div class="label">MYSTERY CHALLENGE</div>
 
-      <h2 id="mysteryTitle" style="margin:8px 0;">
-        You don't know what you're getting.
+      <h2 id="mysteryTitle" style="margin:7px 0">
+        Something unexpected...
       </h2>
 
       <p id="mysteryDescription" class="small">
-        Reveal today's mystery challenge when you're ready.
+        Reveal it when you're ready.
       </p>
 
-      <button id="revealButton" class="reveal-button">
+      <button id="mysteryBtn" class="reveal">
         Reveal Challenge
       </button>
 
@@ -807,46 +874,40 @@ Each mission gets its own card.
   </section>
 
 
-  <!-- =======================================================
-       PROGRESS
-  ======================================================== -->
+  <!-- ================= PROGRESS ================= -->
 
   <section id="progressPage" class="page hidden">
 
     <div class="grid">
 
-      <div class="card span-4">
-        <div class="card-label">Lifetime XP</div>
-        <div id="progressXP" class="big-number">0</div>
+      <div class="card span4">
+        <div class="label">LIFETIME XP</div>
+        <div id="progressXP" class="big">0</div>
       </div>
 
-      <div class="card span-4">
-        <div class="card-label">Missions</div>
-        <div id="completedCount" class="big-number">0</div>
+      <div class="card span4">
+        <div class="label">MISSIONS</div>
+        <div id="completedCount" class="big">0</div>
       </div>
 
-      <div class="card span-4">
-        <div class="card-label">Days Active</div>
-        <div id="daysActive" class="big-number">0</div>
+      <div class="card span4">
+        <div class="label">DAYS ACTIVE</div>
+        <div id="daysActive" class="big">0</div>
       </div>
 
 
-      <div class="card span-12">
+      <div class="card span12">
 
-        <div class="card-label">
-          LIFETIME JOURNEY
-        </div>
+        <div class="label">LIFETIME HISTORY</div>
 
         <div id="history"></div>
 
       </div>
 
 
-      <div class="card span-12">
+      <div class="card span12">
 
-        <div class="card-label">
-          ACHIEVEMENTS
-        </div>
+        <div class="label">ACHIEVEMENTS</div>
 
         <div id="achievements" class="achievement-grid"></div>
 
@@ -857,127 +918,141 @@ Each mission gets its own card.
   </section>
 
 
-  <!-- =======================================================
-       NUTRITION
-  ======================================================== -->
+  <!-- ================= NUTRITION ================= -->
 
   <section id="nutritionPage" class="page hidden">
 
     <div class="grid">
 
-      <div class="card span-12">
+      <div class="card span12">
 
-        <div class="card-label">
-          NUTRITION
-        </div>
+        <div class="label">NUTRITION</div>
 
-        <h2 style="margin:7px 0;">
+        <h2 style="margin:7px 0">
           Fuel yourself.
         </h2>
 
         <p class="small">
-          Track calories, protein, water, and sleep.
+          Add food once, then save it for quick logging later.
         </p>
 
       </div>
 
 
-      <div class="card span-12">
+      <div class="card span12">
 
-        <div class="card-label">
-          DAILY GOALS
-        </div>
+        <div class="label">TODAY'S TOTALS</div>
 
-        <div class="tracker-grid">
+        <div class="summary-grid" style="margin-top:14px">
 
-          <div class="tracker-box">
-            <label>Calories Goal</label>
-            <input id="calorieGoal" type="number">
+          <div class="summary">
+            <span class="small">Calories</span>
+            <strong id="totalCalories">0</strong>
           </div>
 
-          <div class="tracker-box">
-            <label>Protein Goal (g)</label>
-            <input id="proteinGoal" type="number">
+          <div class="summary">
+            <span class="small">Protein</span>
+            <strong id="totalProtein">0g</strong>
           </div>
 
-          <div class="tracker-box">
-            <label>Water Goal (fl oz)</label>
-            <input id="waterGoal" type="number">
-          </div>
-
-          <div class="tracker-box">
-            <label>Sleep Goal (hours)</label>
-            <input id="sleepGoal" type="number" step=".1">
+          <div class="summary">
+            <span class="small">Water</span>
+            <strong id="totalWater">0 oz</strong>
           </div>
 
         </div>
 
-        <button id="saveGoals" class="save-button">
+      </div>
+
+
+      <div class="card span12">
+
+        <div class="label">FOOD</div>
+
+        <div id="meals"></div>
+
+      </div>
+
+
+      <div class="card span12">
+
+        <div class="label">QUICK WATER</div>
+
+        <div class="small" style="margin-top:5px">
+          Tap an amount to instantly add it.
+        </div>
+
+        <div class="water-buttons">
+
+          <button class="water-btn" data-water="8">+8 oz</button>
+          <button class="water-btn" data-water="16">+16 oz</button>
+          <button class="water-btn" data-water="20">+20 oz</button>
+          <button class="water-btn" data-water="24">+24 oz</button>
+          <button class="water-btn" data-water="32">+32 oz</button>
+
+        </div>
+
+        <div class="custom-water">
+          <input id="customWater" type="number" placeholder="Custom oz">
+          <button id="addCustomWater">Add</button>
+        </div>
+
+        <div class="progress-track" style="margin-top:17px">
+          <div id="waterBar" class="progress-fill" style="width:0%"></div>
+        </div>
+
+        <div id="waterGoalText" class="small"></div>
+
+      </div>
+
+
+      <div class="card span12">
+
+        <div class="label">SLEEP</div>
+
+        <div class="custom-water">
+          <input id="sleepInput" type="number" step=".1" placeholder="Hours slept">
+          <button id="saveSleep">Save</button>
+        </div>
+
+        <div id="sleepText" class="small" style="margin-top:8px"></div>
+
+      </div>
+
+
+      <div class="card span12">
+
+        <div class="label">YOUR GOALS</div>
+
+        <div class="summary-grid" style="margin-top:13px">
+
+          <div class="summary">
+            <span class="small">Calories</span>
+            <input id="goalCalories" type="number">
+          </div>
+
+          <div class="summary">
+            <span class="small">Protein (g)</span>
+            <input id="goalProtein" type="number">
+          </div>
+
+          <div class="summary">
+            <span class="small">Water (oz)</span>
+            <input id="goalWater" type="number">
+          </div>
+
+        </div>
+
+        <button id="saveGoals"
+          class="save"
+          style="
+            margin-top:12px;
+            width:100%;
+            background:var(--card2);
+            color:white;
+          ">
           Save Goals
         </button>
-
-      </div>
-
-
-      <div class="card span-12">
-
-        <div class="card-label">
-          TODAY'S FOOD
-        </div>
-
-        <div class="tracker-grid">
-
-          <div class="tracker-box">
-            <label>Breakfast Calories</label>
-            <input id="breakfast" type="number">
-          </div>
-
-          <div class="tracker-box">
-            <label>Lunch Calories</label>
-            <input id="lunch" type="number">
-          </div>
-
-          <div class="tracker-box">
-            <label>Dinner Calories</label>
-            <input id="dinner" type="number">
-          </div>
-
-          <div class="tracker-box">
-            <label>Snack Calories</label>
-            <input id="snacks" type="number">
-          </div>
-
-          <div class="tracker-box">
-            <label>Protein (g)</label>
-            <input id="protein" type="number">
-          </div>
-
-          <div class="tracker-box">
-            <label>Water (fl oz)</label>
-            <input id="water" type="number">
-          </div>
-
-          <div class="tracker-box">
-            <label>Sleep (hours)</label>
-            <input id="sleep" type="number" step=".1">
-          </div>
-
-        </div>
-
-        <button id="saveNutrition" class="save-button">
-          Save Today's Stats
-        </button>
-
-      </div>
-
-
-      <div class="card span-12">
-
-        <div class="card-label">
-          TODAY
-        </div>
-
-        <div id="nutritionSummary"></div>
 
       </div>
 
@@ -988,17 +1063,44 @@ Each mission gets its own card.
 </main>
 
 
-<!-- =========================================================
+<!-- =====================================================
+     BOTTOM NAVIGATION
+===================================================== -->
+
+<nav id="bottomNav" class="bottom-nav hidden">
+
+  <button class="nav-btn active" data-page="home">
+    <span class="nav-icon">⌂</span>
+    Home
+  </button>
+
+  <button class="nav-btn" data-page="missions">
+    <span class="nav-icon">🎯</span>
+    Missions
+  </button>
+
+  <button class="nav-btn" data-page="progress">
+    <span class="nav-icon">📈</span>
+    Progress
+  </button>
+
+  <button class="nav-btn" data-page="nutrition">
+    <span class="nav-icon">🍎</span>
+    Nutrition
+  </button>
+
+</nav>
+
+
+<!-- =====================================================
      RESULT MODAL
-========================================================= -->
+===================================================== -->
 
-<div id="resultModal" class="modal-backdrop hidden">
+<div id="resultModal" class="modal hidden">
 
-  <div class="result-modal">
+  <div class="modal-card">
 
-    <div class="card-label">
-      MISSION RESULT
-    </div>
+    <div class="label">MISSION RESULT</div>
 
     <h2 id="resultTitle">
       What did you actually do?
@@ -1006,35 +1108,92 @@ Each mission gets its own card.
 
     <p id="resultDescription" class="small"></p>
 
-    <div class="result-input">
+    <label id="resultLabel"
+      class="small"
+      style="display:block;margin-top:16px">
+      Actual amount
+    </label>
 
-      <label id="resultLabel">
-        Actual amount
-      </label>
+    <input id="resultInput"
+      type="number"
+      step=".1"
+      placeholder="Enter actual amount">
 
-      <input
-        id="resultValue"
-        type="number"
-        step="0.1"
-        placeholder="Enter what you actually did"
-      >
+    <div class="modal-buttons">
+
+      <button id="cancelResult" class="cancel">
+        Cancel
+      </button>
+
+      <button id="submitResult" class="confirm">
+        Save Result
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+     FOOD MODAL
+===================================================== -->
+
+<div id="foodModal" class="modal hidden">
+
+  <div class="modal-card">
+
+    <div class="label">ADD FOOD</div>
+
+    <h2 id="foodMealTitle">
+      Breakfast
+    </h2>
+
+    <div style="margin-top:15px">
+
+      <label class="small">Food name</label>
+      <input id="foodName" placeholder="Chicken sandwich">
+
+    </div>
+
+    <div style="margin-top:12px">
+
+      <label class="small">Calories</label>
+      <input id="foodCalories" type="number" placeholder="450">
+
+    </div>
+
+    <div style="margin-top:12px">
+
+      <label class="small">Protein (g)</label>
+      <input id="foodProtein" type="number" step=".1" placeholder="35">
+
+    </div>
+
+    <div style="margin-top:15px">
+
+      <div class="small">
+        Saved foods
+      </div>
+
+      <div id="savedFoods" style="
+        display:flex;
+        flex-wrap:wrap;
+        gap:7px;
+        margin-top:8px;
+      "></div>
 
     </div>
 
     <div class="modal-buttons">
 
-      <button
-        id="cancelResult"
-        class="cancel-button"
-      >
+      <button id="cancelFood" class="cancel">
         Cancel
       </button>
 
-      <button
-        id="submitResult"
-        class="submit-result"
-      >
-        Save Result
+      <button id="saveFood" class="confirm">
+        Add Food
       </button>
 
     </div>
@@ -1046,1344 +1205,926 @@ Each mission gets its own card.
 
 <script>
 
-/* =========================================================
-   LEVELUP DATA
-========================================================= */
+/* =====================================================
+   DATA
+===================================================== */
 
-const STORAGE_KEY = "LEVELUP_COMPLETE_V3";
+const KEY = "LEVELUP_LIFETIME_APP_V5";
 
 const SPORTS = [
-  "Baseball",
-  "Basketball",
-  "Football",
-  "Soccer",
-  "Lacrosse",
-  "Hockey",
-  "Tennis",
-  "Golf",
-  "Track",
-  "Volleyball",
-  "Swimming",
-  "Wrestling",
-  "Other"
+  "Baseball","Basketball","Football","Soccer",
+  "Lacrosse","Hockey","Tennis","Golf",
+  "Track","Volleyball","Swimming","Wrestling","Other"
 ];
 
-const defaultData = {
-  setupComplete: false,
-  name: "",
-  sports: [],
+const MEALS = [
+  ["breakfast","Breakfast"],
+  ["lunch","Lunch"],
+  ["dinner","Dinner"],
+  ["snacks","Snacks"]
+];
 
-  xp: 0,
-  totalCompleted: 0,
-
-  activeDays: [],
-  history: [],
-
-  goals: {
-    calories: 2200,
-    protein: 120,
-    water: 80,
-    sleep: 8
+const DEFAULT = {
+  setup:false,
+  name:"",
+  sports:[],
+  xp:0,
+  completed:0,
+  days:[],
+  history:[],
+  savedFoods:[],
+  goals:{
+    calories:2200,
+    protein:120,
+    water:80,
+    sleep:8
   },
-
-  nutrition: {},
-
-  daily: {}
+  nutrition:{},
+  daily:{}
 };
 
-let data = loadData();
-let pendingMissionIndex = null;
-let pendingMystery = false;
+let data = load();
+let pendingMission = null;
+let pendingMeal = null;
 
 
-/* =========================================================
-   STORAGE
-========================================================= */
+/* =====================================================
+   LOAD / SAVE
+===================================================== */
 
-function loadData() {
+function load(){
 
-  try {
+  try{
 
     const saved =
-      localStorage.getItem(STORAGE_KEY);
+      JSON.parse(localStorage.getItem(KEY));
 
-    if (!saved) {
-      return structuredClone(defaultData);
-    }
-
-    const parsed = JSON.parse(saved);
+    if(!saved)
+      return structuredClone(DEFAULT);
 
     return {
-      ...structuredClone(defaultData),
-      ...parsed,
-      goals: {
-        ...defaultData.goals,
-        ...(parsed.goals || {})
+      ...structuredClone(DEFAULT),
+      ...saved,
+      goals:{
+        ...DEFAULT.goals,
+        ...(saved.goals || {})
       }
     };
 
-  } catch {
-
-    return structuredClone(defaultData);
-
+  }catch{
+    return structuredClone(DEFAULT);
   }
-
 }
 
-
-function saveData() {
-  localStorage.setItem(
-    STORAGE_KEY,
-    JSON.stringify(data)
-  );
+function save(){
+  localStorage.setItem(KEY,JSON.stringify(data));
 }
 
-
-function today() {
+function today(){
 
   const d = new Date();
 
-  return (
-    d.getFullYear() +
-    "-" +
-    String(d.getMonth()+1).padStart(2,"0") +
-    "-" +
-    String(d.getDate()).padStart(2,"0")
-  );
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
 
 }
 
 
-/* =========================================================
-   LEVEL SYSTEM
-========================================================= */
+/* =====================================================
+   LEVELS
+===================================================== */
 
-function levelInfo(xp) {
+function levelInfo(xp){
 
-  let level = 1;
-  let remaining = xp;
-  let requirement = 100;
+  let level=1;
+  let remaining=xp;
+  let requirement=100;
 
-  while (remaining >= requirement) {
+  while(remaining>=requirement){
 
-    remaining -= requirement;
+    remaining-=requirement;
     level++;
 
-    requirement =
-      Math.round(
-        100 * Math.pow(1.18, level - 1)
-      );
+    requirement=
+      Math.round(100*Math.pow(1.18,level-1));
 
   }
 
-  return {
-    level,
-    current: remaining,
-    requirement
-  };
+  return {level,remaining,requirement};
 
 }
 
 
-/* =========================================================
-   MISSION DATABASE
-========================================================= */
+/* =====================================================
+   MISSIONS
+===================================================== */
 
-const generalMissions = [
+const GENERAL = [
 
-  {
-    id:"walk2",
-    title:"Walk 2 miles",
-    description:"Get outside and walk at least two miles.",
-    type:"Movement",
-    unit:"miles",
-    target:2,
-    xp:45
-  },
+ {id:"walk2",title:"Walk 2 miles",description:"Get outside and walk at least two miles.",type:"Movement",unit:"miles",target:2,xp:45},
 
-  {
-    id:"walk1",
-    title:"Walk 1 mile",
-    description:"Get outside and walk at least one mile.",
-    type:"Movement",
-    unit:"miles",
-    target:1,
-    xp:25
-  },
+ {id:"walk1",title:"Walk 1 mile",description:"Get outside and walk at least one mile.",type:"Movement",unit:"miles",target:1,xp:25},
 
-  {
-    id:"pushups30",
-    title:"Complete 30 push-ups",
-    description:"Complete 30 controlled push-ups.",
-    type:"Strength",
-    unit:"reps",
-    target:30,
-    xp:35
-  },
+ {id:"push30",title:"Complete 30 push-ups",description:"Complete 30 controlled push-ups.",type:"Strength",unit:"reps",target:30,xp:35},
 
-  {
-    id:"squats50",
-    title:"Complete 50 squats",
-    description:"Complete 50 controlled bodyweight squats.",
-    type:"Strength",
-    unit:"reps",
-    target:50,
-    xp:35
-  },
+ {id:"squat50",title:"Complete 50 squats",description:"Complete 50 controlled bodyweight squats.",type:"Strength",unit:"reps",target:50,xp:35},
 
-  {
-    id:"plank2",
-    title:"Plank for 2 minutes",
-    description:"Accumulate two total minutes of plank time.",
-    type:"Strength",
-    unit:"minutes",
-    target:2,
-    xp:35
-  },
+ {id:"plank2",title:"Plank for 2 minutes",description:"Accumulate two minutes of total plank time.",type:"Strength",unit:"minutes",target:2,xp:35},
 
-  {
-    id:"stretch10",
-    title:"Stretch for 10 minutes",
-    description:"Take some time to recover and loosen up.",
-    type:"Recovery",
-    unit:"minutes",
-    target:10,
-    xp:25
-  },
+ {id:"stretch10",title:"Stretch for 10 minutes",description:"Take some time to recover and loosen up.",type:"Recovery",unit:"minutes",target:10,xp:25},
 
-  {
-    id:"outside20",
-    title:"Spend 20 minutes outside",
-    description:"Get outside and spend some time away from screens.",
-    type:"Lifestyle",
-    unit:"minutes",
-    target:20,
-    xp:25
-  },
+ {id:"outside20",title:"Spend 20 minutes outside",description:"Get outside and spend time away from screens.",type:"Lifestyle",unit:"minutes",target:20,xp:25},
 
-  {
-    id:"compliments3",
-    title:"Give 3 genuine compliments",
-    description:"Make three people's day a little better.",
-    type:"Confidence",
-    unit:"people",
-    target:3,
-    xp:40
-  },
+ {id:"compliment3",title:"Give 3 genuine compliments",description:"Make three people's day a little better.",type:"Confidence",unit:"people",target:3,xp:40},
 
-  {
-    id:"sayhi5",
-    title:"Say hi to 5 people",
-    description:"A simple confidence challenge. Only count genuine interactions.",
-    type:"Comfort Zone",
-    unit:"people",
-    target:5,
-    xp:45
-  },
+ {id:"sayhi5",title:"Say hi to 5 people",description:"A simple confidence challenge. Only count genuine interactions.",type:"Comfort Zone",unit:"people",target:5,xp:45},
 
-  {
-    id:"phone30",
-    title:"Go 30 minutes without your phone",
-    description:"Put the phone away and do something else.",
-    type:"Mindset",
-    unit:"minutes",
-    target:30,
-    xp:35
-  },
+ {id:"phone30",title:"Go 30 minutes without your phone",description:"Put your phone away and do something else.",type:"Mindset",unit:"minutes",target:30,xp:35},
 
-  {
-    id:"learn15",
-    title:"Learn for 15 minutes",
-    description:"Read, study, practice, or learn something useful.",
-    type:"Growth",
-    unit:"minutes",
-    target:15,
-    xp:35
-  },
+ {id:"learn15",title:"Learn for 15 minutes",description:"Read, study, practice, or learn something useful.",type:"Growth",unit:"minutes",target:15,xp:35},
 
-  {
-    id:"clean15",
-    title:"Clean for 15 minutes",
-    description:"Clean your room, desk, backpack, or equipment.",
-    type:"Lifestyle",
-    unit:"minutes",
-    target:15,
-    xp:30
-  },
+ {id:"clean15",title:"Clean for 15 minutes",description:"Clean your room, desk, backpack, or equipment.",type:"Lifestyle",unit:"minutes",target:15,xp:30},
 
-  {
-    id:"newthing",
-    title:"Try something new",
-    description:"Do something you've never tried before.",
-    type:"Growth",
-    unit:"attempt",
-    target:1,
-    xp:55
-  }
+ {id:"newthing",title:"Try something new",description:"Do something you've never tried before.",type:"Growth",unit:"attempt",target:1,xp:55},
+
+ {id:"stairs10",title:"10 minutes of stairs",description:"Get your heart rate up with stairs.",type:"Movement",unit:"minutes",target:10,xp:40},
+
+ {id:"breathing5",title:"5 minutes of quiet breathing",description:"Take five minutes to slow down and reset.",type:"Mindset",unit:"minutes",target:5,xp:25},
+
+ {id:"read20",title:"Read for 20 minutes",description:"Read something that teaches you something or interests you.",type:"Growth",unit:"minutes",target:20,xp:35}
 
 ];
 
+const SPORT = {
 
-/* =========================================================
-   SPORT MISSIONS
-========================================================= */
+Baseball:[
+ {id:"bb100",title:"Take 100 swings",description:"Use a tee, front toss, or live pitching. Focus on quality.",type:"Baseball",unit:"swings",target:100,xp:55},
+ {id:"bb50ground",title:"Field 50 ground balls",description:"Work on footwork, glove work, and throws.",type:"Baseball",unit:"ground balls",target:50,xp:50},
+ {id:"bb30throw",title:"Make 30 quality throws",description:"Focus on accuracy and good mechanics.",type:"Baseball",unit:"throws",target:30,xp:35},
+ {id:"bb20glove",title:"20 minutes of glove work",description:"Work on transfers, quick hands, and fielding.",type:"Baseball",unit:"minutes",target:20,xp:40},
+ {id:"bb50tee",title:"Take 50 tee swings",description:"Focus on solid contact and your hitting approach.",type:"Baseball",unit:"swings",target:50,xp:35},
+ {id:"bb20foot",title:"20 minutes of defensive footwork",description:"Work on your first step, angles, and movement.",type:"Baseball",unit:"minutes",target:20,xp:40}
+],
 
-const sportMissions = {
+Lacrosse:[
+ {id:"lax100",title:"100 wall-ball reps",description:"Use both hands and focus on clean catches and passes.",type:"Lacrosse",unit:"reps",target:100,xp:55},
+ {id:"lax50ground",title:"50 ground balls",description:"Work on getting low and exploding out of the scoop.",type:"Lacrosse",unit:"ground balls",target:50,xp:50},
+ {id:"lax25shot",title:"Take 25 shots",description:"Focus on accuracy and good shooting mechanics.",type:"Lacrosse",unit:"shots",target:25,xp:45},
+ {id:"lax30dodge",title:"Complete 30 dodges",description:"Work through different dodges with both hands.",type:"Lacrosse",unit:"dodges",target:30,xp:50}
+],
 
-  Baseball: [
+Basketball:[
+ {id:"bk100",title:"Take 100 shots",description:"Focus on quality shooting rather than rushing.",type:"Basketball",unit:"shots",target:100,xp:55},
+ {id:"bk50free",title:"Shoot 50 free throws",description:"Use your normal free throw routine.",type:"Basketball",unit:"free throws",target:50,xp:40},
+ {id:"bk50dribble",title:"Complete 50 dribble moves",description:"Work on controlled handles with both hands.",type:"Basketball",unit:"moves",target:50,xp:40}
+],
 
-    {
-      id:"baseball100swings",
-      title:"Take 100 swings",
-      description:"Use a tee, front toss, or live pitching. Focus on quality swings.",
-      type:"Baseball",
-      unit:"swings",
-      target:100,
-      xp:55
-    },
+Soccer:[
+ {id:"soc100",title:"100 ball touches",description:"Work on controlled touches with both feet.",type:"Soccer",unit:"touches",target:100,xp:45},
+ {id:"soc50pass",title:"Complete 50 passes",description:"Use a wall or partner and focus on accuracy.",type:"Soccer",unit:"passes",target:50,xp:40},
+ {id:"soc30shot",title:"Take 30 shots",description:"Focus on quality finishing.",type:"Soccer",unit:"shots",target:30,xp:50}
+],
 
-    {
-      id:"baseball50grounders",
-      title:"Field 50 ground balls",
-      description:"Work on your footwork, glove work, and throws.",
-      type:"Baseball",
-      unit:"ground balls",
-      target:50,
-      xp:50
-    },
+Football:[
+ {id:"fb50catch",title:"Complete 50 catches",description:"Work on clean hands and different catching angles.",type:"Football",unit:"catches",target:50,xp:45},
+ {id:"fb30route",title:"Run 30 route reps",description:"Work on routes, cuts, and footwork.",type:"Football",unit:"reps",target:30,xp:50}
+],
 
-    {
-      id:"baseball30throws",
-      title:"Make 30 quality throws",
-      description:"Focus on accuracy and good throwing mechanics.",
-      type:"Baseball",
-      unit:"throws",
-      target:30,
-      xp:35
-    },
+Tennis:[
+ {id:"ten100",title:"100 groundstrokes",description:"Focus on controlled, quality swings.",type:"Tennis",unit:"groundstrokes",target:100,xp:50},
+ {id:"ten50serve",title:"Practice 50 serves",description:"Focus on your normal serving routine.",type:"Tennis",unit:"serves",target:50,xp:55}
+],
 
-    {
-      id:"baseball20glove",
-      title:"20 minutes of glove work",
-      description:"Work on transfers, quick hands, and fielding.",
-      type:"Baseball",
-      unit:"minutes",
-      target:20,
-      xp:40
-    },
-
-    {
-      id:"baseball50tee",
-      title:"50 tee swings",
-      description:"Focus on solid contact and your hitting approach.",
-      type:"Baseball",
-      unit:"swings",
-      target:50,
-      xp:35
-    }
-
-  ],
-
-  Lacrosse: [
-
-    {
-      id:"lax100wall",
-      title:"100 wall-ball reps",
-      description:"Use both hands and focus on clean catches and passes.",
-      type:"Lacrosse",
-      unit:"reps",
-      target:100,
-      xp:55
-    },
-
-    {
-      id:"lax50ground",
-      title:"50 ground balls",
-      description:"Work on getting low and exploding out of the scoop.",
-      type:"Lacrosse",
-      unit:"ground balls",
-      target:50,
-      xp:50
-    },
-
-    {
-      id:"lax25shots",
-      title:"Take 25 shots",
-      description:"Focus on accuracy and good shooting mechanics.",
-      type:"Lacrosse",
-      unit:"shots",
-      target:25,
-      xp:45
-    },
-
-    {
-      id:"lax30dodges",
-      title:"Complete 30 dodges",
-      description:"Work through different dodges with both hands.",
-      type:"Lacrosse",
-      unit:"dodges",
-      target:30,
-      xp:50
-    }
-
-  ],
-
-  Basketball: [
-
-    {
-      id:"basketball100shots",
-      title:"Take 100 shots",
-      description:"Focus on quality shooting rather than rushing.",
-      type:"Basketball",
-      unit:"shots",
-      target:100,
-      xp:55
-    },
-
-    {
-      id:"basketball50free",
-      title:"Shoot 50 free throws",
-      description:"Use your normal free throw routine.",
-      type:"Basketball",
-      unit:"free throws",
-      target:50,
-      xp:40
-    },
-
-    {
-      id:"basketball50dribble",
-      title:"Complete 50 dribble moves",
-      description:"Work on controlled handles with both hands.",
-      type:"Basketball",
-      unit:"moves",
-      target:50,
-      xp:40
-    }
-
-  ],
-
-  Soccer: [
-
-    {
-      id:"soccer100touch",
-      title:"100 ball touches",
-      description:"Work on controlled touches with both feet.",
-      type:"Soccer",
-      unit:"touches",
-      target:100,
-      xp:45
-    },
-
-    {
-      id:"soccer50passes",
-      title:"Complete 50 passes",
-      description:"Use a wall or partner and focus on accuracy.",
-      type:"Soccer",
-      unit:"passes",
-      target:50,
-      xp:40
-    },
-
-    {
-      id:"soccer30shots",
-      title:"Take 30 shots",
-      description:"Focus on quality finishing.",
-      type:"Soccer",
-      unit:"shots",
-      target:30,
-      xp:50
-    }
-
-  ],
-
-  Football: [
-
-    {
-      id:"football50catches",
-      title:"Complete 50 catches",
-      description:"Work on clean hands and different catching angles.",
-      type:"Football",
-      unit:"catches",
-      target:50,
-      xp:45
-    },
-
-    {
-      id:"football30routes",
-      title:"Run 30 route reps",
-      description:"Work on route running, cuts, and footwork.",
-      type:"Football",
-      unit:"reps",
-      target:30,
-      xp:50
-    }
-
-  ],
-
-  Tennis: [
-
-    {
-      id:"tennis100ground",
-      title:"100 groundstrokes",
-      description:"Focus on controlled, quality swings.",
-      type:"Tennis",
-      unit:"groundstrokes",
-      target:100,
-      xp:50
-    },
-
-    {
-      id:"tennis50serves",
-      title:"Practice 50 serves",
-      description:"Focus on your normal serving routine.",
-      type:"Tennis",
-      unit:"serves",
-      target:50,
-      xp:55
-    }
-
-  ],
-
-  Golf: [
-
-    {
-      id:"golf50swings",
-      title:"50 practice swings",
-      description:"Focus on balanced, controlled swings.",
-      type:"Golf",
-      unit:"swings",
-      target:50,
-      xp:40
-    },
-
-    {
-      id:"golf30short",
-      title:"30 short-game reps",
-      description:"Practice chips, pitches, or other short-game shots.",
-      type:"Golf",
-      unit:"reps",
-      target:30,
-      xp:45
-    }
-
-  ]
+Golf:[
+ {id:"golf50",title:"50 practice swings",description:"Focus on balanced, controlled swings.",type:"Golf",unit:"swings",target:50,xp:40},
+ {id:"golf30",title:"30 short-game reps",description:"Practice chips, pitches, or other short-game shots.",type:"Golf",unit:"reps",target:30,xp:45}
+]
 
 };
 
+const MYSTERY = [
 
-/* =========================================================
-   MYSTERY MISSIONS
-========================================================= */
+ {title:"Talk to someone new",description:"Start a genuine conversation with someone you don't normally talk to.",type:"Comfort Zone",unit:"people",target:1,xp:65},
 
-const mysteryMissions = [
+ {title:"Give someone encouragement",description:"Genuinely encourage someone today.",type:"Confidence",unit:"people",target:1,xp:50},
 
-  {
-    title:"Talk to someone new",
-    description:"Start a genuine conversation with someone you don't normally talk to.",
-    type:"Comfort Zone",
-    unit:"people",
-    target:1,
-    xp:65
-  },
+ {title:"Try a new drill",description:"Find a new drill for one of your sports and try it.",type:"Growth",unit:"drills",target:1,xp:60},
 
-  {
-    title:"Give someone encouragement",
-    description:"Genuinely encourage someone today.",
-    type:"Confidence",
-    unit:"people",
-    target:1,
-    xp:50
-  },
+ {title:"Do something you've been avoiding",description:"Pick one small productive thing you've been putting off.",type:"Growth",unit:"task",target:1,xp:65},
 
-  {
-    title:"Try a new drill",
-    description:"Find a new drill for one of your sports and try it.",
-    type:"Growth",
-    unit:"drills",
-    target:1,
-    xp:60
-  },
+ {title:"20-minute no-phone challenge",description:"Put your phone away and focus on something else.",type:"Mindset",unit:"minutes",target:20,xp:50},
 
-  {
-    title:"Do something you've been avoiding",
-    description:"Pick one small productive thing you've been putting off.",
-    type:"Growth",
-    unit:"task",
-    target:1,
-    xp:65
-  },
-
-  {
-    title:"20-minute no-phone challenge",
-    description:"Put your phone away and focus on something else.",
-    type:"Mindset",
-    unit:"minutes",
-    target:20,
-    xp:50
-  }
+ {title:"Compliment someone you don't know well",description:"Give someone a genuine compliment.",type:"Confidence",unit:"people",target:1,xp:50}
 
 ];
 
 
-/* =========================================================
-   BUILD MISSION POOL
-========================================================= */
+function pool(){
 
-function getMissionPool() {
+  let p=[...GENERAL];
 
-  let pool = [...generalMissions];
-
-  data.sports.forEach(sport => {
-
-    if (sportMissions[sport]) {
-      pool.push(...sportMissions[sport]);
-    }
-
+  data.sports.forEach(s=>{
+    if(SPORT[s]) p.push(...SPORT[s]);
   });
 
-  return pool;
-
+  return p;
 }
 
 
-/* =========================================================
-   DAILY MISSIONS
-========================================================= */
+/* =====================================================
+   DAILY GENERATION
+===================================================== */
 
-function createDailyMissions() {
+function makeDaily(){
 
-  const key = today();
-
-  if (
-    data.daily.date === key &&
+  if(
+    data.daily.date===today() &&
     Array.isArray(data.daily.missions)
-  ) {
-    return;
-  }
+  ) return;
 
-  const pool = getMissionPool();
+  const shuffled=
+    [...pool()].sort(()=>Math.random()-.5);
 
-  const shuffled =
-    [...pool].sort(() => Math.random() - .5);
+  const chosen=[];
+  const used=new Set();
 
-  const missions = [];
+  for(const m of shuffled){
 
-  for (const mission of shuffled) {
-
-    if (
-      !missions.some(
-        m => m.id === mission.id
-      )
-    ) {
-
-      missions.push({
-        ...mission,
-        completed:false,
-        swapped:false,
-        actual:null
-      });
-
+    if(!used.has(m.id)){
+      chosen.push({...m,completed:false,actual:null});
+      used.add(m.id);
     }
 
-    if (missions.length >= 5) {
-      break;
-    }
-
+    if(chosen.length===5) break;
   }
 
-  data.daily = {
-    date:key,
-    missions,
+  data.daily={
+    date:today(),
+    missions:chosen,
+    swapped:false,
     mystery:null,
     mysteryRevealed:false
   };
 
-  saveData();
-
+  save();
 }
 
 
-/* =========================================================
-   MISSION RESULT
-========================================================= */
+/* =====================================================
+   RESULT MODAL
+===================================================== */
 
-function openMissionResult(index) {
+function openResult(index){
 
-  const mission =
-    data.daily.missions[index];
+  const m=data.daily.missions[index];
 
-  if (!mission || mission.completed) {
-    return;
-  }
+  if(!m || m.completed) return;
 
-  pendingMissionIndex = index;
-  pendingMystery = false;
+  pendingMission=index;
 
-  document.getElementById("resultTitle").textContent =
-    mission.title;
+  document.getElementById("resultTitle").textContent=m.title;
 
-  document.getElementById("resultDescription").textContent =
-    `Target: ${mission.target} ${mission.unit}. Enter what you actually did.`;
+  document.getElementById("resultDescription").textContent=
+    `Target: ${m.target} ${m.unit}. Enter what you actually did.`;
 
-  document.getElementById("resultLabel").textContent =
-    `Actual ${mission.unit}`;
+  document.getElementById("resultLabel").textContent=
+    `Actual ${m.unit}`;
 
-  document.getElementById("resultValue").value = "";
+  document.getElementById("resultInput").value="";
 
   document.getElementById("resultModal")
     .classList.remove("hidden");
 
-  setTimeout(() => {
-    document.getElementById("resultValue").focus();
+  setTimeout(()=>{
+    document.getElementById("resultInput").focus();
   },50);
-
 }
 
 
-function openMysteryResult() {
-
-  const mission =
-    data.daily.mystery;
-
-  if (!mission || mission.completed) {
-    return;
-  }
-
-  pendingMissionIndex = null;
-  pendingMystery = true;
-
-  document.getElementById("resultTitle").textContent =
-    mission.title;
-
-  document.getElementById("resultDescription").textContent =
-    `Target: ${mission.target} ${mission.unit}. Enter what you actually did.`;
-
-  document.getElementById("resultLabel").textContent =
-    `Actual ${mission.unit}`;
-
-  document.getElementById("resultValue").value = "";
-
-  document.getElementById("resultModal")
-    .classList.remove("hidden");
-
-}
-
-
-function closeResultModal() {
+function closeResult(){
 
   document.getElementById("resultModal")
     .classList.add("hidden");
 
-  pendingMissionIndex = null;
-  pendingMystery = false;
-
+  pendingMission=null;
 }
 
 
-function submitResult() {
+function submitResult(){
 
-  const value =
-    Number(
-      document.getElementById("resultValue").value
-    );
+  if(pendingMission===null) return;
 
-  if (!Number.isFinite(value) || value <= 0) {
+  const m=data.daily.missions[pendingMission];
 
+  const value=Number(
+    document.getElementById("resultInput").value
+  );
+
+  if(!Number.isFinite(value)||value<=0){
     alert("Enter what you actually did.");
-
     return;
-
   }
 
+  m.actual=value;
 
-  let mission;
+  if(value>=m.target){
 
-  if (pendingMystery) {
+    m.completed=true;
 
-    mission = data.daily.mystery;
-
-  } else {
-
-    mission =
-      data.daily.missions[pendingMissionIndex];
-
-  }
-
-
-  if (!mission || mission.completed) {
-
-    closeResultModal();
-
-    return;
-
-  }
-
-
-  /*
-    You only earn the mission's XP when you
-    reach the target.
-
-    Doing MORE than the target is saved,
-    but XP does not endlessly increase.
-  */
-
-  const reachedTarget =
-    value >= mission.target;
-
-
-  mission.actual = value;
-  mission.completed = reachedTarget;
-
-
-  if (reachedTarget) {
-
-    data.xp += mission.xp;
-    data.totalCompleted++;
+    data.xp+=m.xp;
+    data.completed++;
 
     data.history.push({
-
       date:today(),
-
-      title:mission.title,
-
-      target:
-        `${mission.target} ${mission.unit}`,
-
-      actual:
-        `${value} ${mission.unit}`,
-
-      xp:mission.xp
-
+      title:m.title,
+      target:`${m.target} ${m.unit}`,
+      actual:`${value} ${m.unit}`,
+      xp:m.xp
     });
 
-    markActiveDay();
+    markDay();
 
-    alert(
-      `Mission complete! +${mission.xp} XP`
-    );
+    alert(`Mission complete! +${m.xp} XP`);
 
-  } else {
-
-    /*
-      The result is still saved, but the
-      mission isn't marked complete and
-      doesn't award XP.
-    */
+  }else{
 
     data.history.push({
-
       date:today(),
-
-      title:
-        `${mission.title} — progress`,
-
-      target:
-        `${mission.target} ${mission.unit}`,
-
-      actual:
-        `${value} ${mission.unit}`,
-
+      title:m.title+" — progress",
+      target:`${m.target} ${m.unit}`,
+      actual:`${value} ${m.unit}`,
       xp:0
-
     });
 
     alert(
-      `You logged ${value} ${mission.unit}, but the target was ${mission.target}. No XP yet.`
+      `You logged ${value} ${m.unit}. You need ${m.target} to complete the mission.`
     );
 
   }
 
-
-  saveData();
-
-  closeResultModal();
-
+  save();
+  closeResult();
   renderAll();
-
 }
 
 
-/* =========================================================
-   SWAP
-========================================================= */
+/* =====================================================
+   ONE SWAP PER DAY
+===================================================== */
 
-function swapMission(index) {
+function swapMission(index){
 
-  const old =
-    data.daily.missions[index];
-
-  if (
-    !old ||
-    old.completed ||
-    old.swapped
-  ) {
+  if(data.daily.swapped){
+    alert("You've already used today's swap.");
     return;
   }
 
+  const old=data.daily.missions[index];
 
-  const used =
-    data.daily.missions.map(m => m.id);
+  if(!old || old.completed) return;
 
+  const used=data.daily.missions.map(m=>m.id);
 
-  const pool =
-    getMissionPool().filter(
-      m => !used.includes(m.id)
-    );
+  const choices=pool().filter(
+    m=>!used.includes(m.id)
+  );
 
-
-  if (!pool.length) {
-
-    alert("No different mission is available right now.");
-
+  if(!choices.length){
+    alert("No different mission is available.");
     return;
-
   }
 
+  const replacement=
+    choices[Math.floor(Math.random()*choices.length)];
 
-  const replacement =
-    pool[
-      Math.floor(
-        Math.random() * pool.length
-      )
-    ];
-
-
-  data.daily.missions[index] = {
-
+  data.daily.missions[index]={
     ...replacement,
-
     completed:false,
-    swapped:true,
     actual:null
-
   };
 
+  data.daily.swapped=true;
 
-  saveData();
-
+  save();
   renderAll();
-
 }
 
 
-/* =========================================================
+/* =====================================================
    MYSTERY
-========================================================= */
+===================================================== */
 
-function revealMystery() {
+function revealMystery(){
 
-  if (data.daily.mysteryRevealed) {
-    return;
-  }
+  if(data.daily.mysteryRevealed) return;
 
+  const m=
+    MYSTERY[Math.floor(Math.random()*MYSTERY.length)];
 
-  const chosen =
-    mysteryMissions[
-      Math.floor(
-        Math.random() * mysteryMissions.length
-      )
-    ];
-
-
-  data.daily.mystery = {
-
-    ...chosen,
-
-    id:"mystery_" + today(),
-
+  data.daily.mystery={
+    ...m,
     completed:false,
     actual:null
-
   };
 
+  data.daily.mysteryRevealed=true;
 
-  data.daily.mysteryRevealed = true;
-
-  saveData();
-
+  save();
   renderAll();
+}
+
+
+/* =====================================================
+   ACTIVE DAY
+===================================================== */
+
+function markDay(){
+
+  if(!data.days.includes(today()))
+    data.days.push(today());
 
 }
 
 
-/* =========================================================
-   ACTIVE DAYS
-========================================================= */
-
-function markActiveDay() {
-
-  const key = today();
-
-  if (!data.activeDays.includes(key)) {
-
-    data.activeDays.push(key);
-
-  }
-
-}
-
-
-/* =========================================================
+/* =====================================================
    NUTRITION
-========================================================= */
+===================================================== */
 
-function getNutrition() {
+function nutrition(){
 
-  const key = today();
+  if(!data.nutrition[today()]){
 
-  if (!data.nutrition[key]) {
-
-    data.nutrition[key] = {
-
-      breakfast:0,
-      lunch:0,
-      dinner:0,
-      snacks:0,
-
-      protein:0,
+    data.nutrition[today()]={
+      meals:{
+        breakfast:[],
+        lunch:[],
+        dinner:[],
+        snacks:[]
+      },
       water:0,
       sleep:0
-
     };
 
   }
 
-  return data.nutrition[key];
+  return data.nutrition[today()];
+}
+
+
+function totals(){
+
+  const n=nutrition();
+
+  let calories=0;
+  let protein=0;
+
+  MEALS.forEach(([key])=>{
+
+    n.meals[key].forEach(food=>{
+      calories+=Number(food.calories)||0;
+      protein+=Number(food.protein)||0;
+    });
+
+  });
+
+  return {
+    calories,
+    protein,
+    water:n.water,
+    sleep:n.sleep
+  };
+}
+
+
+/* =====================================================
+   FOOD MODAL
+===================================================== */
+
+function openFood(meal){
+
+  pendingMeal=meal;
+
+  const pretty=
+    MEALS.find(x=>x[0]===meal)[1];
+
+  document.getElementById("foodMealTitle")
+    .textContent=pretty;
+
+  document.getElementById("foodName").value="";
+  document.getElementById("foodCalories").value="";
+  document.getElementById("foodProtein").value="";
+
+  renderSavedFoods();
+
+  document.getElementById("foodModal")
+    .classList.remove("hidden");
 
 }
 
 
-function saveNutrition() {
+function closeFood(){
 
-  const n = getNutrition();
+  document.getElementById("foodModal")
+    .classList.add("hidden");
 
-  n.breakfast =
-    Number(
-      document.getElementById("breakfast").value
-    ) || 0;
-
-  n.lunch =
-    Number(
-      document.getElementById("lunch").value
-    ) || 0;
-
-  n.dinner =
-    Number(
-      document.getElementById("dinner").value
-    ) || 0;
-
-  n.snacks =
-    Number(
-      document.getElementById("snacks").value
-    ) || 0;
-
-  n.protein =
-    Number(
-      document.getElementById("protein").value
-    ) || 0;
-
-  n.water =
-    Number(
-      document.getElementById("water").value
-    ) || 0;
-
-  n.sleep =
-    Number(
-      document.getElementById("sleep").value
-    ) || 0;
-
-
-  saveData();
-
-  renderAll();
-
-  alert("Today's stats saved!");
+  pendingMeal=null;
 
 }
 
 
-function saveGoals() {
+function saveFood(){
 
-  data.goals.calories =
+  if(!pendingMeal) return;
+
+  const name=
+    document.getElementById("foodName")
+      .value.trim();
+
+  const calories=
     Number(
-      document.getElementById("calorieGoal").value
-    ) || 0;
+      document.getElementById("foodCalories").value
+    );
 
-  data.goals.protein =
+  const protein=
     Number(
-      document.getElementById("proteinGoal").value
-    ) || 0;
+      document.getElementById("foodProtein").value
+    )||0;
 
-  data.goals.water =
-    Number(
-      document.getElementById("waterGoal").value
-    ) || 0;
-
-  data.goals.sleep =
-    Number(
-      document.getElementById("sleepGoal").value
-    ) || 0;
-
-
-  saveData();
-
-  renderAll();
-
-  alert("Goals saved!");
-
-}
-
-
-/* =========================================================
-   RENDER SETUP
-========================================================= */
-
-function renderSetup() {
-
-  if (data.setupComplete) {
-
-    document
-      .getElementById("setupScreen")
-      .classList.add("hidden");
-
-    document
-      .getElementById("app")
-      .classList.remove("hidden");
-
-  } else {
-
-    document
-      .getElementById("setupScreen")
-      .classList.remove("hidden");
-
-    document
-      .getElementById("app")
-      .classList.add("hidden");
-
+  if(!name){
+    alert("Enter a food name.");
+    return;
   }
 
+  if(!Number.isFinite(calories)||calories<0){
+    alert("Enter the calories.");
+    return;
+  }
+
+  const food={
+    id:Date.now(),
+    name,
+    calories,
+    protein
+  };
+
+  nutrition().meals[pendingMeal].push(food);
+
+  /*
+    Save it permanently so next time
+    you can tap it instead of typing again.
+  */
+
+  const exists=
+    data.savedFoods.some(
+      f=>
+        f.name.toLowerCase()===name.toLowerCase()
+    );
+
+  if(!exists){
+    data.savedFoods.push({
+      name,
+      calories,
+      protein
+    });
+  }
+
+  save();
+
+  closeFood();
+  renderAll();
 }
 
 
-function renderSportsSelector() {
+function useSavedFood(food){
 
-  const container =
-    document.getElementById("sportsList");
+  if(!pendingMeal) return;
 
+  nutrition().meals[pendingMeal].push({
+    id:Date.now(),
+    name:food.name,
+    calories:food.calories,
+    protein:food.protein
+  });
 
-  container.innerHTML =
-    SPORTS.map(sport => `
+  save();
 
-      <button
-        type="button"
-        class="sport-button ${
-          data.sports.includes(sport)
-            ? "selected"
-            : ""
-        }"
-        data-sport="${sport}"
-      >
-        ${sport}
-      </button>
-
-    `).join("");
+  closeFood();
+  renderAll();
+}
 
 
-  container
-    .querySelectorAll("[data-sport]")
-    .forEach(button => {
+function deleteFood(meal,index){
 
-      button.addEventListener(
-        "click",
-        () => {
+  nutrition().meals[meal].splice(index,1);
 
-          const sport =
-            button.dataset.sport;
+  save();
+  renderAll();
+}
 
 
-          if (data.sports.includes(sport)) {
+function renderSavedFoods(){
 
-            data.sports =
-              data.sports.filter(
-                x => x !== sport
-              );
+  const box=
+    document.getElementById("savedFoods");
 
-          } else {
+  if(!data.savedFoods.length){
 
-            data.sports.push(sport);
+    box.innerHTML=
+      `<span class="small">No saved foods yet.</span>`;
 
-          }
+    return;
+  }
 
+  box.innerHTML=
+    data.savedFoods
+      .map((food,i)=>`
 
-          renderSportsSelector();
+        <button
+          class="water-btn"
+          style="font-size:11px"
+          data-saved-food="${i}"
+        >
+          ${food.name}
+        </button>
 
-        }
-      );
+      `).join("");
+
+  box.querySelectorAll("[data-saved-food]")
+    .forEach(btn=>{
+
+      btn.addEventListener("click",()=>{
+
+        useSavedFood(
+          data.savedFoods[
+            Number(btn.dataset.savedFood)
+          ]
+        );
+
+      });
 
     });
 
 }
 
 
-/* =========================================================
-   RENDER HEADER
-========================================================= */
+/* =====================================================
+   WATER
+===================================================== */
 
-function renderHeader() {
+function addWater(amount){
 
-  const info =
-    levelInfo(data.xp);
+  amount=Number(amount);
 
+  if(!Number.isFinite(amount)||amount<=0)
+    return;
 
-  document.getElementById("username")
-    .textContent =
-      `Hey, ${data.name}`;
+  nutrition().water+=amount;
 
-
-  document.getElementById("levelPill")
-    .textContent =
-      `Level ${info.level}`;
+  save();
+  renderAll();
+}
 
 
-  document.getElementById("homeLevel")
-    .textContent =
-      `Level ${info.level}`;
+/* =====================================================
+   SLEEP
+===================================================== */
+
+function saveSleep(){
+
+  const value=
+    Number(
+      document.getElementById("sleepInput").value
+    );
+
+  if(!Number.isFinite(value)||value<0){
+    alert("Enter your sleep.");
+    return;
+  }
+
+  nutrition().sleep=value;
+
+  save();
+  renderAll();
+
+  document.getElementById("sleepInput").value="";
+}
 
 
-  document.getElementById("lifetimeXP")
-    .textContent =
-      data.xp.toLocaleString();
+/* =====================================================
+   GOALS
+===================================================== */
+
+function saveGoals(){
+
+  data.goals.calories=
+    Number(document.getElementById("goalCalories").value)||0;
+
+  data.goals.protein=
+    Number(document.getElementById("goalProtein").value)||0;
+
+  data.goals.water=
+    Number(document.getElementById("goalWater").value)||0;
+
+  save();
+  renderAll();
+
+  alert("Goals saved.");
+}
 
 
-  document.getElementById("progressXP")
-    .textContent =
-      data.xp.toLocaleString();
+/* =====================================================
+   RENDER SETUP
+===================================================== */
 
+function renderSetup(){
 
-  document.getElementById("completedCount")
-    .textContent =
-      data.totalCompleted;
+  document.getElementById("setup")
+    .classList.toggle("hidden",data.setup);
 
+  document.getElementById("app")
+    .classList.toggle("hidden",!data.setup);
 
-  document.getElementById("daysActive")
-    .textContent =
-      data.activeDays.length;
-
-
-  document.getElementById("xpText")
-    .textContent =
-      `${info.current} / ${info.requirement} XP`;
-
-
-  document.getElementById("nextLevelText")
-    .textContent =
-      `${info.requirement - info.current} XP until Level ${info.level + 1}`;
-
-
-  document.getElementById("xpBar")
-    .style.width =
-      `${Math.min(
-        100,
-        info.current /
-        info.requirement *
-        100
-      )}%`;
-
-
-  document.getElementById("sportsDisplay")
-    .textContent =
-      data.sports.length
-        ? data.sports.join(" • ")
-        : "No sports selected";
+  document.getElementById("bottomNav")
+    .classList.toggle("hidden",!data.setup);
 
 }
 
 
-/* =========================================================
+function renderSports(){
+
+  const box=document.getElementById("sports");
+
+  box.innerHTML=
+    SPORTS.map(s=>`
+
+      <button
+        class="sport-btn ${
+          data.sports.includes(s)?"selected":""
+        }"
+        data-sport="${s}"
+      >
+        ${s}
+      </button>
+
+    `).join("");
+
+  box.querySelectorAll("[data-sport]")
+    .forEach(btn=>{
+
+      btn.addEventListener("click",()=>{
+
+        const s=btn.dataset.sport;
+
+        if(data.sports.includes(s)){
+          data.sports=
+            data.sports.filter(x=>x!==s);
+        }else{
+          data.sports.push(s);
+        }
+
+        renderSports();
+
+      });
+
+    });
+
+}
+
+
+/* =====================================================
+   RENDER HEADER
+===================================================== */
+
+function renderHeader(){
+
+  const info=levelInfo(data.xp);
+  const n=totals();
+
+  document.getElementById("username")
+    .textContent=`Hey, ${data.name}`;
+
+  document.getElementById("levelPill")
+    .textContent=`Level ${info.level}`;
+
+  document.getElementById("homeLevel")
+    .textContent=`Level ${info.level}`;
+
+  document.getElementById("lifetimeXP")
+    .textContent=data.xp.toLocaleString();
+
+  document.getElementById("progressXP")
+    .textContent=data.xp.toLocaleString();
+
+  document.getElementById("completedCount")
+    .textContent=data.completed;
+
+  document.getElementById("daysActive")
+    .textContent=data.days.length;
+
+  document.getElementById("xpText")
+    .textContent=
+      `${info.remaining} / ${info.requirement} XP`;
+
+  document.getElementById("nextLevel")
+    .textContent=
+      `${info.requirement-info.remaining} XP until Level ${info.level+1}`;
+
+  document.getElementById("xpBar")
+    .style.width=
+      `${Math.min(
+        100,
+        info.remaining/info.requirement*100
+      )}%`;
+
+  document.getElementById("homeSports")
+    .textContent=
+      data.sports.length
+        ? data.sports.join(" • ")
+        : "No sports selected";
+
+  const completedToday=
+    data.daily.missions
+      .filter(m=>m.completed).length;
+
+  document.getElementById("homeMissions")
+    .textContent=
+      `${completedToday} / ${data.daily.missions.length}`;
+
+  document.getElementById("homeProtein")
+    .textContent=`${n.protein}g`;
+
+  document.getElementById("homeWater")
+    .textContent=`${n.water} oz`;
+
+}
+
+
+/* =====================================================
    MISSION HTML
-========================================================= */
+===================================================== */
 
-function missionHTML(mission,index) {
-
-  const completed =
-    mission.completed;
-
+function missionHTML(m,index){
 
   return `
 
     <article class="mission-card ${
-      completed ? "completed" : ""
+      m.completed?"completed":""
     }">
 
-      <div class="mission-header">
+      <div class="mission-head">
 
-        <span class="mission-tag">
-          ${mission.type}
+        <span class="tag">
+          ${m.type}
         </span>
 
-        <span class="mission-xp">
-          +${mission.xp} XP
+        <span class="xp">
+          +${m.xp} XP
         </span>
 
       </div>
 
-
-      <h3 class="mission-title">
-        ${mission.title}
-      </h3>
-
+      <div class="mission-title">
+        ${m.title}
+      </div>
 
       <p class="mission-description">
-        ${mission.description}
+        ${m.description}
       </p>
 
-
-      <div class="mission-target">
+      <div class="target">
 
         🎯 Target:
-        ${mission.target}
-        ${mission.unit}
+        ${m.target} ${m.unit}
 
         ${
-          mission.actual !== null
+          m.actual!==null
             ? `<br>📊 Actual:
-                ${mission.actual}
-                ${mission.unit}`
-            : ""
+               ${m.actual} ${m.unit}`
+            :""
         }
 
       </div>
 
-
       <div class="mission-buttons">
 
         <button
-          class="complete-button"
+          class="complete"
           data-complete="${index}"
-          ${completed ? "disabled" : ""}
+          ${m.completed?"disabled":""}
         >
-          ${
-            completed
-              ? "✓ Completed"
-              : "Complete Mission"
-          }
+          ${m.completed?"✓ Completed":"Complete Mission"}
         </button>
 
-
         <button
-          class="swap-button"
+          class="swap"
           data-swap="${index}"
           ${
-            completed || mission.swapped
-              ? "disabled"
-              : ""
+            data.daily.swapped||m.completed
+              ?"disabled":""
           }
         >
-          ${
-            mission.swapped
-              ? "Already Swapped"
-              : "↻ Swap Mission"
-          }
+          ${data.daily.swapped
+            ?"Swap Used Today"
+            :"↻ Swap Mission"}
         </button>
 
       </div>
@@ -2395,834 +2136,722 @@ function missionHTML(mission,index) {
 }
 
 
-/* =========================================================
-   RENDER MISSIONS
-========================================================= */
+function renderMissions(){
 
-function renderMissions() {
+  const box=
+    document.getElementById("missionList");
 
-  const list =
-    document.getElementById("missionsList");
-
-
-  /*
-    IMPORTANT:
-    This is NOT a grid.
-    It is a vertical list.
-    Therefore missions cannot get
-    jammed next to one another.
-  */
-
-  list.innerHTML =
+  box.innerHTML=
     data.daily.missions
-      .map(
-        (mission,index) =>
-          missionHTML(
-            mission,
-            index
-          )
-      )
+      .map(missionHTML)
       .join("");
 
+  box.querySelectorAll("[data-complete]")
+    .forEach(btn=>{
 
-  list
-    .querySelectorAll("[data-complete]")
-    .forEach(button => {
+      btn.addEventListener("click",()=>{
 
-      button.addEventListener(
-        "click",
-        () => {
+        openResult(
+          Number(btn.dataset.complete)
+        );
 
-          openMissionResult(
-            Number(
-              button.dataset.complete
-            )
-          );
+      });
 
-        }
-      );
+    });
+
+  box.querySelectorAll("[data-swap]")
+    .forEach(btn=>{
+
+      btn.addEventListener("click",()=>{
+
+        swapMission(
+          Number(btn.dataset.swap)
+        );
+
+      });
 
     });
 
 
-  list
-    .querySelectorAll("[data-swap]")
-    .forEach(button => {
+  document.getElementById("swapStatus")
+    .textContent=
+      data.daily.swapped
+        ? "🔒 Today's one swap has been used."
+        : "🔄 You have 1 mission swap available today.";
 
-      button.addEventListener(
-        "click",
-        () => {
-
-          swapMission(
-            Number(
-              button.dataset.swap
-            )
-          );
-
-        }
-      );
-
-    });
-
-
-  /*
-    Mystery challenge
-  */
 
   renderMystery();
 
-
-  /*
-    Home page gets the same
-    full-width mission cards.
-  */
-
-  const home =
-    document.getElementById(
-      "homeMissionList"
-    );
-
-
-  home.innerHTML =
-    data.daily.missions
-      .map(
-        (mission,index) =>
-          missionHTML(
-            mission,
-            index
-          )
-      )
-      .join("");
-
-
-  home
-    .querySelectorAll("[data-complete]")
-    .forEach(button => {
-
-      button.addEventListener(
-        "click",
-        () => {
-
-          openMissionResult(
-            Number(
-              button.dataset.complete
-            )
-          );
-
-        }
-      );
-
-    });
-
-
-  home
-    .querySelectorAll("[data-swap]")
-    .forEach(button => {
-
-      button.addEventListener(
-        "click",
-        () => {
-
-          swapMission(
-            Number(
-              button.dataset.swap
-            )
-          );
-
-        }
-      );
-
-    });
-
 }
 
 
-/* =========================================================
-   MYSTERY RENDER
-========================================================= */
+function renderMystery(){
 
-function renderMystery() {
+  const title=
+    document.getElementById("mysteryTitle");
 
-  const title =
-    document.getElementById(
-      "mysteryTitle"
-    );
+  const desc=
+    document.getElementById("mysteryDescription");
 
-  const description =
-    document.getElementById(
-      "mysteryDescription"
-    );
+  const btn=
+    document.getElementById("mysteryBtn");
 
-  const button =
-    document.getElementById(
-      "revealButton"
-    );
+  if(!data.daily.mysteryRevealed){
 
+    title.textContent=
+      "Something unexpected...";
 
-  if (!data.daily.mysteryRevealed) {
+    desc.textContent=
+      "Reveal your mystery challenge when you're ready.";
 
-    title.textContent =
-      "You don't know what you're getting.";
-
-    description.textContent =
-      "Reveal today's mystery challenge when you're ready.";
-
-    button.textContent =
-      "Reveal Challenge";
-
-    button.disabled = false;
-
-    button.onclick =
-      revealMystery;
+    btn.textContent="Reveal Challenge";
+    btn.disabled=false;
+    btn.onclick=revealMystery;
 
     return;
-
   }
 
+  const m=data.daily.mystery;
 
-  const m =
-    data.daily.mystery;
-
-
-  title.textContent =
+  title.textContent=
     `${m.title} • +${m.xp} XP`;
 
-
-  description.textContent =
+  desc.textContent=
     `${m.description} Target: ${m.target} ${m.unit}.`;
 
+  if(m.completed){
 
-  if (m.completed) {
+    btn.textContent="✓ Completed";
+    btn.disabled=true;
 
-    button.textContent =
-      "✓ Completed";
+  }else{
 
-    button.disabled = true;
+    btn.textContent="Complete Mystery Challenge";
+    btn.disabled=false;
 
-  } else {
+    btn.onclick=()=>{
 
-    button.textContent =
-      "Complete Mystery Challenge";
+      pendingMission="mystery";
 
-    button.disabled = false;
+      document.getElementById("resultTitle")
+        .textContent=m.title;
 
-    button.onclick =
-      openMysteryResult;
+      document.getElementById("resultDescription")
+        .textContent=
+          `Target: ${m.target} ${m.unit}. Enter what you actually did.`;
+
+      document.getElementById("resultLabel")
+        .textContent=`Actual ${m.unit}`;
+
+      document.getElementById("resultInput").value="";
+
+      document.getElementById("resultModal")
+        .classList.remove("hidden");
+
+    };
 
   }
 
 }
 
 
-/* =========================================================
-   TODAY STATS
-========================================================= */
+/* =====================================================
+   MYSTERY RESULT SPECIAL HANDLING
+===================================================== */
 
-function renderTodayStats() {
+const originalSubmitResult=submitResult;
 
-  const n =
-    getNutrition();
+submitResult=function(){
 
+  if(pendingMission!=="mystery"){
+    originalSubmitResult();
+    return;
+  }
 
-  const calories =
-    n.breakfast +
-    n.lunch +
-    n.dinner +
-    n.snacks;
+  const m=data.daily.mystery;
 
+  const value=Number(
+    document.getElementById("resultInput").value
+  );
 
-  document.getElementById("todayStats")
-    .innerHTML = `
+  if(!Number.isFinite(value)||value<=0){
+    alert("Enter what you actually did.");
+    return;
+  }
 
-      <div class="history-row">
-        <span>Calories</span>
-        <strong>
-          ${calories.toLocaleString()}
-        </strong>
-      </div>
+  m.actual=value;
 
-      <div class="history-row">
-        <span>Protein</span>
-        <strong>${n.protein}g</strong>
-      </div>
+  if(value>=m.target){
 
-      <div class="history-row">
-        <span>Water</span>
-        <strong>${n.water} fl oz</strong>
-      </div>
+    m.completed=true;
+    data.xp+=m.xp;
+    data.completed++;
 
-      <div class="history-row">
-        <span>Sleep</span>
-        <strong>${n.sleep} hrs</strong>
-      </div>
+    data.history.push({
+      date:today(),
+      title:m.title,
+      target:`${m.target} ${m.unit}`,
+      actual:`${value} ${m.unit}`,
+      xp:m.xp
+    });
 
-    `;
+    markDay();
 
-}
+    alert(`Mystery complete! +${m.xp} XP`);
 
+  }else{
 
-/* =========================================================
-   NUTRITION RENDER
-========================================================= */
+    data.history.push({
+      date:today(),
+      title:m.title+" — progress",
+      target:`${m.target} ${m.unit}`,
+      actual:`${value} ${m.unit}`,
+      xp:0
+    });
 
-function renderNutrition() {
-
-  const n =
-    getNutrition();
-
-
-  document.getElementById(
-    "calorieGoal"
-  ).value =
-    data.goals.calories || "";
-
-
-  document.getElementById(
-    "proteinGoal"
-  ).value =
-    data.goals.protein || "";
-
-
-  document.getElementById(
-    "waterGoal"
-  ).value =
-    data.goals.water || "";
-
-
-  document.getElementById(
-    "sleepGoal"
-  ).value =
-    data.goals.sleep || "";
-
-
-  document.getElementById(
-    "breakfast"
-  ).value =
-    n.breakfast || "";
-
-
-  document.getElementById(
-    "lunch"
-  ).value =
-    n.lunch || "";
-
-
-  document.getElementById(
-    "dinner"
-  ).value =
-    n.dinner || "";
-
-
-  document.getElementById(
-    "snacks"
-  ).value =
-    n.snacks || "";
-
-
-  document.getElementById(
-    "protein"
-  ).value =
-    n.protein || "";
-
-
-  document.getElementById(
-    "water"
-  ).value =
-    n.water || "";
-
-
-  document.getElementById(
-    "sleep"
-  ).value =
-    n.sleep || "";
-
-
-  const calories =
-    n.breakfast +
-    n.lunch +
-    n.dinner +
-    n.snacks;
-
-
-  document.getElementById(
-    "nutritionSummary"
-  ).innerHTML = `
-
-    <div class="history-row">
-      <span>Calories</span>
-      <strong>
-        ${calories.toLocaleString()}
-        /
-        ${data.goals.calories.toLocaleString()}
-      </strong>
-    </div>
-
-    <div class="progress-track">
-      <div
-        class="progress-fill"
-        style="
-          width:${Math.min(
-            100,
-            data.goals.calories
-              ? calories /
-                data.goals.calories *
-                100
-              : 0
-          )}%
-        "
-      ></div>
-    </div>
-
-
-    <div class="history-row">
-      <span>Protein</span>
-      <strong>
-        ${n.protein}g /
-        ${data.goals.protein}g
-      </strong>
-    </div>
-
-    <div class="progress-track">
-      <div
-        class="progress-fill"
-        style="
-          width:${Math.min(
-            100,
-            data.goals.protein
-              ? n.protein /
-                data.goals.protein *
-                100
-              : 0
-          )}%
-        "
-      ></div>
-    </div>
-
-
-    <div class="history-row">
-      <span>Water</span>
-      <strong>
-        ${n.water} /
-        ${data.goals.water} fl oz
-      </strong>
-    </div>
-
-    <div class="progress-track">
-      <div
-        class="progress-fill"
-        style="
-          width:${Math.min(
-            100,
-            data.goals.water
-              ? n.water /
-                data.goals.water *
-                100
-              : 0
-          )}%
-        "
-      ></div>
-    </div>
-
-
-    <div class="history-row">
-      <span>Sleep</span>
-      <strong>
-        ${n.sleep} /
-        ${data.goals.sleep} hrs
-      </strong>
-    </div>
-
-  `;
-
-}
-
-
-/* =========================================================
-   HISTORY
-========================================================= */
-
-function renderHistory() {
-
-  const container =
-    document.getElementById(
-      "history"
+    alert(
+      `You logged ${value} ${m.unit}, but the target was ${m.target}.`
     );
 
-
-  if (!data.history.length) {
-
-    container.innerHTML = `
-      <p class="small">
-        Nothing here yet. This is where
-        your lifetime journey will build up.
-      </p>
-    `;
-
-    return;
-
   }
 
+  save();
+  closeResult();
+  renderAll();
 
-  const recent =
-    [...data.history]
-      .reverse()
-      .slice(0,30);
+};
 
 
-  container.innerHTML =
-    recent
-      .map(item => `
+/* =====================================================
+   HOME SUMMARY
+===================================================== */
 
-        <div class="history-row">
+function renderHomeSummary(){
 
-          <div>
+  const n=totals();
 
-            <strong>
-              ${item.title}
-            </strong>
+  const caloriesGoal=data.goals.calories;
+  const proteinGoal=data.goals.protein;
+  const waterGoal=data.goals.water;
 
-            <div class="small">
-              ${item.date}
+  document.getElementById("homeSummary")
+    .innerHTML=`
 
-              ${
-                item.actual
-                  ? ` • Actual: ${item.actual}`
-                  : ""
-              }
+      <div class="history-row">
+
+        <span>Calories</span>
+
+        <strong>
+          ${n.calories.toLocaleString()}
+          / ${caloriesGoal.toLocaleString()}
+        </strong>
+
+      </div>
+
+      <div class="progress-track">
+        <div class="progress-fill"
+          style="width:${Math.min(
+            100,
+            caloriesGoal
+              ? n.calories/caloriesGoal*100
+              : 0
+          )}%">
+        </div>
+      </div>
+
+
+      <div class="history-row">
+
+        <span>Protein</span>
+
+        <strong>
+          ${n.protein}g / ${proteinGoal}g
+        </strong>
+
+      </div>
+
+      <div class="progress-track">
+        <div class="progress-fill"
+          style="width:${Math.min(
+            100,
+            proteinGoal
+              ? n.protein/proteinGoal*100
+              : 0
+          )}%">
+        </div>
+      </div>
+
+
+      <div class="history-row">
+
+        <span>Water</span>
+
+        <strong>
+          ${n.water} / ${waterGoal} oz
+        </strong>
+
+      </div>
+
+      <div class="progress-track">
+        <div class="progress-fill"
+          style="width:${Math.min(
+            100,
+            waterGoal
+              ? n.water/waterGoal*100
+              : 0
+          )}%">
+        </div>
+      </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   NUTRITION RENDER
+===================================================== */
+
+function renderNutrition(){
+
+  const n=nutrition();
+  const t=totals();
+
+  document.getElementById("totalCalories")
+    .textContent=t.calories.toLocaleString();
+
+  document.getElementById("totalProtein")
+    .textContent=`${t.protein}g`;
+
+  document.getElementById("totalWater")
+    .textContent=`${t.water} oz`;
+
+  document.getElementById("waterBar")
+    .style.width=
+      `${Math.min(
+        100,
+        data.goals.water
+          ? t.water/data.goals.water*100
+          : 0
+      )}%`;
+
+  document.getElementById("waterGoalText")
+    .textContent=
+      `${t.water} / ${data.goals.water} fl oz`;
+
+  document.getElementById("sleepText")
+    .textContent=
+      n.sleep
+        ? `${n.sleep} hours logged`
+        : "No sleep logged yet.";
+
+  document.getElementById("goalCalories")
+    .value=data.goals.calories;
+
+  document.getElementById("goalProtein")
+    .value=data.goals.protein;
+
+  document.getElementById("goalWater")
+    .value=data.goals.water;
+
+
+  const meals=document.getElementById("meals");
+
+  meals.innerHTML=
+    MEALS.map(([key,label])=>{
+
+      const foods=n.meals[key];
+
+      const mealCalories=
+        foods.reduce(
+          (sum,f)=>sum+(Number(f.calories)||0),
+          0
+        );
+
+      const mealProtein=
+        foods.reduce(
+          (sum,f)=>sum+(Number(f.protein)||0),
+          0
+        );
+
+      return `
+
+        <div class="meal">
+
+          <div class="meal-head">
+
+            <div>
+
+              <div class="meal-name">
+                ${label}
+              </div>
+
+              <div class="small">
+                ${mealCalories} cal • ${mealProtein}g protein
+              </div>
 
             </div>
 
           </div>
 
-          <div class="xp-text">
+
+          <div class="food-list">
+
             ${
-              item.xp
-                ? "+" + item.xp + " XP"
-                : "Progress"
+              foods.length
+
+                ? foods.map((food,i)=>`
+
+                    <div class="food-row">
+
+                      <div class="food-info">
+
+                        <strong>
+                          ${food.name}
+                        </strong>
+
+                        <span>
+                          ${food.calories} cal
+                          • ${food.protein}g protein
+                        </span>
+
+                      </div>
+
+                      <button
+                        class="food-delete"
+                        data-delete-food="${key}|${i}"
+                      >
+                        ✕
+                      </button>
+
+                    </div>
+
+                  `).join("")
+
+                : `<div class="small">
+                     Nothing logged yet.
+                   </div>`
             }
+
           </div>
 
-        </div>
 
-      `)
-      .join("");
-
-}
-
-
-/* =========================================================
-   ACHIEVEMENTS
-========================================================= */
-
-function renderAchievements() {
-
-  const level =
-    levelInfo(data.xp).level;
-
-
-  const achievements = [
-
-    {
-      icon:"🌱",
-      title:"First Step",
-      description:"Complete your first mission.",
-      unlocked:
-        data.totalCompleted >= 1
-    },
-
-    {
-      icon:"⚡",
-      title:"Getting Started",
-      description:"Earn 250 XP.",
-      unlocked:
-        data.xp >= 250
-    },
-
-    {
-      icon:"🔥",
-      title:"On a Roll",
-      description:"Complete 10 missions.",
-      unlocked:
-        data.totalCompleted >= 10
-    },
-
-    {
-      icon:"🏆",
-      title:"Level 5",
-      description:"Reach Level 5.",
-      unlocked:
-        level >= 5
-    },
-
-    {
-      icon:"💪",
-      title:"50 Missions",
-      description:"Complete 50 missions.",
-      unlocked:
-        data.totalCompleted >= 50
-    },
-
-    {
-      icon:"🚀",
-      title:"100 Missions",
-      description:"Complete 100 missions.",
-      unlocked:
-        data.totalCompleted >= 100
-    }
-
-  ];
-
-
-  document.getElementById(
-    "achievements"
-  ).innerHTML =
-
-    achievements
-      .map(a => `
-
-        <div class="
-          achievement
-          ${a.unlocked ? "" : "locked"}
-        ">
-
-          <div class="achievement-icon">
-            ${a.icon}
-          </div>
-
-          <strong>
-            ${a.title}
-          </strong>
-
-          <div
-            class="small"
-            style="margin-top:5px;"
+          <button
+            class="add-food"
+            data-add-food="${key}"
           >
-            ${a.description}
-          </div>
+            + Add Food
+          </button>
 
         </div>
 
-      `)
-      .join("");
+      `;
 
-}
+    }).join("");
 
 
-/* =========================================================
-   NAVIGATION
-========================================================= */
+  meals.querySelectorAll("[data-add-food]")
+    .forEach(btn=>{
 
-function showPage(page) {
+      btn.addEventListener("click",()=>{
 
-  document
-    .querySelectorAll(".page")
-    .forEach(p => {
+        openFood(btn.dataset.addFood);
 
-      p.classList.add("hidden");
+      });
 
     });
 
 
-  document
-    .getElementById(page + "Page")
+  meals.querySelectorAll("[data-delete-food]")
+    .forEach(btn=>{
+
+      btn.addEventListener("click",()=>{
+
+        const [meal,index]=
+          btn.dataset.deleteFood.split("|");
+
+        deleteFood(meal,Number(index));
+
+      });
+
+    });
+
+}
+
+
+/* =====================================================
+   PROGRESS
+===================================================== */
+
+function renderProgress(){
+
+  const history=
+    document.getElementById("history");
+
+  if(!data.history.length){
+
+    history.innerHTML=
+      `<p class="small">
+        Your lifetime history will appear here.
+      </p>`;
+
+  }else{
+
+    history.innerHTML=
+      [...data.history]
+        .reverse()
+        .slice(0,50)
+        .map(item=>`
+
+          <div class="history-row">
+
+            <div>
+
+              <strong>
+                ${item.title}
+              </strong>
+
+              <div class="small">
+                ${item.date}
+                • Actual: ${item.actual}
+              </div>
+
+            </div>
+
+            <strong style="color:var(--yellow)">
+              ${
+                item.xp
+                  ? "+"+item.xp+" XP"
+                  : "Progress"
+              }
+            </strong>
+
+          </div>
+
+        `).join("");
+
+  }
+
+
+  const level=levelInfo(data.xp).level;
+
+  const achievements=[
+
+    ["🌱","First Step","Complete 1 mission",data.completed>=1],
+
+    ["⚡","Getting Started","Earn 250 XP",data.xp>=250],
+
+    ["🔥","On a Roll","Complete 10 missions",data.completed>=10],
+
+    ["🏆","Level 5","Reach Level 5",level>=5],
+
+    ["💪","50 Missions","Complete 50 missions",data.completed>=50],
+
+    ["🚀","100 Missions","Complete 100 missions",data.completed>=100]
+
+  ];
+
+  document.getElementById("achievements")
+    .innerHTML=
+      achievements.map(a=>`
+
+        <div class="achievement ${
+          a[3]?"":"locked"
+        }">
+
+          <div class="achievement-icon">
+            ${a[0]}
+          </div>
+
+          <strong>${a[1]}</strong>
+
+          <div class="small" style="margin-top:5px">
+            ${a[2]}
+          </div>
+
+        </div>
+
+      `).join("");
+
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+function showPage(page){
+
+  document.querySelectorAll(".page")
+    .forEach(p=>p.classList.add("hidden"));
+
+  document.getElementById(page+"Page")
     .classList.remove("hidden");
 
+  document.querySelectorAll(".nav-btn")
+    .forEach(btn=>{
 
-  document
-    .querySelectorAll(".nav button")
-    .forEach(button => {
-
-      button.classList.toggle(
+      btn.classList.toggle(
         "active",
-        button.dataset.page === page
+        btn.dataset.page===page
       );
 
     });
 
+  window.scrollTo({top:0,behavior:"smooth"});
+
 }
 
 
-/* =========================================================
-   RENDER EVERYTHING
-========================================================= */
+/* =====================================================
+   RENDER ALL
+===================================================== */
 
-function renderAll() {
+function renderAll(){
 
-  createDailyMissions();
+  makeDaily();
 
   renderSetup();
+  renderSports();
 
-  renderSportsSelector();
-
-
-  if (!data.setupComplete) {
-    return;
-  }
-
+  if(!data.setup) return;
 
   renderHeader();
-
   renderMissions();
-
-  renderTodayStats();
-
+  renderHomeSummary();
   renderNutrition();
-
-  renderHistory();
-
-  renderAchievements();
+  renderProgress();
 
 }
 
 
-/* =========================================================
-   BUTTONS
-========================================================= */
+/* =====================================================
+   EVENT LISTENERS
+===================================================== */
 
+/* SETUP */
 
-/* START APP */
+document.getElementById("startBtn")
+  .addEventListener("click",()=>{
 
-document
-  .getElementById("startButton")
-  .addEventListener(
-    "click",
-    () => {
+    const name=
+      document.getElementById("nameInput")
+        .value.trim();
 
-      const name =
-        document
-          .getElementById("nameInput")
-          .value
-          .trim();
-
-
-      if (!name) {
-
-        alert(
-          "Enter your name first!"
-        );
-
-        return;
-
-      }
-
-
-      data.name = name;
-
-      data.setupComplete = true;
-
-
-      saveData();
-
-      renderAll();
-
+    if(!name){
+      alert("Enter your name first!");
+      return;
     }
-  );
 
+    data.name=name;
+    data.setup=true;
 
-/* NAVIGATION */
-
-document
-  .querySelectorAll(".nav button")
-  .forEach(button => {
-
-    button.addEventListener(
-      "click",
-      () => {
-
-        showPage(
-          button.dataset.page
-        );
-
-      }
-    );
+    save();
+    renderAll();
 
   });
 
 
-/* NUTRITION */
+/* NAV */
 
-document
-  .getElementById("saveNutrition")
-  .addEventListener(
-    "click",
-    saveNutrition
-  );
+document.querySelectorAll(".nav-btn")
+  .forEach(btn=>{
+
+    btn.addEventListener("click",()=>{
+
+      showPage(btn.dataset.page);
+
+    });
+
+  });
+
+
+/* RESULT */
+
+document.getElementById("cancelResult")
+  .addEventListener("click",closeResult);
+
+document.getElementById("submitResult")
+  .addEventListener("click",submitResult);
+
+document.getElementById("resultModal")
+  .addEventListener("click",e=>{
+
+    if(e.target.id==="resultModal")
+      closeResult();
+
+  });
+
+document.getElementById("resultInput")
+  .addEventListener("keydown",e=>{
+
+    if(e.key==="Enter")
+      submitResult();
+
+  });
+
+
+/* FOOD */
+
+document.getElementById("cancelFood")
+  .addEventListener("click",closeFood);
+
+document.getElementById("saveFood")
+  .addEventListener("click",saveFood);
+
+document.getElementById("foodModal")
+  .addEventListener("click",e=>{
+
+    if(e.target.id==="foodModal")
+      closeFood();
+
+  });
+
+
+/* WATER */
+
+document.querySelectorAll("[data-water]")
+  .forEach(btn=>{
+
+    btn.addEventListener("click",()=>{
+
+      addWater(
+        Number(btn.dataset.water)
+      );
+
+    });
+
+  });
+
+
+document.getElementById("addCustomWater")
+  .addEventListener("click",()=>{
+
+    const input=
+      document.getElementById("customWater");
+
+    addWater(Number(input.value));
+
+    input.value="";
+
+  });
+
+
+/* SLEEP */
+
+document.getElementById("saveSleep")
+  .addEventListener("click",saveSleep);
 
 
 /* GOALS */
 
-document
-  .getElementById("saveGoals")
-  .addEventListener(
-    "click",
-    saveGoals
-  );
+document.getElementById("saveGoals")
+  .addEventListener("click",saveGoals);
 
 
-/* RESULT MODAL */
-
-document
-  .getElementById("cancelResult")
-  .addEventListener(
-    "click",
-    closeResultModal
-  );
-
-
-document
-  .getElementById("submitResult")
-  .addEventListener(
-    "click",
-    submitResult
-  );
-
-
-/*
-  Clicking outside the modal closes it.
-*/
-
-document
-  .getElementById("resultModal")
-  .addEventListener(
-    "click",
-    event => {
-
-      if (
-        event.target.id ===
-        "resultModal"
-      ) {
-
-        closeResultModal();
-
-      }
-
-    }
-  );
-
-
-/*
-  Enter key submits result.
-*/
-
-document
-  .getElementById("resultValue")
-  .addEventListener(
-    "keydown",
-    event => {
-
-      if (event.key === "Enter") {
-
-        submitResult();
-
-      }
-
-    }
-  );
-
-
-/* =========================================================
+/* =====================================================
    START
-========================================================= */
+===================================================== */
 
 renderAll();
 
