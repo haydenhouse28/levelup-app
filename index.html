@@ -4,40 +4,46 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0b1020">
+<meta name="theme-color" content="#080b14">
 <title>LevelUp</title>
 
 <style>
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 :root {
-  --bg: #070b16;
-  --card: #11182a;
-  --card2: #172138;
-  --text: #f7f9ff;
-  --muted: #8d98b2;
-  --accent: #7c5cff;
-  --accent2: #25d9a5;
+  --bg: #080b14;
+  --card: #111725;
+  --card2: #171f31;
+  --text: #f7f8fc;
+  --muted: #929bb0;
+  --purple: #8065ff;
+  --purple2: #a68fff;
+  --green: #39d98a;
   --yellow: #ffd166;
-  --red: #ff6b7a;
-  --border: rgba(255,255,255,.08);
+  --red: #ff6f7f;
+  --border: rgba(255,255,255,.09);
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  margin: 0;
+  min-height: 100vh;
   background:
-    radial-gradient(circle at 20% 0%, rgba(124,92,255,.22), transparent 30%),
-    radial-gradient(circle at 100% 20%, rgba(37,217,165,.12), transparent 25%),
+    radial-gradient(circle at 10% 0%, rgba(128,101,255,.20), transparent 28%),
+    radial-gradient(circle at 100% 15%, rgba(57,217,138,.08), transparent 25%),
     var(--bg);
   color: var(--text);
-  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
-button, input, select {
+button,
+input,
+select {
   font: inherit;
 }
 
@@ -45,163 +51,157 @@ button {
   cursor: pointer;
 }
 
-.app {
-  width: min(1150px, 100%);
-  margin: auto;
-  padding: 22px 18px 100px;
-}
-
 .hidden {
   display: none !important;
 }
 
-/* SETUP */
+/* ---------------- SETUP ---------------- */
 
-.setup {
+.setup-screen {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 25px;
+  padding: 24px;
 }
 
 .setup-card {
-  width: min(620px, 100%);
-  background: rgba(17,24,42,.92);
+  width: min(650px, 100%);
+  background: rgba(17,23,37,.95);
   border: 1px solid var(--border);
-  border-radius: 30px;
-  padding: 38px;
-  box-shadow: 0 30px 100px rgba(0,0,0,.4);
+  border-radius: 28px;
+  padding: 35px;
+  box-shadow: 0 30px 100px rgba(0,0,0,.45);
 }
 
 .logo {
-  font-size: 38px;
-  font-weight: 900;
+  font-size: 42px;
+  font-weight: 950;
   letter-spacing: -2px;
 }
 
 .logo span {
-  color: var(--accent);
+  color: var(--purple);
 }
 
-.subtitle {
+.setup-subtitle {
   color: var(--muted);
-  margin-top: 8px;
-  margin-bottom: 30px;
+  line-height: 1.6;
+  margin: 8px 0 30px;
 }
 
 .field {
-  margin-bottom: 22px;
+  margin-bottom: 24px;
 }
 
 .field label {
   display: block;
+  font-weight: 800;
   margin-bottom: 9px;
-  font-weight: 700;
 }
 
 input {
   width: 100%;
+  padding: 14px;
+  border-radius: 13px;
   border: 1px solid var(--border);
-  background: #0b1120;
+  background: #0c111d;
   color: white;
-  border-radius: 14px;
-  padding: 14px 15px;
   outline: none;
 }
 
 input:focus {
-  border-color: var(--accent);
+  border-color: var(--purple);
 }
 
 .sports {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 9px;
 }
 
-.sport-option {
+.sport-button {
   border: 1px solid var(--border);
-  background: #0b1120;
+  background: #0c111d;
   color: var(--muted);
-  padding: 11px 14px;
+  padding: 10px 14px;
   border-radius: 999px;
-  transition: .2s;
 }
 
-.sport-option.selected {
-  background: rgba(124,92,255,.2);
-  border-color: var(--accent);
+.sport-button.selected {
+  background: rgba(128,101,255,.2);
+  border-color: var(--purple);
   color: white;
 }
 
-.primary {
-  border: 0;
-  background: linear-gradient(135deg, #7c5cff, #9a72ff);
-  color: white;
-  padding: 15px 22px;
-  border-radius: 15px;
-  font-weight: 800;
+.primary-button {
   width: 100%;
-  transition: transform .15s, filter .15s;
+  border: 0;
+  padding: 15px;
+  border-radius: 14px;
+  color: white;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--purple), var(--purple2));
 }
 
-.primary:hover {
-  filter: brightness(1.1);
-  transform: translateY(-1px);
-}
+/* ---------------- APP ---------------- */
 
-/* HEADER */
+.app {
+  width: min(1050px, 100%);
+  margin: auto;
+  padding: 20px 16px 100px;
+}
 
 .topbar {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   gap: 15px;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 }
 
-.greeting {
+.welcome {
   color: var(--muted);
-  font-size: 14px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
 }
 
 .username {
   font-size: 30px;
-  font-weight: 900;
-  letter-spacing: -1px;
+  font-weight: 950;
 }
 
 .level-pill {
-  background: rgba(124,92,255,.15);
-  border: 1px solid rgba(124,92,255,.3);
   padding: 10px 14px;
-  border-radius: 14px;
-  font-weight: 800;
+  border-radius: 13px;
+  background: rgba(128,101,255,.16);
+  border: 1px solid rgba(128,101,255,.3);
+  font-weight: 900;
 }
 
-/* NAV */
+/* ---------------- NAV ---------------- */
 
 .nav {
   display: flex;
-  gap: 8px;
-  background: rgba(17,24,42,.8);
-  border: 1px solid var(--border);
+  gap: 7px;
   padding: 7px;
-  border-radius: 17px;
-  margin-bottom: 25px;
+  margin-bottom: 22px;
+  background: rgba(17,23,37,.9);
+  border: 1px solid var(--border);
+  border-radius: 16px;
   overflow-x: auto;
 }
 
 .nav button {
   flex: 1;
-  min-width: 100px;
+  min-width: 105px;
+  padding: 12px;
   border: 0;
+  border-radius: 11px;
   background: transparent;
   color: var(--muted);
-  padding: 12px 15px;
-  border-radius: 12px;
-  font-weight: 700;
+  font-weight: 800;
 }
 
 .nav button.active {
@@ -209,199 +209,295 @@ input:focus {
   color: white;
 }
 
-/* CARDS */
+/* ---------------- GENERAL CARDS ---------------- */
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
+  grid-template-columns: repeat(12, minmax(0,1fr));
   gap: 16px;
 }
 
 .card {
-  background: rgba(17,24,42,.88);
+  background: rgba(17,23,37,.94);
   border: 1px solid var(--border);
-  border-radius: 22px;
-  padding: 21px;
-  box-shadow: 0 12px 40px rgba(0,0,0,.12);
+  border-radius: 21px;
+  padding: 20px;
+  min-width: 0;
 }
 
-.span-12 { grid-column: span 12; }
-.span-8 { grid-column: span 8; }
-.span-6 { grid-column: span 6; }
-.span-4 { grid-column: span 4; }
+.span-12 {
+  grid-column: span 12;
+}
 
-.card-title {
-  font-size: 13px;
+.span-6 {
+  grid-column: span 6;
+}
+
+.span-4 {
+  grid-column: span 4;
+}
+
+.card-label {
   color: var(--muted);
-  font-weight: 800;
-  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 900;
   letter-spacing: .8px;
-  margin-bottom: 10px;
+  text-transform: uppercase;
 }
 
 .big-number {
   font-size: 34px;
-  font-weight: 900;
-}
-
-.progress {
-  height: 12px;
-  background: #090e1b;
-  border-radius: 999px;
-  overflow: hidden;
-  margin: 12px 0 8px;
-}
-
-.progress-bar {
-  height: 100%;
-  background: linear-gradient(90deg, var(--accent), #b18aff);
-  border-radius: inherit;
-  transition: width .4s ease;
+  font-weight: 950;
+  margin-top: 5px;
 }
 
 .small {
   color: var(--muted);
   font-size: 13px;
+  line-height: 1.5;
 }
 
-/* MISSION */
-
-.mission {
-  position: relative;
+.progress-track {
+  height: 11px;
+  margin: 12px 0 8px;
+  background: #080c15;
+  border-radius: 999px;
   overflow: hidden;
 }
 
-.mission::after {
-  content: "";
-  position: absolute;
-  width: 150px;
-  height: 150px;
-  right: -60px;
-  top: -70px;
-  background: rgba(124,92,255,.15);
-  border-radius: 50%;
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--purple), var(--purple2));
+  border-radius: inherit;
+  transition: width .4s ease;
 }
 
-.mission-top {
+/* ---------------- MISSION AREA ---------------- */
+
+/*
+IMPORTANT:
+The mission list is deliberately a BLOCK/FULL-WIDTH layout.
+Each mission gets its own card.
+*/
+
+.mission-list {
   display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  margin-top: 18px;
+}
+
+.mission-card {
+  width: 100%;
+  background: linear-gradient(145deg, #141c2c, #101624);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 22px;
+  position: relative;
+}
+
+.mission-card:hover {
+  border-color: rgba(128,101,255,.4);
+}
+
+.mission-card.completed {
+  opacity: .58;
+}
+
+.mission-header {
+  display: flex;
+  align-items: center;
   justify-content: space-between;
   gap: 12px;
 }
 
-.badge {
+.mission-tag {
   display: inline-block;
   padding: 6px 9px;
   border-radius: 8px;
-  background: rgba(124,92,255,.13);
-  color: #b9a8ff;
+  background: rgba(128,101,255,.13);
+  color: #b8aaff;
   font-size: 11px;
-  font-weight: 800;
+  font-weight: 900;
   text-transform: uppercase;
 }
 
-.xp {
+.mission-xp {
   color: var(--yellow);
+  font-weight: 950;
+  white-space: nowrap;
+}
+
+.mission-title {
+  font-size: 21px;
+  margin: 14px 0 7px;
   font-weight: 900;
 }
 
-.mission h3 {
-  margin: 13px 0 7px;
-  font-size: 20px;
-}
-
-.mission p {
+.mission-description {
   color: var(--muted);
-  line-height: 1.5;
+  line-height: 1.55;
+  margin: 0;
 }
 
-.mission-actions {
+.mission-target {
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba(128,101,255,.08);
+  color: #d9d3ff;
+  font-weight: 800;
+}
+
+.mission-buttons {
   display: flex;
-  gap: 8px;
+  gap: 9px;
   margin-top: 17px;
 }
 
-.mission-actions button {
+.complete-button,
+.swap-button {
   border: 0;
   border-radius: 11px;
-  padding: 10px 13px;
-  font-weight: 800;
-}
-
-.complete {
-  background: var(--accent2);
-  color: #07130f;
-}
-
-.swap {
-  background: #222d47;
-  color: white;
-}
-
-.completed {
-  opacity: .55;
-}
-
-.completed .complete {
-  background: #27344d;
-  color: #aab4ca;
-}
-
-/* MYSTERY */
-
-.mystery {
-  border-color: rgba(255,209,102,.25);
-  background:
-    linear-gradient(135deg, rgba(255,209,102,.08), rgba(124,92,255,.07)),
-    var(--card);
-}
-
-.reveal {
-  background: var(--yellow);
-  color: #18120a;
-  border: 0;
-  padding: 12px 15px;
-  border-radius: 12px;
+  padding: 11px 15px;
   font-weight: 900;
 }
 
-/* TRACKING */
-
-.tracker-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
+.complete-button {
+  background: var(--green);
+  color: #06150d;
 }
 
-.track-box {
-  background: #0b1120;
+.swap-button {
+  background: #263149;
+  color: white;
+}
+
+.complete-button:disabled,
+.swap-button:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+/* ---------------- MYSTERY ---------------- */
+
+.mystery-card {
+  margin-top: 18px;
+  border: 1px solid rgba(255,209,102,.25);
+  background:
+    radial-gradient(circle at 90% 0%, rgba(255,209,102,.10), transparent 30%),
+    var(--card);
+}
+
+.reveal-button {
+  margin-top: 15px;
+  border: 0;
+  border-radius: 12px;
+  padding: 12px 16px;
+  background: var(--yellow);
+  color: #1b1404;
+  font-weight: 950;
+}
+
+/* ---------------- RESULT MODAL ---------------- */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0,0,0,.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+}
+
+.result-modal {
+  width: min(500px, 100%);
+  background: #121a2a;
   border: 1px solid var(--border);
-  padding: 16px;
-  border-radius: 16px;
+  border-radius: 24px;
+  padding: 25px;
+  box-shadow: 0 30px 100px rgba(0,0,0,.5);
 }
 
-.track-box label {
+.result-modal h2 {
+  margin: 7px 0;
+}
+
+.result-input {
+  margin-top: 18px;
+}
+
+.result-input label {
   display: block;
-  font-size: 12px;
   color: var(--muted);
+  font-size: 13px;
+  font-weight: 800;
   margin-bottom: 7px;
 }
 
-.track-box input {
-  padding: 10px;
+.modal-buttons {
+  display: flex;
+  gap: 9px;
+  margin-top: 17px;
 }
 
-.track-button {
-  width: 100%;
+.modal-buttons button {
+  flex: 1;
   border: 0;
+  padding: 12px;
+  border-radius: 11px;
+  font-weight: 900;
+}
+
+.cancel-button {
+  background: #263149;
+  color: white;
+}
+
+.submit-result {
+  background: var(--green);
+  color: #06150d;
+}
+
+/* ---------------- TRACKING ---------------- */
+
+.tracker-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0,1fr));
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.tracker-box {
+  background: #0c111d;
+  border: 1px solid var(--border);
+  padding: 14px;
+  border-radius: 15px;
+}
+
+.tracker-box label {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 7px;
+  font-weight: 800;
+}
+
+.save-button {
+  width: 100%;
+  margin-top: 14px;
+  padding: 12px;
+  border: 0;
+  border-radius: 12px;
   background: var(--card2);
   color: white;
-  padding: 12px;
-  border-radius: 12px;
-  font-weight: 800;
-  margin-top: 12px;
+  font-weight: 900;
 }
 
-/* HISTORY */
+/* ---------------- HISTORY ---------------- */
 
 .history-row {
   display: flex;
@@ -416,64 +512,77 @@ input:focus {
   border-bottom: 0;
 }
 
-.stat {
-  font-size: 23px;
+.xp-text {
+  color: var(--yellow);
   font-weight: 900;
 }
 
-/* ACHIEVEMENTS */
+/* ---------------- ACHIEVEMENTS ---------------- */
 
 .achievement-grid {
   display: grid;
-  grid-template-columns: repeat(3,1fr);
+  grid-template-columns: repeat(3, minmax(0,1fr));
   gap: 12px;
+  margin-top: 15px;
 }
 
 .achievement {
-  padding: 17px;
-  background: #0b1120;
+  background: #0c111d;
   border: 1px solid var(--border);
-  border-radius: 16px;
+  padding: 16px;
+  border-radius: 15px;
 }
 
 .achievement.locked {
   opacity: .4;
 }
 
-.emoji {
-  font-size: 26px;
-  margin-bottom: 8px;
+.achievement-icon {
+  font-size: 25px;
+  margin-bottom: 7px;
 }
 
-/* RESPONSIVE */
+/* ---------------- MOBILE ---------------- */
 
-@media(max-width: 800px) {
-  .span-8,
+@media (max-width: 750px) {
   .span-6,
   .span-4 {
     grid-column: span 12;
   }
 
   .tracker-grid {
-    grid-template-columns: repeat(2,1fr);
+    grid-template-columns: repeat(2, minmax(0,1fr));
   }
 
   .achievement-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .setup-card {
-    padding: 25px;
+    grid-template-columns: repeat(2, minmax(0,1fr));
   }
 }
 
-@media(max-width: 480px) {
+@media (max-width: 480px) {
   .app {
-    padding: 15px 12px 80px;
+    padding: 15px 11px 80px;
+  }
+
+  .setup-card {
+    padding: 24px;
   }
 
   .username {
     font-size: 24px;
+  }
+
+  .mission-card {
+    padding: 18px;
+  }
+
+  .mission-buttons {
+    flex-direction: column;
+  }
+
+  .complete-button,
+  .swap-button {
+    width: 100%;
   }
 
   .tracker-grid {
@@ -489,39 +598,55 @@ input:focus {
 
 <body>
 
-<!-- SETUP -->
-<section id="setup" class="setup">
+<!-- =========================================================
+     SETUP
+========================================================= -->
+
+<section id="setupScreen" class="setup-screen">
   <div class="setup-card">
+
     <div class="logo">Level<span>Up</span></div>
-    <p class="subtitle">
-      Your personal lifetime progress tracker.
-      Train. Improve. Challenge yourself. Look back and see how far you've come.
+
+    <p class="setup-subtitle">
+      Your personal lifetime progress app. Train, challenge yourself,
+      track your habits, and see how far you've come.
     </p>
 
     <div class="field">
-      <label>What's your name?</label>
-      <input id="nameInput" placeholder="Your name">
+      <label>Your name</label>
+      <input id="nameInput" placeholder="Enter your name">
     </div>
 
     <div class="field">
       <label>What sports do you play?</label>
-      <div id="sports" class="sports"></div>
+      <div id="sportsList" class="sports"></div>
     </div>
 
-    <button id="startButton" class="primary">Start LevelUp →</button>
+    <button id="startButton" class="primary-button">
+      Start LevelUp →
+    </button>
+
   </div>
 </section>
 
-<!-- APP -->
+
+<!-- =========================================================
+     MAIN APP
+========================================================= -->
+
 <main id="app" class="app hidden">
 
   <header class="topbar">
     <div>
-      <div class="greeting">WELCOME BACK</div>
+      <div class="welcome">WELCOME BACK</div>
       <div id="username" class="username"></div>
     </div>
-    <div id="levelPill" class="level-pill">Level 1</div>
+
+    <div id="levelPill" class="level-pill">
+      Level 1
+    </div>
   </header>
+
 
   <nav class="nav">
     <button data-page="home" class="active">Home</button>
@@ -530,213 +655,402 @@ input:focus {
     <button data-page="nutrition">Nutrition</button>
   </nav>
 
-  <!-- HOME -->
+
+  <!-- =======================================================
+       HOME
+  ======================================================== -->
+
   <section id="homePage" class="page">
+
     <div class="grid">
 
-      <div class="card span-8">
-        <div class="card-title">Current Level</div>
-        <div style="display:flex;justify-content:space-between;align-items:end">
-          <div class="big-number" id="homeLevel">Level 1</div>
-          <div class="small" id="xpText">0 / 100 XP</div>
-        </div>
-        <div class="progress">
-          <div id="xpBar" class="progress-bar" style="width:0%"></div>
-        </div>
-        <div class="small" id="nextLevelText">100 XP until Level 2</div>
-      </div>
+      <div class="card span-6">
 
-      <div class="card span-4">
-        <div class="card-title">Lifetime XP</div>
-        <div class="big-number" id="lifetimeXP">0</div>
-        <div class="small">Every mission you've completed.</div>
-      </div>
+        <div class="card-label">Current Level</div>
 
-      <div class="card span-12">
-        <div class="mission-top">
-          <div>
-            <div class="card-title">Today's Missions</div>
-            <h2>Level up today.</h2>
+        <div style="
+          display:flex;
+          justify-content:space-between;
+          align-items:end;
+          gap:10px;
+        ">
+          <div id="homeLevel" class="big-number">
+            Level 1
           </div>
-          <div class="badge" id="missionCount">0 / 0</div>
+
+          <div id="xpText" class="small">
+            0 / 100 XP
+          </div>
         </div>
-        <div id="homeMissions" class="grid" style="margin-top:15px"></div>
+
+        <div class="progress-track">
+          <div id="xpBar" class="progress-fill" style="width:0%"></div>
+        </div>
+
+        <div id="nextLevelText" class="small">
+          100 XP until Level 2
+        </div>
+
       </div>
+
 
       <div class="card span-6">
-        <div class="card-title">Today's Stats</div>
+
+        <div class="card-label">Lifetime XP</div>
+
+        <div id="lifetimeXP" class="big-number">
+          0
+        </div>
+
+        <div class="small">
+          Every mission you've completed.
+        </div>
+
+      </div>
+
+
+      <div class="card span-12">
+
+        <div class="card-label">Today's Missions</div>
+
+        <h2 style="margin:7px 0 4px;">
+          Your challenges
+        </h2>
+
+        <div id="homeMissionList" class="mission-list"></div>
+
+      </div>
+
+
+      <div class="card span-6">
+
+        <div class="card-label">Today's Stats</div>
+
         <div id="todayStats"></div>
+
       </div>
+
 
       <div class="card span-6">
-        <div class="card-title">Your Sports</div>
-        <div id="sportsDisplay" style="font-size:20px;font-weight:800"></div>
-        <div class="small" style="margin-top:8px">
-          Your missions adapt to what you play.
+
+        <div class="card-label">Your Sports</div>
+
+        <div
+          id="sportsDisplay"
+          style="
+            font-size:20px;
+            font-weight:900;
+            margin-top:7px;
+          "
+        ></div>
+
+        <div class="small" style="margin-top:8px;">
+          Your sports influence your missions.
         </div>
+
       </div>
 
     </div>
+
   </section>
 
-  <!-- MISSIONS -->
+
+  <!-- =======================================================
+       MISSIONS
+  ======================================================== -->
+
   <section id="missionsPage" class="page hidden">
-    <div class="grid">
-      <div class="card span-12">
-        <div class="card-title">Daily Missions</div>
-        <h2>Don't choose the easy ones.</h2>
-        <p class="small" style="margin-top:6px">
-          Missions are randomized. You get one swap per mission each day.
-        </p>
+
+    <div class="card">
+
+      <div class="card-label">
+        DAILY MISSIONS
       </div>
 
-      <div id="missionsList" class="grid span-12"></div>
+      <h2 style="margin:7px 0;">
+        Don't choose the easy ones.
+      </h2>
 
-      <div id="mysteryCard" class="card mystery span-12">
-        <div class="card-title">Mystery Challenge</div>
-        <h2 id="mysteryTitle">You don't know what you're getting.</h2>
-        <p id="mysteryText" class="small" style="margin-top:7px">
-          Reveal today's mystery challenge when you're ready.
-        </p>
-        <button id="revealButton" class="reveal" style="margin-top:15px">
-          Reveal Challenge
-        </button>
-      </div>
+      <p class="small">
+        Your missions are randomly selected. You get one swap per
+        mission each day.
+      </p>
+
     </div>
+
+
+    <!-- FULL WIDTH MISSION LIST -->
+    <div id="missionsList" class="mission-list"></div>
+
+
+    <!-- MYSTERY CHALLENGE -->
+    <div id="mysteryCard" class="card mystery-card">
+
+      <div class="card-label">
+        MYSTERY CHALLENGE
+      </div>
+
+      <h2 id="mysteryTitle" style="margin:8px 0;">
+        You don't know what you're getting.
+      </h2>
+
+      <p id="mysteryDescription" class="small">
+        Reveal today's mystery challenge when you're ready.
+      </p>
+
+      <button id="revealButton" class="reveal-button">
+        Reveal Challenge
+      </button>
+
+    </div>
+
   </section>
 
-  <!-- PROGRESS -->
+
+  <!-- =======================================================
+       PROGRESS
+  ======================================================== -->
+
   <section id="progressPage" class="page hidden">
+
     <div class="grid">
 
       <div class="card span-4">
-        <div class="card-title">Lifetime XP</div>
-        <div id="progressXP" class="stat">0</div>
+        <div class="card-label">Lifetime XP</div>
+        <div id="progressXP" class="big-number">0</div>
       </div>
 
       <div class="card span-4">
-        <div class="card-title">Missions Completed</div>
-        <div id="completedCount" class="stat">0</div>
+        <div class="card-label">Missions</div>
+        <div id="completedCount" class="big-number">0</div>
       </div>
 
       <div class="card span-4">
-        <div class="card-title">Days Active</div>
-        <div id="daysActive" class="stat">0</div>
+        <div class="card-label">Days Active</div>
+        <div id="daysActive" class="big-number">0</div>
       </div>
 
-      <div class="card span-12">
-        <div class="card-title">Your Journey</div>
-        <div id="history"></div>
-      </div>
 
       <div class="card span-12">
-        <div class="card-title">Achievements</div>
-        <div id="achievements" class="achievement-grid"></div>
-      </div>
 
-    </div>
-  </section>
-
-  <!-- NUTRITION -->
-  <section id="nutritionPage" class="page hidden">
-    <div class="grid">
-
-      <div class="card span-12">
-        <div class="card-title">Today's Nutrition</div>
-        <h2>Fuel your body.</h2>
-        <p class="small" style="margin-top:6px">
-          Track what matters to you. No complicated account required.
-        </p>
-      </div>
-
-      <div class="card span-12">
-        <div class="card-title">Daily Goals</div>
-
-        <div class="tracker-grid">
-          <div class="track-box">
-            <label>Calories Goal</label>
-            <input id="calorieGoal" type="number" placeholder="e.g. 2200">
-          </div>
-
-          <div class="track-box">
-            <label>Protein Goal (g)</label>
-            <input id="proteinGoal" type="number" placeholder="e.g. 120">
-          </div>
-
-          <div class="track-box">
-            <label>Water Goal (fl oz)</label>
-            <input id="waterGoal" type="number" placeholder="e.g. 80">
-          </div>
-
-          <div class="track-box">
-            <label>Sleep Goal (hours)</label>
-            <input id="sleepGoal" type="number" step=".1" placeholder="e.g. 8">
-          </div>
+        <div class="card-label">
+          LIFETIME JOURNEY
         </div>
 
-        <button id="saveGoals" class="track-button">Save Goals</button>
+        <div id="history"></div>
+
       </div>
 
+
       <div class="card span-12">
-        <div class="card-title">Today's Intake</div>
+
+        <div class="card-label">
+          ACHIEVEMENTS
+        </div>
+
+        <div id="achievements" class="achievement-grid"></div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =======================================================
+       NUTRITION
+  ======================================================== -->
+
+  <section id="nutritionPage" class="page hidden">
+
+    <div class="grid">
+
+      <div class="card span-12">
+
+        <div class="card-label">
+          NUTRITION
+        </div>
+
+        <h2 style="margin:7px 0;">
+          Fuel yourself.
+        </h2>
+
+        <p class="small">
+          Track calories, protein, water, and sleep.
+        </p>
+
+      </div>
+
+
+      <div class="card span-12">
+
+        <div class="card-label">
+          DAILY GOALS
+        </div>
 
         <div class="tracker-grid">
-          <div class="track-box">
+
+          <div class="tracker-box">
+            <label>Calories Goal</label>
+            <input id="calorieGoal" type="number">
+          </div>
+
+          <div class="tracker-box">
+            <label>Protein Goal (g)</label>
+            <input id="proteinGoal" type="number">
+          </div>
+
+          <div class="tracker-box">
+            <label>Water Goal (fl oz)</label>
+            <input id="waterGoal" type="number">
+          </div>
+
+          <div class="tracker-box">
+            <label>Sleep Goal (hours)</label>
+            <input id="sleepGoal" type="number" step=".1">
+          </div>
+
+        </div>
+
+        <button id="saveGoals" class="save-button">
+          Save Goals
+        </button>
+
+      </div>
+
+
+      <div class="card span-12">
+
+        <div class="card-label">
+          TODAY'S FOOD
+        </div>
+
+        <div class="tracker-grid">
+
+          <div class="tracker-box">
             <label>Breakfast Calories</label>
-            <input id="breakfastCalories" type="number">
+            <input id="breakfast" type="number">
           </div>
 
-          <div class="track-box">
+          <div class="tracker-box">
             <label>Lunch Calories</label>
-            <input id="lunchCalories" type="number">
+            <input id="lunch" type="number">
           </div>
 
-          <div class="track-box">
+          <div class="tracker-box">
             <label>Dinner Calories</label>
-            <input id="dinnerCalories" type="number">
+            <input id="dinner" type="number">
           </div>
 
-          <div class="track-box">
-            <label>Snacks Calories</label>
-            <input id="snackCalories" type="number">
+          <div class="tracker-box">
+            <label>Snack Calories</label>
+            <input id="snacks" type="number">
           </div>
 
-          <div class="track-box">
+          <div class="tracker-box">
             <label>Protein (g)</label>
             <input id="protein" type="number">
           </div>
 
-          <div class="track-box">
+          <div class="tracker-box">
             <label>Water (fl oz)</label>
             <input id="water" type="number">
           </div>
 
-          <div class="track-box">
+          <div class="tracker-box">
             <label>Sleep (hours)</label>
             <input id="sleep" type="number" step=".1">
           </div>
+
         </div>
 
-        <button id="saveNutrition" class="track-button">
+        <button id="saveNutrition" class="save-button">
           Save Today's Stats
         </button>
+
       </div>
 
+
       <div class="card span-12">
-        <div class="card-title">Today</div>
+
+        <div class="card-label">
+          TODAY
+        </div>
+
         <div id="nutritionSummary"></div>
+
       </div>
 
     </div>
+
   </section>
 
 </main>
 
+
+<!-- =========================================================
+     RESULT MODAL
+========================================================= -->
+
+<div id="resultModal" class="modal-backdrop hidden">
+
+  <div class="result-modal">
+
+    <div class="card-label">
+      MISSION RESULT
+    </div>
+
+    <h2 id="resultTitle">
+      What did you actually do?
+    </h2>
+
+    <p id="resultDescription" class="small"></p>
+
+    <div class="result-input">
+
+      <label id="resultLabel">
+        Actual amount
+      </label>
+
+      <input
+        id="resultValue"
+        type="number"
+        step="0.1"
+        placeholder="Enter what you actually did"
+      >
+
+    </div>
+
+    <div class="modal-buttons">
+
+      <button
+        id="cancelResult"
+        class="cancel-button"
+      >
+        Cancel
+      </button>
+
+      <button
+        id="submitResult"
+        class="submit-result"
+      >
+        Save Result
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
 <script>
-/* ============================================================
-   LEVELUP — COMPLETE APP
-   Everything is saved locally in your browser.
-   ============================================================ */
+
+/* =========================================================
+   LEVELUP DATA
+========================================================= */
+
+const STORAGE_KEY = "LEVELUP_COMPLETE_V3";
 
 const SPORTS = [
   "Baseball",
@@ -754,33 +1068,48 @@ const SPORTS = [
   "Other"
 ];
 
-const STORAGE_KEY = "levelup_v2";
-
 const defaultData = {
   setupComplete: false,
   name: "",
   sports: [],
+
   xp: 0,
   totalCompleted: 0,
-  completedIds: [],
-  history: [],
+
   activeDays: [],
+  history: [],
+
   goals: {
     calories: 2200,
     protein: 120,
     water: 80,
     sleep: 8
   },
+
   nutrition: {},
+
   daily: {}
 };
 
 let data = loadData();
+let pendingMissionIndex = null;
+let pendingMystery = false;
+
+
+/* =========================================================
+   STORAGE
+========================================================= */
 
 function loadData() {
+
   try {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (!saved) return structuredClone(defaultData);
+
+    const saved =
+      localStorage.getItem(STORAGE_KEY);
+
+    if (!saved) {
+      return structuredClone(defaultData);
+    }
 
     const parsed = JSON.parse(saved);
 
@@ -792,35 +1121,59 @@ function loadData() {
         ...(parsed.goals || {})
       }
     };
+
   } catch {
+
     return structuredClone(defaultData);
+
   }
+
 }
+
 
 function saveData() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  localStorage.setItem(
+    STORAGE_KEY,
+    JSON.stringify(data)
+  );
 }
 
-function todayKey() {
+
+function today() {
+
   const d = new Date();
-  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+
+  return (
+    d.getFullYear() +
+    "-" +
+    String(d.getMonth()+1).padStart(2,"0") +
+    "-" +
+    String(d.getDate()).padStart(2,"0")
+  );
+
 }
 
-function random(arr) {
-  return arr[Math.floor(Math.random() * arr.length)];
-}
 
-/* ---------------- LEVEL SYSTEM ---------------- */
+/* =========================================================
+   LEVEL SYSTEM
+========================================================= */
 
 function levelInfo(xp) {
+
   let level = 1;
   let remaining = xp;
   let requirement = 100;
 
   while (remaining >= requirement) {
+
     remaining -= requirement;
     level++;
-    requirement = Math.round(100 * Math.pow(1.18, level - 1));
+
+    requirement =
+      Math.round(
+        100 * Math.pow(1.18, level - 1)
+      );
+
   }
 
   return {
@@ -828,808 +1181,2053 @@ function levelInfo(xp) {
     current: remaining,
     requirement
   };
+
 }
 
-/* ---------------- MISSIONS ---------------- */
+
+/* =========================================================
+   MISSION DATABASE
+========================================================= */
 
 const generalMissions = [
+
   {
     id:"walk2",
-    title:"Go for a 2-mile walk",
-    description:"Get outside and walk at least 2 miles.",
+    title:"Walk 2 miles",
+    description:"Get outside and walk at least two miles.",
     type:"Movement",
+    unit:"miles",
+    target:2,
     xp:45
   },
+
   {
     id:"walk1",
-    title:"Take a 1-mile walk",
-    description:"Get moving for at least one mile.",
+    title:"Walk 1 mile",
+    description:"Get outside and walk at least one mile.",
     type:"Movement",
+    unit:"miles",
+    target:1,
     xp:25
   },
+
   {
     id:"pushups30",
     title:"Complete 30 push-ups",
-    description:"Break them into sets if you need to.",
+    description:"Complete 30 controlled push-ups.",
     type:"Strength",
+    unit:"reps",
+    target:30,
     xp:35
   },
+
   {
     id:"squats50",
-    title:"Complete 50 bodyweight squats",
-    description:"Controlled reps. Full range you can comfortably manage.",
+    title:"Complete 50 squats",
+    description:"Complete 50 controlled bodyweight squats.",
     type:"Strength",
+    unit:"reps",
+    target:50,
     xp:35
   },
+
   {
     id:"plank2",
-    title:"Accumulate 2 minutes of plank",
-    description:"Break it into multiple sets if needed.",
+    title:"Plank for 2 minutes",
+    description:"Accumulate two total minutes of plank time.",
     type:"Strength",
+    unit:"minutes",
+    target:2,
     xp:35
   },
+
   {
     id:"stretch10",
     title:"Stretch for 10 minutes",
-    description:"Use the time to loosen up and recover.",
+    description:"Take some time to recover and loosen up.",
     type:"Recovery",
+    unit:"minutes",
+    target:10,
     xp:25
   },
+
   {
     id:"outside20",
     title:"Spend 20 minutes outside",
-    description:"Put your phone down and get some fresh air.",
+    description:"Get outside and spend some time away from screens.",
     type:"Lifestyle",
+    unit:"minutes",
+    target:20,
     xp:25
   },
+
   {
-    id:"newthing",
-    title:"Try something you've never tried",
-    description:"Learn, practice, or experience something new.",
-    type:"Growth",
-    xp:55
-  },
-  {
-    id:"compliment",
+    id:"compliments3",
     title:"Give 3 genuine compliments",
-    description:"Make someone's day a little better.",
+    description:"Make three people's day a little better.",
     type:"Confidence",
+    unit:"people",
+    target:3,
     xp:40
   },
+
   {
-    id:"sayhi",
+    id:"sayhi5",
     title:"Say hi to 5 people",
     description:"A simple confidence challenge. Only count genuine interactions.",
     type:"Comfort Zone",
+    unit:"people",
+    target:5,
     xp:45
   },
+
   {
     id:"phone30",
-    title:"Spend 30 minutes without your phone",
-    description:"Do something else during the time.",
+    title:"Go 30 minutes without your phone",
+    description:"Put the phone away and do something else.",
     type:"Mindset",
+    unit:"minutes",
+    target:30,
     xp:35
   },
-  {
-    id:"clean",
-    title:"Clean or organize one area",
-    description:"Desk, room, backpack, equipment, anything.",
-    type:"Lifestyle",
-    xp:30
-  },
-  {
-    id:"journal",
-    title:"Write down 3 things you're proud of",
-    description:"Think about things you've improved at.",
-    type:"Mindset",
-    xp:35
-  },
+
   {
     id:"learn15",
-    title:"Learn something for 15 minutes",
-    description:"Read, study, watch an educational video, or practice a skill.",
+    title:"Learn for 15 minutes",
+    description:"Read, study, practice, or learn something useful.",
     type:"Growth",
+    unit:"minutes",
+    target:15,
     xp:35
+  },
+
+  {
+    id:"clean15",
+    title:"Clean for 15 minutes",
+    description:"Clean your room, desk, backpack, or equipment.",
+    type:"Lifestyle",
+    unit:"minutes",
+    target:15,
+    xp:30
+  },
+
+  {
+    id:"newthing",
+    title:"Try something new",
+    description:"Do something you've never tried before.",
+    type:"Growth",
+    unit:"attempt",
+    target:1,
+    xp:55
   }
+
 ];
+
+
+/* =========================================================
+   SPORT MISSIONS
+========================================================= */
 
 const sportMissions = {
+
   Baseball: [
-    ["100 Swings","Take 100 quality swings with a tee, front toss, or live pitching.","Baseball",55],
-    ["50 Ground Balls","Field 50 ground balls with proper footwork.","Baseball",50],
-    ["30 Throws","Complete 30 quality throws focusing on accuracy.","Baseball",35],
-    ["20 Minutes of Glove Work","Work on transfers, quick hands, and glove skills.","Baseball",40],
-    ["20 Tee Swings","Focus on solid contact and your approach.","Baseball",25]
+
+    {
+      id:"baseball100swings",
+      title:"Take 100 swings",
+      description:"Use a tee, front toss, or live pitching. Focus on quality swings.",
+      type:"Baseball",
+      unit:"swings",
+      target:100,
+      xp:55
+    },
+
+    {
+      id:"baseball50grounders",
+      title:"Field 50 ground balls",
+      description:"Work on your footwork, glove work, and throws.",
+      type:"Baseball",
+      unit:"ground balls",
+      target:50,
+      xp:50
+    },
+
+    {
+      id:"baseball30throws",
+      title:"Make 30 quality throws",
+      description:"Focus on accuracy and good throwing mechanics.",
+      type:"Baseball",
+      unit:"throws",
+      target:30,
+      xp:35
+    },
+
+    {
+      id:"baseball20glove",
+      title:"20 minutes of glove work",
+      description:"Work on transfers, quick hands, and fielding.",
+      type:"Baseball",
+      unit:"minutes",
+      target:20,
+      xp:40
+    },
+
+    {
+      id:"baseball50tee",
+      title:"50 tee swings",
+      description:"Focus on solid contact and your hitting approach.",
+      type:"Baseball",
+      unit:"swings",
+      target:50,
+      xp:35
+    }
+
   ],
+
   Lacrosse: [
-    ["100 Wall Ball Reps","Complete 100 quality wall-ball reps with both hands.","Lacrosse",55],
-    ["50 Cradle Reps","Practice controlled cradling with both hands.","Lacrosse",35],
-    ["30 Dodges","Work through 30 quality dodges.","Lacrosse",50],
-    ["50 Ground Balls","Practice scooping 50 ground balls with proper technique.","Lacrosse",50],
-    ["25 Shots","Take 25 focused shots on goal.","Lacrosse",45]
+
+    {
+      id:"lax100wall",
+      title:"100 wall-ball reps",
+      description:"Use both hands and focus on clean catches and passes.",
+      type:"Lacrosse",
+      unit:"reps",
+      target:100,
+      xp:55
+    },
+
+    {
+      id:"lax50ground",
+      title:"50 ground balls",
+      description:"Work on getting low and exploding out of the scoop.",
+      type:"Lacrosse",
+      unit:"ground balls",
+      target:50,
+      xp:50
+    },
+
+    {
+      id:"lax25shots",
+      title:"Take 25 shots",
+      description:"Focus on accuracy and good shooting mechanics.",
+      type:"Lacrosse",
+      unit:"shots",
+      target:25,
+      xp:45
+    },
+
+    {
+      id:"lax30dodges",
+      title:"Complete 30 dodges",
+      description:"Work through different dodges with both hands.",
+      type:"Lacrosse",
+      unit:"dodges",
+      target:30,
+      xp:50
+    }
+
   ],
+
   Basketball: [
-    ["100 Form Shots","Complete 100 close-range form shots.","Basketball",50],
-    ["50 Free Throws","Shoot 50 free throws with your routine.","Basketball",40],
-    ["50 Dribble Moves","Complete 50 controlled dribble moves.","Basketball",40],
-    ["25 Layups Each Side","Complete 25 makes on each side.","Basketball",45]
+
+    {
+      id:"basketball100shots",
+      title:"Take 100 shots",
+      description:"Focus on quality shooting rather than rushing.",
+      type:"Basketball",
+      unit:"shots",
+      target:100,
+      xp:55
+    },
+
+    {
+      id:"basketball50free",
+      title:"Shoot 50 free throws",
+      description:"Use your normal free throw routine.",
+      type:"Basketball",
+      unit:"free throws",
+      target:50,
+      xp:40
+    },
+
+    {
+      id:"basketball50dribble",
+      title:"Complete 50 dribble moves",
+      description:"Work on controlled handles with both hands.",
+      type:"Basketball",
+      unit:"moves",
+      target:50,
+      xp:40
+    }
+
   ],
-  Football: [
-    ["50 Catches","Complete 50 quality catches.","Football",45],
-    ["30 Route Reps","Run through 30 route reps or footwork reps.","Football",50],
-    ["20 Minutes Footwork","Work on quick feet and change of direction.","Football",40]
-  ],
+
   Soccer: [
-    ["100 Touches","Complete 100 controlled touches.","Soccer",40],
-    ["50 Passes","Complete 50 accurate passes against a wall or partner.","Soccer",40],
-    ["30 Shots","Take 30 quality shots.","Soccer",50]
+
+    {
+      id:"soccer100touch",
+      title:"100 ball touches",
+      description:"Work on controlled touches with both feet.",
+      type:"Soccer",
+      unit:"touches",
+      target:100,
+      xp:45
+    },
+
+    {
+      id:"soccer50passes",
+      title:"Complete 50 passes",
+      description:"Use a wall or partner and focus on accuracy.",
+      type:"Soccer",
+      unit:"passes",
+      target:50,
+      xp:40
+    },
+
+    {
+      id:"soccer30shots",
+      title:"Take 30 shots",
+      description:"Focus on quality finishing.",
+      type:"Soccer",
+      unit:"shots",
+      target:30,
+      xp:50
+    }
+
   ],
-  Hockey: [
-    ["100 Stickhandling Reps","Complete 100 controlled stickhandling reps.","Hockey",50],
-    ["50 Shots","Take 50 focused shots.","Hockey",55],
-    ["20 Minutes Footwork","Work on skating footwork or dryland movement.","Hockey",40]
+
+  Football: [
+
+    {
+      id:"football50catches",
+      title:"Complete 50 catches",
+      description:"Work on clean hands and different catching angles.",
+      type:"Football",
+      unit:"catches",
+      target:50,
+      xp:45
+    },
+
+    {
+      id:"football30routes",
+      title:"Run 30 route reps",
+      description:"Work on route running, cuts, and footwork.",
+      type:"Football",
+      unit:"reps",
+      target:30,
+      xp:50
+    }
+
   ],
+
   Tennis: [
-    ["100 Groundstrokes","Complete 100 focused groundstrokes.","Tennis",50],
-    ["50 Serves","Practice 50 serves with controlled technique.","Tennis",55],
-    ["20 Minutes Footwork","Work on tennis-specific movement.","Tennis",40]
+
+    {
+      id:"tennis100ground",
+      title:"100 groundstrokes",
+      description:"Focus on controlled, quality swings.",
+      type:"Tennis",
+      unit:"groundstrokes",
+      target:100,
+      xp:50
+    },
+
+    {
+      id:"tennis50serves",
+      title:"Practice 50 serves",
+      description:"Focus on your normal serving routine.",
+      type:"Tennis",
+      unit:"serves",
+      target:50,
+      xp:55
+    }
+
   ],
+
   Golf: [
-    ["50 Practice Swings","Complete 50 controlled practice swings.","Golf",40],
-    ["30 Short Game Reps","Work on 30 chips/pitches.","Golf",45],
-    ["20 Putts","Complete 20 focused putts.","Golf",35]
+
+    {
+      id:"golf50swings",
+      title:"50 practice swings",
+      description:"Focus on balanced, controlled swings.",
+      type:"Golf",
+      unit:"swings",
+      target:50,
+      xp:40
+    },
+
+    {
+      id:"golf30short",
+      title:"30 short-game reps",
+      description:"Practice chips, pitches, or other short-game shots.",
+      type:"Golf",
+      unit:"reps",
+      target:30,
+      xp:45
+    }
+
   ]
+
 };
 
+
+/* =========================================================
+   MYSTERY MISSIONS
+========================================================= */
+
 const mysteryMissions = [
-  ["Talk to someone new","Start a genuine conversation with someone you don't normally talk to.","Comfort Zone",65],
-  ["Do 25 extra reps","Choose a safe exercise and complete 25 extra reps.","Challenge",45],
-  ["Try a new drill","Find a new drill related to one of your sports and practice it.","Growth",60],
-  ["Give someone encouragement","Find someone and genuinely encourage them.","Confidence",50],
-  ["20-minute no-phone challenge","Put your phone away and do something productive for 20 minutes.","Mindset",50],
-  ["Do something you've been avoiding","Pick one small productive thing you've been putting off.","Growth",65],
-  ["Learn a new skill","Spend at least 20 minutes learning something new.","Growth",60]
+
+  {
+    title:"Talk to someone new",
+    description:"Start a genuine conversation with someone you don't normally talk to.",
+    type:"Comfort Zone",
+    unit:"people",
+    target:1,
+    xp:65
+  },
+
+  {
+    title:"Give someone encouragement",
+    description:"Genuinely encourage someone today.",
+    type:"Confidence",
+    unit:"people",
+    target:1,
+    xp:50
+  },
+
+  {
+    title:"Try a new drill",
+    description:"Find a new drill for one of your sports and try it.",
+    type:"Growth",
+    unit:"drills",
+    target:1,
+    xp:60
+  },
+
+  {
+    title:"Do something you've been avoiding",
+    description:"Pick one small productive thing you've been putting off.",
+    type:"Growth",
+    unit:"task",
+    target:1,
+    xp:65
+  },
+
+  {
+    title:"20-minute no-phone challenge",
+    description:"Put your phone away and focus on something else.",
+    type:"Mindset",
+    unit:"minutes",
+    target:20,
+    xp:50
+  }
+
 ];
 
-function getAllMissions() {
-  let result = [...generalMissions];
+
+/* =========================================================
+   BUILD MISSION POOL
+========================================================= */
+
+function getMissionPool() {
+
+  let pool = [...generalMissions];
 
   data.sports.forEach(sport => {
+
     if (sportMissions[sport]) {
-      result.push(
-        ...sportMissions[sport].map((m, i) => ({
-          id: sport.toLowerCase() + "_" + i + "_" + m[0].replace(/\W/g,""),
-          title: m[0],
-          description: m[1],
-          type: m[2],
-          xp: m[3]
-        }))
-      );
+      pool.push(...sportMissions[sport]);
     }
+
   });
 
-  return result;
+  return pool;
+
 }
 
-/* ---------------- DAILY MISSION GENERATION ---------------- */
+
+/* =========================================================
+   DAILY MISSIONS
+========================================================= */
 
 function createDailyMissions() {
-  const key = todayKey();
 
-  if (data.daily.date === key && Array.isArray(data.daily.missions)) {
+  const key = today();
+
+  if (
+    data.daily.date === key &&
+    Array.isArray(data.daily.missions)
+  ) {
     return;
   }
 
-  const pool = getAllMissions();
+  const pool = getMissionPool();
 
-  // Shuffle pool.
-  const shuffled = [...pool].sort(() => Math.random() - 0.5);
+  const shuffled =
+    [...pool].sort(() => Math.random() - .5);
 
-  // Select unique missions.
-  const selected = [];
+  const missions = [];
 
   for (const mission of shuffled) {
-    if (!selected.some(x => x.id === mission.id)) {
-      selected.push({
+
+    if (
+      !missions.some(
+        m => m.id === mission.id
+      )
+    ) {
+
+      missions.push({
         ...mission,
-        completed: false,
-        swapped: false
+        completed:false,
+        swapped:false,
+        actual:null
       });
+
     }
 
-    if (selected.length >= 5) break;
+    if (missions.length >= 5) {
+      break;
+    }
+
   }
 
   data.daily = {
-    date: key,
-    missions: selected,
-    mystery: null,
-    mysteryRevealed: false
+    date:key,
+    missions,
+    mystery:null,
+    mysteryRevealed:false
   };
 
   saveData();
+
 }
 
-function missionAlreadyCompletedToday(id) {
-  return data.daily.missions?.some(m => m.id === id && m.completed);
-}
 
-function completeMission(index) {
-  const mission = data.daily.missions[index];
+/* =========================================================
+   MISSION RESULT
+========================================================= */
+
+function openMissionResult(index) {
+
+  const mission =
+    data.daily.missions[index];
 
   if (!mission || mission.completed) {
     return;
   }
 
-  mission.completed = true;
+  pendingMissionIndex = index;
+  pendingMystery = false;
 
-  addXP(mission.xp);
+  document.getElementById("resultTitle").textContent =
+    mission.title;
 
-  data.totalCompleted++;
+  document.getElementById("resultDescription").textContent =
+    `Target: ${mission.target} ${mission.unit}. Enter what you actually did.`;
 
-  data.history.push({
-    date: todayKey(),
-    title: mission.title,
-    xp: mission.xp
-  });
+  document.getElementById("resultLabel").textContent =
+    `Actual ${mission.unit}`;
 
-  markActiveDay();
+  document.getElementById("resultValue").value = "";
 
-  saveData();
-  renderAll();
+  document.getElementById("resultModal")
+    .classList.remove("hidden");
+
+  setTimeout(() => {
+    document.getElementById("resultValue").focus();
+  },50);
+
 }
 
-function swapMission(index) {
-  const mission = data.daily.missions[index];
 
-  if (!mission || mission.completed || mission.swapped) {
+function openMysteryResult() {
+
+  const mission =
+    data.daily.mystery;
+
+  if (!mission || mission.completed) {
     return;
   }
 
-  const pool = getAllMissions().filter(m =>
-    !data.daily.missions.some(existing => existing.id === m.id)
-  );
+  pendingMissionIndex = null;
+  pendingMystery = true;
 
-  if (!pool.length) return;
+  document.getElementById("resultTitle").textContent =
+    mission.title;
 
-  const replacement = {
-    ...random(pool),
-    completed: false,
-    swapped: true
-  };
+  document.getElementById("resultDescription").textContent =
+    `Target: ${mission.target} ${mission.unit}. Enter what you actually did.`;
 
-  data.daily.missions[index] = replacement;
+  document.getElementById("resultLabel").textContent =
+    `Actual ${mission.unit}`;
 
-  saveData();
-  renderAll();
+  document.getElementById("resultValue").value = "";
+
+  document.getElementById("resultModal")
+    .classList.remove("hidden");
+
 }
 
-/* ---------------- MYSTERY ---------------- */
+
+function closeResultModal() {
+
+  document.getElementById("resultModal")
+    .classList.add("hidden");
+
+  pendingMissionIndex = null;
+  pendingMystery = false;
+
+}
+
+
+function submitResult() {
+
+  const value =
+    Number(
+      document.getElementById("resultValue").value
+    );
+
+  if (!Number.isFinite(value) || value <= 0) {
+
+    alert("Enter what you actually did.");
+
+    return;
+
+  }
+
+
+  let mission;
+
+  if (pendingMystery) {
+
+    mission = data.daily.mystery;
+
+  } else {
+
+    mission =
+      data.daily.missions[pendingMissionIndex];
+
+  }
+
+
+  if (!mission || mission.completed) {
+
+    closeResultModal();
+
+    return;
+
+  }
+
+
+  /*
+    You only earn the mission's XP when you
+    reach the target.
+
+    Doing MORE than the target is saved,
+    but XP does not endlessly increase.
+  */
+
+  const reachedTarget =
+    value >= mission.target;
+
+
+  mission.actual = value;
+  mission.completed = reachedTarget;
+
+
+  if (reachedTarget) {
+
+    data.xp += mission.xp;
+    data.totalCompleted++;
+
+    data.history.push({
+
+      date:today(),
+
+      title:mission.title,
+
+      target:
+        `${mission.target} ${mission.unit}`,
+
+      actual:
+        `${value} ${mission.unit}`,
+
+      xp:mission.xp
+
+    });
+
+    markActiveDay();
+
+    alert(
+      `Mission complete! +${mission.xp} XP`
+    );
+
+  } else {
+
+    /*
+      The result is still saved, but the
+      mission isn't marked complete and
+      doesn't award XP.
+    */
+
+    data.history.push({
+
+      date:today(),
+
+      title:
+        `${mission.title} — progress`,
+
+      target:
+        `${mission.target} ${mission.unit}`,
+
+      actual:
+        `${value} ${mission.unit}`,
+
+      xp:0
+
+    });
+
+    alert(
+      `You logged ${value} ${mission.unit}, but the target was ${mission.target}. No XP yet.`
+    );
+
+  }
+
+
+  saveData();
+
+  closeResultModal();
+
+  renderAll();
+
+}
+
+
+/* =========================================================
+   SWAP
+========================================================= */
+
+function swapMission(index) {
+
+  const old =
+    data.daily.missions[index];
+
+  if (
+    !old ||
+    old.completed ||
+    old.swapped
+  ) {
+    return;
+  }
+
+
+  const used =
+    data.daily.missions.map(m => m.id);
+
+
+  const pool =
+    getMissionPool().filter(
+      m => !used.includes(m.id)
+    );
+
+
+  if (!pool.length) {
+
+    alert("No different mission is available right now.");
+
+    return;
+
+  }
+
+
+  const replacement =
+    pool[
+      Math.floor(
+        Math.random() * pool.length
+      )
+    ];
+
+
+  data.daily.missions[index] = {
+
+    ...replacement,
+
+    completed:false,
+    swapped:true,
+    actual:null
+
+  };
+
+
+  saveData();
+
+  renderAll();
+
+}
+
+
+/* =========================================================
+   MYSTERY
+========================================================= */
 
 function revealMystery() {
-  if (data.daily.mysteryRevealed) return;
 
-  const item = random(mysteryMissions);
+  if (data.daily.mysteryRevealed) {
+    return;
+  }
+
+
+  const chosen =
+    mysteryMissions[
+      Math.floor(
+        Math.random() * mysteryMissions.length
+      )
+    ];
+
 
   data.daily.mystery = {
-    id: "mystery_" + todayKey(),
-    title: item[0],
-    description: item[1],
-    type: item[2],
-    xp: item[3],
-    completed: false
+
+    ...chosen,
+
+    id:"mystery_" + today(),
+
+    completed:false,
+    actual:null
+
   };
+
 
   data.daily.mysteryRevealed = true;
 
   saveData();
+
   renderAll();
+
 }
 
-function completeMystery() {
-  if (!data.daily.mystery || data.daily.mystery.completed) return;
 
-  data.daily.mystery.completed = true;
-
-  addXP(data.daily.mystery.xp);
-
-  data.totalCompleted++;
-
-  data.history.push({
-    date: todayKey(),
-    title: data.daily.mystery.title,
-    xp: data.daily.mystery.xp
-  });
-
-  markActiveDay();
-
-  saveData();
-  renderAll();
-}
-
-/* ---------------- XP ---------------- */
-
-function addXP(amount) {
-  data.xp += amount;
-}
+/* =========================================================
+   ACTIVE DAYS
+========================================================= */
 
 function markActiveDay() {
-  const key = todayKey();
+
+  const key = today();
 
   if (!data.activeDays.includes(key)) {
+
     data.activeDays.push(key);
+
   }
+
 }
 
-/* ---------------- NUTRITION ---------------- */
 
-function getTodayNutrition() {
-  const key = todayKey();
+/* =========================================================
+   NUTRITION
+========================================================= */
+
+function getNutrition() {
+
+  const key = today();
 
   if (!data.nutrition[key]) {
+
     data.nutrition[key] = {
-      breakfast: 0,
-      lunch: 0,
-      dinner: 0,
-      snacks: 0,
-      protein: 0,
-      water: 0,
-      sleep: 0
+
+      breakfast:0,
+      lunch:0,
+      dinner:0,
+      snacks:0,
+
+      protein:0,
+      water:0,
+      sleep:0
+
     };
+
   }
 
   return data.nutrition[key];
+
 }
+
 
 function saveNutrition() {
-  const n = getTodayNutrition();
 
-  n.breakfast = Number(document.getElementById("breakfastCalories").value) || 0;
-  n.lunch = Number(document.getElementById("lunchCalories").value) || 0;
-  n.dinner = Number(document.getElementById("dinnerCalories").value) || 0;
-  n.snacks = Number(document.getElementById("snackCalories").value) || 0;
-  n.protein = Number(document.getElementById("protein").value) || 0;
-  n.water = Number(document.getElementById("water").value) || 0;
-  n.sleep = Number(document.getElementById("sleep").value) || 0;
+  const n = getNutrition();
+
+  n.breakfast =
+    Number(
+      document.getElementById("breakfast").value
+    ) || 0;
+
+  n.lunch =
+    Number(
+      document.getElementById("lunch").value
+    ) || 0;
+
+  n.dinner =
+    Number(
+      document.getElementById("dinner").value
+    ) || 0;
+
+  n.snacks =
+    Number(
+      document.getElementById("snacks").value
+    ) || 0;
+
+  n.protein =
+    Number(
+      document.getElementById("protein").value
+    ) || 0;
+
+  n.water =
+    Number(
+      document.getElementById("water").value
+    ) || 0;
+
+  n.sleep =
+    Number(
+      document.getElementById("sleep").value
+    ) || 0;
+
 
   saveData();
+
   renderAll();
 
-  alert("Today's nutrition was saved!");
+  alert("Today's stats saved!");
+
 }
 
+
 function saveGoals() {
+
   data.goals.calories =
-    Number(document.getElementById("calorieGoal").value) || 0;
+    Number(
+      document.getElementById("calorieGoal").value
+    ) || 0;
 
   data.goals.protein =
-    Number(document.getElementById("proteinGoal").value) || 0;
+    Number(
+      document.getElementById("proteinGoal").value
+    ) || 0;
 
   data.goals.water =
-    Number(document.getElementById("waterGoal").value) || 0;
+    Number(
+      document.getElementById("waterGoal").value
+    ) || 0;
 
   data.goals.sleep =
-    Number(document.getElementById("sleepGoal").value) || 0;
+    Number(
+      document.getElementById("sleepGoal").value
+    ) || 0;
+
 
   saveData();
+
   renderAll();
 
   alert("Goals saved!");
+
 }
 
-/* ---------------- RENDERING ---------------- */
+
+/* =========================================================
+   RENDER SETUP
+========================================================= */
 
 function renderSetup() {
-  const setup = document.getElementById("setup");
-  const app = document.getElementById("app");
 
   if (data.setupComplete) {
-    setup.classList.add("hidden");
-    app.classList.remove("hidden");
+
+    document
+      .getElementById("setupScreen")
+      .classList.add("hidden");
+
+    document
+      .getElementById("app")
+      .classList.remove("hidden");
+
   } else {
-    setup.classList.remove("hidden");
-    app.classList.add("hidden");
+
+    document
+      .getElementById("setupScreen")
+      .classList.remove("hidden");
+
+    document
+      .getElementById("app")
+      .classList.add("hidden");
+
   }
+
 }
+
 
 function renderSportsSelector() {
-  const container = document.getElementById("sports");
 
-  container.innerHTML = SPORTS.map(sport => `
-    <button
-      type="button"
-      class="sport-option ${data.sports.includes(sport) ? "selected" : ""}"
-      data-sport="${sport}">
-      ${sport}
-    </button>
-  `).join("");
+  const container =
+    document.getElementById("sportsList");
 
-  container.querySelectorAll("[data-sport]").forEach(button => {
-    button.addEventListener("click", () => {
-      const sport = button.dataset.sport;
 
-      if (data.sports.includes(sport)) {
-        data.sports = data.sports.filter(x => x !== sport);
-      } else {
-        data.sports.push(sport);
-      }
+  container.innerHTML =
+    SPORTS.map(sport => `
 
-      renderSportsSelector();
+      <button
+        type="button"
+        class="sport-button ${
+          data.sports.includes(sport)
+            ? "selected"
+            : ""
+        }"
+        data-sport="${sport}"
+      >
+        ${sport}
+      </button>
+
+    `).join("");
+
+
+  container
+    .querySelectorAll("[data-sport]")
+    .forEach(button => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          const sport =
+            button.dataset.sport;
+
+
+          if (data.sports.includes(sport)) {
+
+            data.sports =
+              data.sports.filter(
+                x => x !== sport
+              );
+
+          } else {
+
+            data.sports.push(sport);
+
+          }
+
+
+          renderSportsSelector();
+
+        }
+      );
+
     });
-  });
+
 }
+
+
+/* =========================================================
+   RENDER HEADER
+========================================================= */
 
 function renderHeader() {
-  document.getElementById("username").textContent =
-    data.name ? `Hey, ${data.name}` : "Hey, athlete";
 
-  const info = levelInfo(data.xp);
+  const info =
+    levelInfo(data.xp);
 
-  document.getElementById("levelPill").textContent =
-    `Level ${info.level}`;
 
-  document.getElementById("homeLevel").textContent =
-    `Level ${info.level}`;
+  document.getElementById("username")
+    .textContent =
+      `Hey, ${data.name}`;
 
-  document.getElementById("lifetimeXP").textContent =
-    data.xp.toLocaleString();
 
-  document.getElementById("progressXP").textContent =
-    data.xp.toLocaleString();
+  document.getElementById("levelPill")
+    .textContent =
+      `Level ${info.level}`;
 
-  document.getElementById("completedCount").textContent =
-    data.totalCompleted;
 
-  document.getElementById("daysActive").textContent =
-    data.activeDays.length;
+  document.getElementById("homeLevel")
+    .textContent =
+      `Level ${info.level}`;
 
-  document.getElementById("xpText").textContent =
-    `${info.current} / ${info.requirement} XP`;
 
-  document.getElementById("nextLevelText").textContent =
-    `${info.requirement - info.current} XP until Level ${info.level + 1}`;
+  document.getElementById("lifetimeXP")
+    .textContent =
+      data.xp.toLocaleString();
 
-  document.getElementById("xpBar").style.width =
-    `${Math.min(100, (info.current / info.requirement) * 100)}%`;
 
-  document.getElementById("sportsDisplay").textContent =
-    data.sports.length ? data.sports.join(" • ") : "No sports selected";
+  document.getElementById("progressXP")
+    .textContent =
+      data.xp.toLocaleString();
+
+
+  document.getElementById("completedCount")
+    .textContent =
+      data.totalCompleted;
+
+
+  document.getElementById("daysActive")
+    .textContent =
+      data.activeDays.length;
+
+
+  document.getElementById("xpText")
+    .textContent =
+      `${info.current} / ${info.requirement} XP`;
+
+
+  document.getElementById("nextLevelText")
+    .textContent =
+      `${info.requirement - info.current} XP until Level ${info.level + 1}`;
+
+
+  document.getElementById("xpBar")
+    .style.width =
+      `${Math.min(
+        100,
+        info.current /
+        info.requirement *
+        100
+      )}%`;
+
+
+  document.getElementById("sportsDisplay")
+    .textContent =
+      data.sports.length
+        ? data.sports.join(" • ")
+        : "No sports selected";
+
 }
 
-function missionHTML(mission, index) {
-  const completed = mission.completed;
 
-  return `
-    <div class="card mission ${completed ? "completed" : ""}">
-      <div class="mission-top">
-        <span class="badge">${mission.type}</span>
-        <span class="xp">+${mission.xp} XP</span>
-      </div>
+/* =========================================================
+   MISSION HTML
+========================================================= */
 
-      <h3>${mission.title}</h3>
-      <p>${mission.description}</p>
-
-      <div class="mission-actions">
-        <button
-          class="complete"
-          data-complete="${index}"
-          ${completed ? "disabled" : ""}>
-          ${completed ? "✓ Completed" : "Complete"}
-        </button>
-
-        <button
-          class="swap"
-          data-swap="${index}"
-          ${completed || mission.swapped ? "disabled" : ""}>
-          ${mission.swapped ? "Swapped" : "Swap"}
-        </button>
-      </div>
-    </div>
-  `;
-}
-
-function renderMissions() {
-  const list = document.getElementById("missionsList");
-
-  list.innerHTML = data.daily.missions
-    .map((mission, index) => missionHTML(mission, index))
-    .join("");
-
-  list.querySelectorAll("[data-complete]").forEach(button => {
-    button.addEventListener("click", () => {
-      completeMission(Number(button.dataset.complete));
-    });
-  });
-
-  list.querySelectorAll("[data-swap]").forEach(button => {
-    button.addEventListener("click", () => {
-      swapMission(Number(button.dataset.swap));
-    });
-  });
+function missionHTML(mission,index) {
 
   const completed =
-    data.daily.missions.filter(m => m.completed).length;
+    mission.completed;
 
-  document.getElementById("missionCount").textContent =
-    `${completed} / ${data.daily.missions.length}`;
 
-  document.getElementById("homeMissions").innerHTML =
-    data.daily.missions.slice(0, 3)
-      .map((mission, index) => missionHTML(mission, index))
+  return `
+
+    <article class="mission-card ${
+      completed ? "completed" : ""
+    }">
+
+      <div class="mission-header">
+
+        <span class="mission-tag">
+          ${mission.type}
+        </span>
+
+        <span class="mission-xp">
+          +${mission.xp} XP
+        </span>
+
+      </div>
+
+
+      <h3 class="mission-title">
+        ${mission.title}
+      </h3>
+
+
+      <p class="mission-description">
+        ${mission.description}
+      </p>
+
+
+      <div class="mission-target">
+
+        🎯 Target:
+        ${mission.target}
+        ${mission.unit}
+
+        ${
+          mission.actual !== null
+            ? `<br>📊 Actual:
+                ${mission.actual}
+                ${mission.unit}`
+            : ""
+        }
+
+      </div>
+
+
+      <div class="mission-buttons">
+
+        <button
+          class="complete-button"
+          data-complete="${index}"
+          ${completed ? "disabled" : ""}
+        >
+          ${
+            completed
+              ? "✓ Completed"
+              : "Complete Mission"
+          }
+        </button>
+
+
+        <button
+          class="swap-button"
+          data-swap="${index}"
+          ${
+            completed || mission.swapped
+              ? "disabled"
+              : ""
+          }
+        >
+          ${
+            mission.swapped
+              ? "Already Swapped"
+              : "↻ Swap Mission"
+          }
+        </button>
+
+      </div>
+
+    </article>
+
+  `;
+
+}
+
+
+/* =========================================================
+   RENDER MISSIONS
+========================================================= */
+
+function renderMissions() {
+
+  const list =
+    document.getElementById("missionsList");
+
+
+  /*
+    IMPORTANT:
+    This is NOT a grid.
+    It is a vertical list.
+    Therefore missions cannot get
+    jammed next to one another.
+  */
+
+  list.innerHTML =
+    data.daily.missions
+      .map(
+        (mission,index) =>
+          missionHTML(
+            mission,
+            index
+          )
+      )
       .join("");
 
-  document.querySelectorAll("#homeMissions [data-complete]").forEach(button => {
-    button.addEventListener("click", () => {
-      completeMission(Number(button.dataset.complete));
-    });
-  });
 
-  document.querySelectorAll("#homeMissions [data-swap]").forEach(button => {
-    button.addEventListener("click", () => {
-      swapMission(Number(button.dataset.swap));
+  list
+    .querySelectorAll("[data-complete]")
+    .forEach(button => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          openMissionResult(
+            Number(
+              button.dataset.complete
+            )
+          );
+
+        }
+      );
+
     });
-  });
+
+
+  list
+    .querySelectorAll("[data-swap]")
+    .forEach(button => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          swapMission(
+            Number(
+              button.dataset.swap
+            )
+          );
+
+        }
+      );
+
+    });
+
+
+  /*
+    Mystery challenge
+  */
 
   renderMystery();
+
+
+  /*
+    Home page gets the same
+    full-width mission cards.
+  */
+
+  const home =
+    document.getElementById(
+      "homeMissionList"
+    );
+
+
+  home.innerHTML =
+    data.daily.missions
+      .map(
+        (mission,index) =>
+          missionHTML(
+            mission,
+            index
+          )
+      )
+      .join("");
+
+
+  home
+    .querySelectorAll("[data-complete]")
+    .forEach(button => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          openMissionResult(
+            Number(
+              button.dataset.complete
+            )
+          );
+
+        }
+      );
+
+    });
+
+
+  home
+    .querySelectorAll("[data-swap]")
+    .forEach(button => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          swapMission(
+            Number(
+              button.dataset.swap
+            )
+          );
+
+        }
+      );
+
+    });
+
 }
+
+
+/* =========================================================
+   MYSTERY RENDER
+========================================================= */
 
 function renderMystery() {
-  const title = document.getElementById("mysteryTitle");
-  const text = document.getElementById("mysteryText");
-  const button = document.getElementById("revealButton");
+
+  const title =
+    document.getElementById(
+      "mysteryTitle"
+    );
+
+  const description =
+    document.getElementById(
+      "mysteryDescription"
+    );
+
+  const button =
+    document.getElementById(
+      "revealButton"
+    );
+
 
   if (!data.daily.mysteryRevealed) {
-    title.textContent = "You don't know what you're getting.";
-    text.textContent =
+
+    title.textContent =
+      "You don't know what you're getting.";
+
+    description.textContent =
       "Reveal today's mystery challenge when you're ready.";
-    button.textContent = "Reveal Challenge";
-    button.onclick = revealMystery;
+
+    button.textContent =
+      "Reveal Challenge";
+
+    button.disabled = false;
+
+    button.onclick =
+      revealMystery;
+
     return;
+
   }
 
-  const m = data.daily.mystery;
 
-  title.textContent = `${m.title} • +${m.xp} XP`;
-  text.textContent = m.description;
+  const m =
+    data.daily.mystery;
+
+
+  title.textContent =
+    `${m.title} • +${m.xp} XP`;
+
+
+  description.textContent =
+    `${m.description} Target: ${m.target} ${m.unit}.`;
+
 
   if (m.completed) {
-    button.textContent = "✓ Completed";
+
+    button.textContent =
+      "✓ Completed";
+
     button.disabled = true;
+
   } else {
-    button.textContent = "Complete Mystery Challenge";
+
+    button.textContent =
+      "Complete Mystery Challenge";
+
     button.disabled = false;
-    button.onclick = completeMystery;
+
+    button.onclick =
+      openMysteryResult;
+
   }
+
 }
+
+
+/* =========================================================
+   TODAY STATS
+========================================================= */
 
 function renderTodayStats() {
-  const n = getTodayNutrition();
+
+  const n =
+    getNutrition();
+
 
   const calories =
-    n.breakfast + n.lunch + n.dinner + n.snacks;
+    n.breakfast +
+    n.lunch +
+    n.dinner +
+    n.snacks;
 
-  document.getElementById("todayStats").innerHTML = `
-    <div class="history-row">
-      <span>Calories</span>
-      <strong>${calories.toLocaleString()}</strong>
-    </div>
-    <div class="history-row">
-      <span>Protein</span>
-      <strong>${n.protein}g</strong>
-    </div>
-    <div class="history-row">
-      <span>Water</span>
-      <strong>${n.water} fl oz</strong>
-    </div>
-    <div class="history-row">
-      <span>Sleep</span>
-      <strong>${n.sleep} hrs</strong>
-    </div>
-  `;
+
+  document.getElementById("todayStats")
+    .innerHTML = `
+
+      <div class="history-row">
+        <span>Calories</span>
+        <strong>
+          ${calories.toLocaleString()}
+        </strong>
+      </div>
+
+      <div class="history-row">
+        <span>Protein</span>
+        <strong>${n.protein}g</strong>
+      </div>
+
+      <div class="history-row">
+        <span>Water</span>
+        <strong>${n.water} fl oz</strong>
+      </div>
+
+      <div class="history-row">
+        <span>Sleep</span>
+        <strong>${n.sleep} hrs</strong>
+      </div>
+
+    `;
+
 }
+
+
+/* =========================================================
+   NUTRITION RENDER
+========================================================= */
 
 function renderNutrition() {
-  const n = getTodayNutrition();
 
-  document.getElementById("calorieGoal").value = data.goals.calories || "";
-  document.getElementById("proteinGoal").value = data.goals.protein || "";
-  document.getElementById("waterGoal").value = data.goals.water || "";
-  document.getElementById("sleepGoal").value = data.goals.sleep || "";
+  const n =
+    getNutrition();
 
-  document.getElementById("breakfastCalories").value = n.breakfast || "";
-  document.getElementById("lunchCalories").value = n.lunch || "";
-  document.getElementById("dinnerCalories").value = n.dinner || "";
-  document.getElementById("snackCalories").value = n.snacks || "";
-  document.getElementById("protein").value = n.protein || "";
-  document.getElementById("water").value = n.water || "";
-  document.getElementById("sleep").value = n.sleep || "";
+
+  document.getElementById(
+    "calorieGoal"
+  ).value =
+    data.goals.calories || "";
+
+
+  document.getElementById(
+    "proteinGoal"
+  ).value =
+    data.goals.protein || "";
+
+
+  document.getElementById(
+    "waterGoal"
+  ).value =
+    data.goals.water || "";
+
+
+  document.getElementById(
+    "sleepGoal"
+  ).value =
+    data.goals.sleep || "";
+
+
+  document.getElementById(
+    "breakfast"
+  ).value =
+    n.breakfast || "";
+
+
+  document.getElementById(
+    "lunch"
+  ).value =
+    n.lunch || "";
+
+
+  document.getElementById(
+    "dinner"
+  ).value =
+    n.dinner || "";
+
+
+  document.getElementById(
+    "snacks"
+  ).value =
+    n.snacks || "";
+
+
+  document.getElementById(
+    "protein"
+  ).value =
+    n.protein || "";
+
+
+  document.getElementById(
+    "water"
+  ).value =
+    n.water || "";
+
+
+  document.getElementById(
+    "sleep"
+  ).value =
+    n.sleep || "";
+
 
   const calories =
-    n.breakfast + n.lunch + n.dinner + n.snacks;
+    n.breakfast +
+    n.lunch +
+    n.dinner +
+    n.snacks;
 
-  document.getElementById("nutritionSummary").innerHTML = `
+
+  document.getElementById(
+    "nutritionSummary"
+  ).innerHTML = `
+
     <div class="history-row">
       <span>Calories</span>
-      <strong>${calories.toLocaleString()} / ${data.goals.calories.toLocaleString()}</strong>
+      <strong>
+        ${calories.toLocaleString()}
+        /
+        ${data.goals.calories.toLocaleString()}
+      </strong>
     </div>
 
-    <div class="progress">
-      <div class="progress-bar" style="width:${Math.min(100, data.goals.calories ? calories / data.goals.calories * 100 : 0)}%"></div>
+    <div class="progress-track">
+      <div
+        class="progress-fill"
+        style="
+          width:${Math.min(
+            100,
+            data.goals.calories
+              ? calories /
+                data.goals.calories *
+                100
+              : 0
+          )}%
+        "
+      ></div>
     </div>
+
 
     <div class="history-row">
       <span>Protein</span>
-      <strong>${n.protein}g / ${data.goals.protein}g</strong>
+      <strong>
+        ${n.protein}g /
+        ${data.goals.protein}g
+      </strong>
     </div>
 
-    <div class="progress">
-      <div class="progress-bar" style="width:${Math.min(100, data.goals.protein ? n.protein / data.goals.protein * 100 : 0)}%"></div>
+    <div class="progress-track">
+      <div
+        class="progress-fill"
+        style="
+          width:${Math.min(
+            100,
+            data.goals.protein
+              ? n.protein /
+                data.goals.protein *
+                100
+              : 0
+          )}%
+        "
+      ></div>
     </div>
+
 
     <div class="history-row">
       <span>Water</span>
-      <strong>${n.water} / ${data.goals.water} fl oz</strong>
+      <strong>
+        ${n.water} /
+        ${data.goals.water} fl oz
+      </strong>
     </div>
 
-    <div class="progress">
-      <div class="progress-bar" style="width:${Math.min(100, data.goals.water ? n.water / data.goals.water * 100 : 0)}%"></div>
+    <div class="progress-track">
+      <div
+        class="progress-fill"
+        style="
+          width:${Math.min(
+            100,
+            data.goals.water
+              ? n.water /
+                data.goals.water *
+                100
+              : 0
+          )}%
+        "
+      ></div>
     </div>
+
 
     <div class="history-row">
       <span>Sleep</span>
-      <strong>${n.sleep} / ${data.goals.sleep} hours</strong>
+      <strong>
+        ${n.sleep} /
+        ${data.goals.sleep} hrs
+      </strong>
     </div>
+
   `;
+
 }
+
+
+/* =========================================================
+   HISTORY
+========================================================= */
 
 function renderHistory() {
-  const container = document.getElementById("history");
+
+  const container =
+    document.getElementById(
+      "history"
+    );
+
 
   if (!data.history.length) {
+
     container.innerHTML = `
-      <div class="small">
-        Your journey starts here. Complete your first mission.
-      </div>
+      <p class="small">
+        Nothing here yet. This is where
+        your lifetime journey will build up.
+      </p>
     `;
+
     return;
+
   }
 
-  const recent = [...data.history].reverse().slice(0, 20);
 
-  container.innerHTML = recent.map(item => `
-    <div class="history-row">
-      <div>
-        <strong>${item.title}</strong>
-        <div class="small">${item.date}</div>
-      </div>
-      <strong class="xp">+${item.xp} XP</strong>
-    </div>
-  `).join("");
+  const recent =
+    [...data.history]
+      .reverse()
+      .slice(0,30);
+
+
+  container.innerHTML =
+    recent
+      .map(item => `
+
+        <div class="history-row">
+
+          <div>
+
+            <strong>
+              ${item.title}
+            </strong>
+
+            <div class="small">
+              ${item.date}
+
+              ${
+                item.actual
+                  ? ` • Actual: ${item.actual}`
+                  : ""
+              }
+
+            </div>
+
+          </div>
+
+          <div class="xp-text">
+            ${
+              item.xp
+                ? "+" + item.xp + " XP"
+                : "Progress"
+            }
+          </div>
+
+        </div>
+
+      `)
+      .join("");
+
 }
+
+
+/* =========================================================
+   ACHIEVEMENTS
+========================================================= */
 
 function renderAchievements() {
+
+  const level =
+    levelInfo(data.xp).level;
+
+
   const achievements = [
+
     {
-      emoji:"🌱",
+      icon:"🌱",
       title:"First Step",
       description:"Complete your first mission.",
-      unlocked:data.totalCompleted >= 1
+      unlocked:
+        data.totalCompleted >= 1
     },
+
     {
-      emoji:"⚡",
+      icon:"⚡",
       title:"Getting Started",
-      description:"Earn 250 lifetime XP.",
-      unlocked:data.xp >= 250
+      description:"Earn 250 XP.",
+      unlocked:
+        data.xp >= 250
     },
+
     {
-      emoji:"🔥",
+      icon:"🔥",
       title:"On a Roll",
       description:"Complete 10 missions.",
-      unlocked:data.totalCompleted >= 10
+      unlocked:
+        data.totalCompleted >= 10
     },
+
     {
-      emoji:"🏆",
+      icon:"🏆",
       title:"Level 5",
       description:"Reach Level 5.",
-      unlocked:levelInfo(data.xp).level >= 5
+      unlocked:
+        level >= 5
     },
+
     {
-      emoji:"💪",
+      icon:"💪",
       title:"50 Missions",
       description:"Complete 50 missions.",
-      unlocked:data.totalCompleted >= 50
+      unlocked:
+        data.totalCompleted >= 50
     },
+
     {
-      emoji:"🚀",
+      icon:"🚀",
       title:"100 Missions",
       description:"Complete 100 missions.",
-      unlocked:data.totalCompleted >= 100
+      unlocked:
+        data.totalCompleted >= 100
     }
+
   ];
 
-  document.getElementById("achievements").innerHTML =
-    achievements.map(a => `
-      <div class="achievement ${a.unlocked ? "" : "locked"}">
-        <div class="emoji">${a.emoji}</div>
-        <strong>${a.title}</strong>
-        <div class="small" style="margin-top:5px">${a.description}</div>
-      </div>
-    `).join("");
+
+  document.getElementById(
+    "achievements"
+  ).innerHTML =
+
+    achievements
+      .map(a => `
+
+        <div class="
+          achievement
+          ${a.unlocked ? "" : "locked"}
+        ">
+
+          <div class="achievement-icon">
+            ${a.icon}
+          </div>
+
+          <strong>
+            ${a.title}
+          </strong>
+
+          <div
+            class="small"
+            style="margin-top:5px;"
+          >
+            ${a.description}
+          </div>
+
+        </div>
+
+      `)
+      .join("");
+
 }
 
-function renderAll() {
-  createDailyMissions();
-  renderSetup();
 
-  if (!data.setupComplete) {
-    renderSportsSelector();
-    return;
-  }
-
-  renderHeader();
-  renderMissions();
-  renderTodayStats();
-  renderNutrition();
-  renderHistory();
-  renderAchievements();
-}
-
-/* ---------------- NAVIGATION ---------------- */
+/* =========================================================
+   NAVIGATION
+========================================================= */
 
 function showPage(page) {
-  document.querySelectorAll(".page").forEach(p => {
-    p.classList.add("hidden");
-  });
 
-  document.getElementById(page + "Page").classList.remove("hidden");
+  document
+    .querySelectorAll(".page")
+    .forEach(p => {
 
-  document.querySelectorAll(".nav button").forEach(button => {
-    button.classList.toggle(
-      "active",
-      button.dataset.page === page
-    );
-  });
+      p.classList.add("hidden");
+
+    });
+
+
+  document
+    .getElementById(page + "Page")
+    .classList.remove("hidden");
+
+
+  document
+    .querySelectorAll(".nav button")
+    .forEach(button => {
+
+      button.classList.toggle(
+        "active",
+        button.dataset.page === page
+      );
+
+    });
+
 }
 
-/* ---------------- EVENT LISTENERS ---------------- */
 
-document.getElementById("startButton").addEventListener("click", () => {
-  const name = document.getElementById("nameInput").value.trim();
+/* =========================================================
+   RENDER EVERYTHING
+========================================================= */
 
-  if (!name) {
-    alert("Enter your name first!");
+function renderAll() {
+
+  createDailyMissions();
+
+  renderSetup();
+
+  renderSportsSelector();
+
+
+  if (!data.setupComplete) {
     return;
   }
 
-  data.name = name;
-  data.setupComplete = true;
 
-  saveData();
-  renderAll();
-});
+  renderHeader();
 
-document.querySelectorAll(".nav button").forEach(button => {
-  button.addEventListener("click", () => {
-    showPage(button.dataset.page);
+  renderMissions();
+
+  renderTodayStats();
+
+  renderNutrition();
+
+  renderHistory();
+
+  renderAchievements();
+
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+
+/* START APP */
+
+document
+  .getElementById("startButton")
+  .addEventListener(
+    "click",
+    () => {
+
+      const name =
+        document
+          .getElementById("nameInput")
+          .value
+          .trim();
+
+
+      if (!name) {
+
+        alert(
+          "Enter your name first!"
+        );
+
+        return;
+
+      }
+
+
+      data.name = name;
+
+      data.setupComplete = true;
+
+
+      saveData();
+
+      renderAll();
+
+    }
+  );
+
+
+/* NAVIGATION */
+
+document
+  .querySelectorAll(".nav button")
+  .forEach(button => {
+
+    button.addEventListener(
+      "click",
+      () => {
+
+        showPage(
+          button.dataset.page
+        );
+
+      }
+    );
+
   });
-});
 
-document.getElementById("saveNutrition").addEventListener(
-  "click",
-  saveNutrition
-);
 
-document.getElementById("saveGoals").addEventListener(
-  "click",
-  saveGoals
-);
+/* NUTRITION */
 
-/* ---------------- START ---------------- */
+document
+  .getElementById("saveNutrition")
+  .addEventListener(
+    "click",
+    saveNutrition
+  );
 
-renderSportsSelector();
+
+/* GOALS */
+
+document
+  .getElementById("saveGoals")
+  .addEventListener(
+    "click",
+    saveGoals
+  );
+
+
+/* RESULT MODAL */
+
+document
+  .getElementById("cancelResult")
+  .addEventListener(
+    "click",
+    closeResultModal
+  );
+
+
+document
+  .getElementById("submitResult")
+  .addEventListener(
+    "click",
+    submitResult
+  );
+
+
+/*
+  Clicking outside the modal closes it.
+*/
+
+document
+  .getElementById("resultModal")
+  .addEventListener(
+    "click",
+    event => {
+
+      if (
+        event.target.id ===
+        "resultModal"
+      ) {
+
+        closeResultModal();
+
+      }
+
+    }
+  );
+
+
+/*
+  Enter key submits result.
+*/
+
+document
+  .getElementById("resultValue")
+  .addEventListener(
+    "keydown",
+    event => {
+
+      if (event.key === "Enter") {
+
+        submitResult();
+
+      }
+
+    }
+  );
+
+
+/* =========================================================
+   START
+========================================================= */
+
 renderAll();
 
 </script>
+
 </body>
 </html>
 ```
