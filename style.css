@@ -1,1 +1,2028 @@
 
+/* =====================================================
+   LEVELUP
+   Main Application Styles
+===================================================== */
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+:root {
+
+    --background: #080a10;
+
+    --card: #11141c;
+
+    --card-light: #171b25;
+
+    --text: #f7f8fb;
+
+    --muted: #8e96a7;
+
+    --border: rgba(255, 255, 255, 0.08);
+
+    --purple: #7c5cff;
+
+    --purple-light: #a28dff;
+
+    --green: #43d88b;
+
+    --blue: #45a8ff;
+
+    --orange: #ff9c42;
+
+    --red: #ff5d68;
+
+}
+
+
+html {
+    background: var(--background);
+}
+
+
+body {
+
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at 20% 0%,
+            rgba(124, 92, 255, 0.17),
+            transparent 32%
+        ),
+        radial-gradient(
+            circle at 90% 15%,
+            rgba(69, 168, 255, 0.08),
+            transparent 30%
+        ),
+        var(--background);
+
+    color: var(--text);
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "SF Pro Display",
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    padding-bottom: 110px;
+
+}
+
+
+button,
+input,
+select {
+
+    font: inherit;
+
+}
+
+
+button {
+
+    cursor: pointer;
+
+}
+
+
+button:disabled {
+
+    cursor: default;
+
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.top-header {
+
+    width: 100%;
+
+    max-width: 1100px;
+
+    margin: 0 auto;
+
+    padding:
+        28px
+        24px
+        15px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+}
+
+
+.brand-name {
+
+    font-size: 26px;
+
+    font-weight: 900;
+
+    letter-spacing: -1.5px;
+
+}
+
+
+.brand-name span {
+
+    color: var(--purple-light);
+
+}
+
+
+.brand-subtitle {
+
+    margin-top: 3px;
+
+    color: var(--muted);
+
+    font-size: 12px;
+
+}
+
+
+.settings-button {
+
+    width: 44px;
+
+    height: 44px;
+
+    border-radius: 14px;
+
+    border: 1px solid var(--border);
+
+    background: var(--card);
+
+    color: white;
+
+}
+
+
+/* =====================================================
+   APP CONTAINER
+===================================================== */
+
+.app-container {
+
+    width: 100%;
+
+    max-width: 1100px;
+
+    margin: 0 auto;
+
+    padding:
+        15px
+        24px
+        120px;
+
+}
+
+
+.page {
+
+    display: none;
+
+}
+
+
+.page.active {
+
+    display: block;
+
+}
+
+
+/* =====================================================
+   GENERAL TEXT
+===================================================== */
+
+.eyebrow {
+
+    color: var(--purple-light);
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.7px;
+
+    text-transform: uppercase;
+
+    margin-bottom: 6px;
+
+}
+
+
+h1 {
+
+    font-size: 37px;
+
+    line-height: 1;
+
+    letter-spacing: -1.7px;
+
+}
+
+
+h2 {
+
+    font-size: 22px;
+
+    letter-spacing: -0.6px;
+
+}
+
+
+h3 {
+
+    font-size: 16px;
+
+}
+
+
+.page-heading {
+
+    margin:
+        20px
+        0
+        25px;
+
+}
+
+
+.page-heading p {
+
+    max-width: 600px;
+
+    margin-top: 9px;
+
+    color: var(--muted);
+
+    line-height: 1.5;
+
+}
+
+
+.section-header {
+
+    margin-top: 36px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+}
+
+
+.section-hint {
+
+    color: var(--muted);
+
+    font-size: 12px;
+
+    margin-top: 5px;
+
+}
+
+
+/* =====================================================
+   LEVEL CARD
+===================================================== */
+
+.level-card {
+
+    padding: 26px;
+
+    border-radius: 26px;
+
+    border: 1px solid rgba(
+        162,
+        141,
+        255,
+        0.18
+    );
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(124, 92, 255, 0.28),
+            rgba(124, 92, 255, 0.04)
+        ),
+        var(--card);
+
+    box-shadow:
+        0 25px 70px
+        rgba(0, 0, 0, 0.28);
+
+}
+
+
+.level-card-top {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+}
+
+
+.level-card h1 {
+
+    margin-top: 3px;
+
+}
+
+
+.xp-pill {
+
+    padding:
+        9px
+        13px;
+
+    border-radius: 30px;
+
+    background:
+        rgba(255, 255, 255, 0.07);
+
+    border:
+        1px solid var(--border);
+
+    color: white;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+}
+
+
+.xp-bar {
+
+    width: 100%;
+
+    height: 9px;
+
+    margin-top: 23px;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    background:
+        rgba(255, 255, 255, 0.07);
+
+}
+
+
+.xp-bar-fill {
+
+    width: 0%;
+
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--purple),
+            var(--purple-light)
+        );
+
+    transition:
+        width 0.45s ease;
+
+}
+
+
+.level-card-bottom {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-top: 11px;
+
+    color: var(--muted);
+
+    font-size: 12px;
+
+}
+
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.primary-button {
+
+    border: none;
+
+    border-radius: 12px;
+
+    padding:
+        11px
+        16px;
+
+    background: var(--purple);
+
+    color: white;
+
+    font-weight: 800;
+
+}
+
+
+.primary-button:hover {
+
+    filter: brightness(1.1);
+
+}
+
+
+.secondary-button {
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 12px;
+
+    padding:
+        10px
+        14px;
+
+    background: var(--card-light);
+
+    color: white;
+
+    font-weight: 700;
+
+}
+
+
+.full-width {
+
+    width: 100%;
+
+}
+
+
+/* =====================================================
+   MISSIONS
+===================================================== */
+
+.mission-grid {
+
+    margin-top: 15px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 14px;
+
+}
+
+
+.mission-card {
+
+    position: relative;
+
+    min-height: 185px;
+
+    padding: 20px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 20px;
+
+    background: var(--card);
+
+    overflow: hidden;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-between;
+
+}
+
+
+.mission-card::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 110px;
+
+    height: 110px;
+
+    right: -50px;
+
+    top: -50px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(124, 92, 255, 0.12);
+
+}
+
+
+.mission-card.completed {
+
+    opacity: 0.55;
+
+}
+
+
+.mission-top {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+}
+
+
+.mission-icon {
+
+    font-size: 27px;
+
+}
+
+
+.mission-category {
+
+    color: var(--muted);
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+
+}
+
+
+.mission-card h3 {
+
+    margin-top: 12px;
+
+    font-size: 18px;
+
+}
+
+
+.mission-card p {
+
+    margin-top: 7px;
+
+    color: var(--muted);
+
+    font-size: 13px;
+
+    line-height: 1.45;
+
+}
+
+
+.mission-footer {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-top: 16px;
+
+}
+
+
+.mission-xp {
+
+    color: var(--purple-light);
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+}
+
+
+.complete-button {
+
+    padding:
+        9px
+        12px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 10px;
+
+    background:
+        rgba(255, 255, 255, 0.06);
+
+    color: white;
+
+}
+
+
+.complete-button.completed-button {
+
+    color: var(--green);
+
+    background:
+        rgba(67, 216, 139, 0.12);
+
+}
+
+
+/* =====================================================
+   MYSTERY
+===================================================== */
+
+.mystery-card {
+
+    margin-top: 15px;
+
+    padding: 21px;
+
+    border:
+        1px solid rgba(
+            124,
+            92,
+            255,
+            0.22
+        );
+
+    border-radius: 21px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #18132c,
+            #11141c
+        );
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+}
+
+
+.mystery-icon {
+
+    flex: 0 0 auto;
+
+    width: 52px;
+
+    height: 52px;
+
+    border-radius: 16px;
+
+    display: grid;
+
+    place-items: center;
+
+    background:
+        rgba(124, 92, 255, 0.17);
+
+    font-size: 25px;
+
+    font-weight: 900;
+
+}
+
+
+.mystery-content {
+
+    flex: 1;
+
+}
+
+
+.mystery-content p {
+
+    color: var(--muted);
+
+    font-size: 12px;
+
+    line-height: 1.4;
+
+    margin-top: 5px;
+
+}
+
+
+/* =====================================================
+   HOME STATS
+===================================================== */
+
+.stats-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 13px;
+
+    margin-top: 15px;
+
+}
+
+
+.stat-card {
+
+    padding: 18px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 18px;
+
+    background: var(--card);
+
+}
+
+
+.stat-icon {
+
+    font-size: 21px;
+
+    margin-bottom: 10px;
+
+}
+
+
+.stat-card strong {
+
+    display: block;
+
+    font-size: 19px;
+
+}
+
+
+.stat-card span {
+
+    display: block;
+
+    margin-top: 4px;
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+}
+
+
+/* =====================================================
+   SPORT SELECTOR
+===================================================== */
+
+.sport-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 12px;
+
+}
+
+
+.sport-button {
+
+    padding: 18px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 16px;
+
+    background: var(--card);
+
+    color: white;
+
+    text-align: left;
+
+    transition:
+        transform 0.15s,
+        border-color 0.15s;
+
+}
+
+
+.sport-button:hover {
+
+    transform: translateY(-2px);
+
+    border-color:
+        rgba(124, 92, 255, 0.7);
+
+}
+
+
+.sport-button.selected {
+
+    border-color:
+        var(--purple);
+
+    background:
+        rgba(124, 92, 255, 0.13);
+
+}
+
+
+/* =====================================================
+   TRAINING
+===================================================== */
+
+.training-summary {
+
+    margin-top: 20px;
+
+    padding: 24px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(124, 92, 255, 0.2),
+            var(--card)
+        );
+
+}
+
+
+.training-summary h2 {
+
+    margin-top: 2px;
+
+}
+
+
+.training-summary p {
+
+    margin-top: 7px;
+
+    color: var(--muted);
+
+    font-size: 13px;
+
+}
+
+
+.training-list {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 13px;
+
+    margin-top: 15px;
+
+}
+
+
+.training-item {
+
+    padding: 18px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 17px;
+
+    background: var(--card);
+
+}
+
+
+.training-item strong {
+
+    display: block;
+
+    margin-bottom: 7px;
+
+}
+
+
+.training-item span {
+
+    color: var(--muted);
+
+    font-size: 12px;
+
+    line-height: 1.4;
+
+}
+
+
+/* =====================================================
+   NUTRITION
+===================================================== */
+
+.protein-card {
+
+    padding: 30px;
+
+    border-radius: 25px;
+
+    border:
+        1px solid rgba(
+            67,
+            216,
+            139,
+            0.16
+        );
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(67, 216, 139, 0.14),
+            var(--card)
+        );
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+}
+
+
+.protein-card strong {
+
+    display: block;
+
+    margin-top: 5px;
+
+    font-size: 44px;
+
+}
+
+
+.protein-percent {
+
+    width: 90px;
+
+    height: 90px;
+
+    border:
+        8px solid
+        rgba(67, 216, 139, 0.18);
+
+    border-top-color:
+        var(--green);
+
+    border-radius: 50%;
+
+    display: grid;
+
+    place-items: center;
+
+    font-weight: 900;
+
+}
+
+
+.input-card {
+
+    margin-top: 15px;
+
+    padding: 20px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 20px;
+
+    background: var(--card);
+
+}
+
+
+.input-card label {
+
+    display: block;
+
+    color: var(--muted);
+
+    font-size: 12px;
+
+    margin-bottom: 8px;
+
+}
+
+
+.input-row {
+
+    display: flex;
+
+    gap: 10px;
+
+}
+
+
+input,
+select {
+
+    width: 100%;
+
+    padding:
+        12px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 11px;
+
+    outline: none;
+
+    background:
+        #0c0f15;
+
+    color: white;
+
+}
+
+
+input:focus,
+select:focus {
+
+    border-color:
+        var(--purple);
+
+}
+
+
+/* =====================================================
+   MEALS
+===================================================== */
+
+.meal-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 13px;
+
+    margin-top: 15px;
+
+}
+
+
+.meal-card {
+
+    padding: 18px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 18px;
+
+    background: var(--card);
+
+}
+
+
+.meal-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    align-items: center;
+
+}
+
+
+.meal-header span {
+
+    color: var(--muted);
+
+    font-size: 10px;
+
+}
+
+
+.food-list {
+
+    margin-top: 5px;
+
+}
+
+
+.food-item {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding:
+        12px
+        0;
+
+    border-top:
+        1px solid var(--border);
+
+    margin-top: 12px;
+
+}
+
+
+.food-item strong {
+
+    display: block;
+
+    font-size: 13px;
+
+}
+
+
+.food-item small {
+
+    display: block;
+
+    color: var(--muted);
+
+    font-size: 10px;
+
+    margin-top: 4px;
+
+}
+
+
+.delete-food {
+
+    border: none;
+
+    background: none;
+
+    color: var(--red);
+
+    font-size: 20px;
+
+}
+
+
+.add-food-button {
+
+    width: 100%;
+
+    margin-top: 10px;
+
+    padding: 11px;
+
+    border: none;
+
+    border-radius: 11px;
+
+    background:
+        rgba(124, 92, 255, 0.11);
+
+    color: var(--purple-light);
+
+    font-weight: 800;
+
+}
+
+
+.nutrition-summary-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 13px;
+
+    margin-top: 15px;
+
+}
+
+
+.nutrition-summary {
+
+    padding: 20px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 18px;
+
+    background: var(--card);
+
+}
+
+
+.nutrition-summary span {
+
+    color: var(--muted);
+
+    font-size: 12px;
+
+}
+
+
+.nutrition-summary strong {
+
+    display: block;
+
+    margin-top: 6px;
+
+    font-size: 26px;
+
+}
+
+
+/* =====================================================
+   WATER
+===================================================== */
+
+.water-card {
+
+    padding: 30px;
+
+    border-radius: 25px;
+
+    border:
+        1px solid rgba(
+            69,
+            168,
+            255,
+            0.17
+        );
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(69, 168, 255, 0.17),
+            var(--card)
+        );
+
+}
+
+
+.water-number {
+
+    display: flex;
+
+    align-items: baseline;
+
+    gap: 8px;
+
+    margin-bottom: 20px;
+
+}
+
+
+.water-number strong {
+
+    font-size: 52px;
+
+}
+
+
+.water-number span {
+
+    color: var(--muted);
+
+}
+
+
+.water-bar {
+
+    width: 100%;
+
+    height: 10px;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    background:
+        rgba(255, 255, 255, 0.07);
+
+}
+
+
+.water-bar-fill {
+
+    width: 0%;
+
+    height: 100%;
+
+    border-radius: inherit;
+
+    background: var(--blue);
+
+    transition:
+        width 0.35s ease;
+
+}
+
+
+.water-card p {
+
+    margin-top: 10px;
+
+    color: var(--muted);
+
+    font-size: 12px;
+
+}
+
+
+.water-buttons {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, minmax(0, 1fr));
+
+    gap: 10px;
+
+    margin-top: 15px;
+
+}
+
+
+.water-buttons button {
+
+    padding: 15px 5px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 14px;
+
+    background: var(--card);
+
+    color: white;
+
+}
+
+
+/* =====================================================
+   PROGRESS
+===================================================== */
+
+.progress-card {
+
+    padding: 25px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 22px;
+
+    background: var(--card);
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 30px;
+
+}
+
+
+.progress-level span {
+
+    display: block;
+
+    color: var(--muted);
+
+    font-size: 10px;
+
+}
+
+
+.progress-level strong {
+
+    display: block;
+
+    font-size: 56px;
+
+    line-height: 1;
+
+}
+
+
+.progress-xp {
+
+    flex: 1;
+
+}
+
+
+.progress-xp strong {
+
+    display: block;
+
+    margin-bottom: 10px;
+
+}
+
+
+.lifetime-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 13px;
+
+    margin-top: 15px;
+
+}
+
+
+.lifetime-card {
+
+    padding: 19px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 18px;
+
+    background: var(--card);
+
+}
+
+
+.lifetime-card strong {
+
+    display: block;
+
+    font-size: 26px;
+
+}
+
+
+.lifetime-card span {
+
+    display: block;
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+    margin-top: 5px;
+
+}
+
+
+/* =====================================================
+   ACHIEVEMENTS
+===================================================== */
+
+.achievement-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 13px;
+
+    margin-top: 15px;
+
+}
+
+
+.achievement {
+
+    padding: 18px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 18px;
+
+    background: var(--card);
+
+    opacity: 0.32;
+
+}
+
+
+.achievement.unlocked {
+
+    opacity: 1;
+
+    border-color:
+        rgba(124, 92, 255, 0.42);
+
+}
+
+
+.achievement-icon {
+
+    font-size: 27px;
+
+    margin-bottom: 9px;
+
+}
+
+
+.achievement strong {
+
+    display: block;
+
+}
+
+
+.achievement span {
+
+    display: block;
+
+    margin-top: 5px;
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+    line-height: 1.4;
+
+}
+
+
+/* =====================================================
+   SETTINGS
+===================================================== */
+
+.settings-card {
+
+    padding: 22px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 20px;
+
+    background: var(--card);
+
+}
+
+
+.settings-card label {
+
+    display: block;
+
+    color: var(--muted);
+
+    font-size: 12px;
+
+    margin-bottom: 8px;
+
+}
+
+
+.settings-card input,
+.settings-card select {
+
+    margin-bottom: 18px;
+
+}
+
+
+.danger-button {
+
+    width: 100%;
+
+    margin-top: 20px;
+
+    padding: 13px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background:
+        rgba(255, 93, 104, 0.1);
+
+    color: var(--red);
+
+    font-weight: 800;
+
+}
+
+
+/* =====================================================
+   BOTTOM NAVIGATION
+===================================================== */
+
+.bottom-navigation {
+
+    position: fixed;
+
+    z-index: 100;
+
+    left: 50%;
+
+    bottom: 10px;
+
+    transform:
+        translateX(-50%);
+
+    width:
+        min(
+            650px,
+            calc(100% - 20px)
+        );
+
+    padding: 8px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 21px;
+
+    background:
+        rgba(15, 17, 24, 0.93);
+
+    backdrop-filter:
+        blur(20px);
+
+    box-shadow:
+        0 15px 55px
+        rgba(0, 0, 0, 0.45);
+
+    display: flex;
+
+    justify-content: space-around;
+
+}
+
+
+.nav-button {
+
+    min-width: 60px;
+
+    padding:
+        7px
+        13px;
+
+    border: none;
+
+    border-radius: 13px;
+
+    background: transparent;
+
+    color: var(--muted);
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 3px;
+
+}
+
+
+.nav-button span {
+
+    font-size: 19px;
+
+}
+
+
+.nav-button small {
+
+    font-size: 9px;
+
+}
+
+
+.nav-button.active {
+
+    background:
+        rgba(124, 92, 255, 0.17);
+
+    color: white;
+
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+.toast {
+
+    position: fixed;
+
+    z-index: 500;
+
+    left: 50%;
+
+    bottom: 90px;
+
+    transform:
+        translate(-50%, 20px);
+
+    padding:
+        12px
+        17px;
+
+    border-radius: 12px;
+
+    background: #202530;
+
+    color: white;
+
+    font-size: 13px;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition:
+        opacity 0.25s,
+        transform 0.25s;
+
+}
+
+
+.toast.show {
+
+    opacity: 1;
+
+    transform:
+        translate(-50%, 0);
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 700px) {
+
+    .top-header {
+
+        padding-left: 15px;
+
+        padding-right: 15px;
+
+    }
+
+
+    .app-container {
+
+        padding-left: 15px;
+
+        padding-right: 15px;
+
+    }
+
+
+    h1 {
+
+        font-size: 31px;
+
+    }
+
+
+    .mission-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .stats-grid {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+    }
+
+
+    .sport-grid {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+    }
+
+
+    .training-list {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .meal-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .water-buttons {
+
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+
+    }
+
+
+    .lifetime-grid {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+    }
+
+
+    .achievement-grid {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+    }
+
+
+    .mystery-card {
+
+        flex-wrap: wrap;
+
+    }
+
+
+    .mystery-card .primary-button {
+
+        width: 100%;
+
+    }
+
+
+    .progress-card {
+
+        gap: 20px;
+
+    }
+
+}
+
+
+/* =====================================================
+   VERY SMALL PHONES
+===================================================== */
+
+@media (max-width: 420px) {
+
+    .brand-name {
+
+        font-size: 23px;
+
+    }
+
+
+    .level-card {
+
+        padding: 20px;
+
+    }
+
+
+    .level-card-bottom {
+
+        flex-direction: column;
+
+        gap: 5px;
+
+    }
+
+
+    .sport-button {
+
+        padding: 15px 12px;
+
+    }
+
+
+    .protein-card {
+
+        padding: 22px;
+
+    }
+
+
+    .protein-card strong {
+
+        font-size: 36px;
+
+    }
+
+
+    .protein-percent {
+
+        width: 75px;
+
+        height: 75px;
+
+    }
+
+
+    .water-number strong {
+
+        font-size: 43px;
+
+    }
+
+
+    .progress-level strong {
+
+        font-size: 45px;
+
+    }
+
+
+    .bottom-navigation {
+
+        width:
+            calc(100% - 12px);
+
+        bottom: 6px;
+
+    }
+
+
+    .nav-button {
+
+        min-width: 48px;
+
+        padding-left: 7px;
+
+        padding-right: 7px;
+
+    }
+
+}
